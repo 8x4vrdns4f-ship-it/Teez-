@@ -2,130 +2,94 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Dark Elegant Site</title>
 
+  <!-- Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
   <link rel="stylesheet" href="styles.css">
-  <meta name="theme-color" content="#0b0f14">
 </head>
 
-<body class="theme-dark">
-  <canvas id="trail"></canvas>
+<body>
 
   <header class="site-header">
     <div class="container header-inner">
-      <a class="brand glow-text" href="#">YourBrand</a>
+      <div class="brand">YourBrand</div>
 
       <nav class="nav">
-        <a href="#" id="loginBtn" class="glow-text">Login</a>
-        <a href="#" id="signupBtn" class="glow-text">Sign up</a>
-        <a href="#features" class="glow-text">Features</a>
-        <a href="#contact" class="glow-text">Contact</a>
+        <a href="#">Login</a>
+        <a href="#">Sign up</a>
+        <a href="#features">Features</a>
+        <a href="#contact">Contact</a>
       </nav>
-
-      <div class="menu-wrapper">
-        <button id="menuToggle" class="hamburger glow-edge" aria-label="Menu">
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
-
-        <div id="menuDropdown" class="menu-dropdown glow-edge">
-          <button>Sign up</button>
-          <button>Login</button>
-          <button>Active</button>
-        </div>
-      </div>
     </div>
   </header>
 
   <main>
+
     <!-- HERO -->
     <section class="hero">
       <div class="container hero-inner">
-        <div class="hero-copy">
-          <h1 class="headline glow-text">Dark. Elegant. Minimal.</h1>
-          <p class="lead glow-soft">
-            A refined starting point for a modern website — responsive, accessible, and ready to be customized.
+        <div>
+          <h1>Dark. Elegant. Minimal.</h1>
+          <p>
+            A refined starting point for a modern website — responsive,
+            accessible, and ready to be customized.
           </p>
-          <div class="hero-cta">
-            <a class="btn btn-primary glow-edge" href="#features">Explore</a>
-            <a class="btn btn-ghost glow-edge" href="#contact">Get in touch</a>
+
+          <div class="cta">
+            <a href="#features" class="btn primary">Explore</a>
+            <a href="#contact" class="btn ghost">Get in touch</a>
           </div>
         </div>
 
-        <div class="hero-card glow-edge" aria-hidden="true"></div>
+        <div class="hero-box"></div>
       </div>
     </section>
 
     <!-- FEATURES -->
     <section id="features" class="section">
       <div class="container">
-        <h2 class="section-title glow-text">Choose Your Option</h2>
-        <p class="section-sub glow-soft">Select the size that best fits your needs.</p>
+        <h2>Choose Your Option</h2>
+        <p class="sub">Select the size that best fits your needs.</p>
 
         <div class="grid">
-          <article class="card glow-edge">
-            <h3 class="glow-text">Option 1</h3>
-            <p class="glow-soft">Small</p>
-          </article>
-          <article class="card glow-edge">
-            <h3 class="glow-text">Option 2</h3>
-            <p class="glow-soft">Medium</p>
-          </article>
-          <article class="card glow-edge">
-            <h3 class="glow-text">Option 3</h3>
-            <p class="glow-soft">Big</p>
-          </article>
+          <div class="card">
+            <h3>Option 1</h3>
+            <p>Small</p>
+          </div>
+          <div class="card">
+            <h3>Option 2</h3>
+            <p>Medium</p>
+          </div>
+          <div class="card">
+            <h3>Option 3</h3>
+            <p>Big</p>
+          </div>
         </div>
-      </div>
-    </section>
-
-    <!-- AUTH (HIDDEN UNTIL CLICKED) -->
-    <section id="authSection" class="section auth-section">
-      <div class="container auth-container glow-edge">
-        <h2 id="authTitle" class="section-title glow-text">Login</h2>
-        <p class="section-sub glow-soft">
-          This functionality will be activated soon.
-        </p>
-
-        <form class="auth-form">
-          <label>
-            Email
-            <input type="email" placeholder="you@example.com" disabled>
-          </label>
-
-          <label>
-            Password
-            <input type="password" placeholder="••••••••" disabled>
-          </label>
-
-          <button type="button" class="btn btn-primary glow-edge" disabled>
-            Continue
-          </button>
-        </form>
       </div>
     </section>
 
     <!-- CONTACT -->
     <section id="contact" class="section">
       <div class="container">
-        <h2 class="section-title glow-text">Contact</h2>
-        <p class="section-sub glow-soft">
-          Replace this with your contact form or CTA.
-        </p>
-        <a class="btn btn-primary glow-edge" href="mailto:hello@example.com">Say hello</a>
+        <h2>Contact</h2>
+        <p class="sub">Replace this with your contact form or CTA.</p>
+        <a href="mailto:hello@example.com" class="btn primary">Say hello</a>
       </div>
     </section>
+
   </main>
 
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <p class="glow-soft">© <span id="year"></span> YourBrand</p>
+  <footer class="footer">
+    <div class="container">
+      © YourBrand
     </div>
   </footer>
 
-  <script src="script.js" defer></script>
 </body>
 </html>
