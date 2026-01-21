@@ -5,7 +5,6 @@
   --neon-smoke:rgba(76,201,255,0.25);
   --text:#e6eef6;
   --muted:#9aa7b2;
-  --radius:12px;
 }
 
 *{box-sizing:border-box}
@@ -36,10 +35,9 @@ canvas#trail{
   text-shadow:0 0 14px rgba(76,201,255,.18);
 }
 
-/* Fuzzy edge glow */
+/* Edge glow */
 .glow-edge{
   position:relative;
-  z-index:0;
 }
 
 .glow-edge::before{
@@ -75,15 +73,22 @@ canvas#trail{
 
 .header-inner{
   display:flex;
-  align-items:center;
   justify-content:space-between;
-  gap:1rem;
+  align-items:center;
 }
 
 .nav a{
   text-decoration:none;
   color:var(--text);
-  margin-left:1rem;
+  margin-left:1.2rem;
+  font-weight:500;
+  letter-spacing:0.02em;
+  font-size:0.95rem;
+  transition:opacity 180ms ease;
+}
+
+.nav a:hover{
+  opacity:.85;
 }
 
 .hero{padding:6rem 0}
@@ -102,7 +107,7 @@ canvas#trail{
 
 .section{padding:4rem 0}
 
-.grid,.work-grid{
+.grid{
   display:grid;
   gap:1rem;
   grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
@@ -118,8 +123,8 @@ canvas#trail{
 .btn{
   padding:.75rem 1rem;
   border-radius:10px;
-  text-decoration:none;
   font-weight:600;
+  text-decoration:none;
 }
 
 .btn-primary{background:var(--neon);color:#07111a}
@@ -130,23 +135,18 @@ canvas#trail{
 }
 
 /* Hamburger */
-.menu-wrapper{
-  position:relative;
-  display:flex;
-  align-items:center;
-}
+.menu-wrapper{position:relative}
 
 .hamburger{
   width:42px;
   height:42px;
-  border-radius:10px;
-  background:transparent;
+  background:none;
   border:none;
-  cursor:pointer;
   display:flex;
   flex-direction:column;
   justify-content:center;
   gap:5px;
+  cursor:pointer;
 }
 
 .hamburger span{
@@ -167,22 +167,15 @@ canvas#trail{
   padding:8px;
   background:rgba(15,20,30,.95);
   border-radius:12px;
-  z-index:100;
 }
 
 .menu-dropdown button{
-  width:100%;
-  background:transparent;
+  background:none;
   border:none;
   color:var(--text);
   padding:10px 12px;
-  border-radius:8px;
   text-align:left;
   cursor:pointer;
-}
-
-.menu-dropdown button:hover{
-  background:rgba(255,255,255,.06);
 }
 
 /* Auth section */
@@ -207,23 +200,17 @@ canvas#trail{
 }
 
 .auth-form label{
+  font-size:.9rem;
+  color:var(--muted);
   display:flex;
   flex-direction:column;
   gap:.4rem;
-  font-size:.9rem;
-  color:var(--muted);
 }
 
 .auth-form input{
-  padding:.7rem .75rem;
+  padding:.7rem;
   border-radius:10px;
   border:1px solid rgba(255,255,255,.15);
   background:#0f1720;
   color:var(--text);
-}
-
-.auth-form input:disabled,
-.auth-form button:disabled{
-  opacity:.6;
-  cursor:not-allowed;
 }
