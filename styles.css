@@ -1,11 +1,29 @@
-/* ===== Login section ===== */
-.login-section{
+/* ===== Nav auth buttons (thinner) ===== */
+.nav-auth-btn{
+  padding:6px 10px;
+  border-radius:8px;
+  font-size:.85rem;
+  font-weight:500;
+  background:transparent;
+  border:1px solid rgba(255,255,255,.2);
+  color:var(--text);
+  cursor:pointer;
+  margin-left:.5rem;
+}
+
+.nav-auth-btn.ghost{
+  border-color:rgba(255,255,255,.1);
+  opacity:.85;
+}
+
+/* ===== Auth section (hidden until triggered) ===== */
+.auth-section{
+  display:none;
   min-height:100vh;
-  display:flex;
   align-items:center;
 }
 
-.login-container{
+.auth-container{
   max-width:420px;
   margin:auto;
   padding:2rem;
@@ -13,13 +31,13 @@
   background:rgba(255,255,255,0.03);
 }
 
-.login-form{
+.auth-form{
   display:flex;
   flex-direction:column;
   gap:1rem;
 }
 
-.login-form label{
+.auth-form label{
   display:flex;
   flex-direction:column;
   gap:.4rem;
@@ -27,7 +45,7 @@
   color:var(--muted);
 }
 
-.login-form input{
+.auth-form input{
   padding:.7rem .75rem;
   border-radius:10px;
   border:1px solid rgba(255,255,255,.15);
@@ -35,12 +53,8 @@
   color:var(--text);
 }
 
-.login-form input:disabled,
-.login-form button:disabled{
+.auth-form input:disabled,
+.auth-form button:disabled{
   opacity:.6;
   cursor:not-allowed;
-}
-
-.nav-login{
-  margin-left:1rem;
 }
