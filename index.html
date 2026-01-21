@@ -19,12 +19,14 @@
 
       <nav class="nav">
         <a href="#features" class="glow-text">Features</a>
-        <a href="#work" class="glow-text">Work</a>
         <a href="#contact" class="glow-text">Contact</a>
-        <a href="#login" class="btn btn-primary glow-edge nav-login">Login</a>
+
+        <!-- Auth buttons -->
+        <button id="loginBtn" class="nav-auth-btn glow-edge">Login</button>
+        <button id="signupBtn" class="nav-auth-btn glow-edge ghost">Sign up</button>
       </nav>
 
-      <!-- Hamburger menu -->
+      <!-- Hamburger menu (unchanged) -->
       <div class="menu-wrapper">
         <button id="menuToggle" class="hamburger glow-edge" aria-label="Menu">
           <span></span>
@@ -83,27 +85,15 @@
       </div>
     </section>
 
-    <!-- WORK -->
-    <section id="work" class="section">
-      <div class="container">
-        <h2 class="section-title glow-text">Selected Work</h2>
-        <div class="work-grid">
-          <div class="work-item glow-edge">Project A</div>
-          <div class="work-item glow-edge">Project B</div>
-          <div class="work-item glow-edge">Project C</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- LOGIN SCREEN (NON-FUNCTIONAL UI ONLY) -->
-    <section id="login" class="section login-section">
-      <div class="container login-container glow-edge">
-        <h2 class="section-title glow-text">Login</h2>
+    <!-- AUTH SCREEN (HIDDEN BY DEFAULT) -->
+    <section id="authSection" class="section auth-section">
+      <div class="container auth-container glow-edge">
+        <h2 id="authTitle" class="section-title glow-text">Login</h2>
         <p class="section-sub glow-soft">
-          Enter your details below. (Functionality coming soon)
+          This functionality will be activated soon.
         </p>
 
-        <form class="login-form">
+        <form class="auth-form">
           <label>
             Email
             <input type="email" placeholder="you@example.com" disabled>
@@ -115,7 +105,7 @@
           </label>
 
           <button type="button" class="btn btn-primary glow-edge" disabled>
-            Login
+            Continue
           </button>
         </form>
       </div>
