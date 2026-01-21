@@ -115,6 +115,7 @@ html, body {
 
 .sub {
   color: var(--muted);
+  
   margin-bottom: 2rem;
 }
 
@@ -137,4 +138,29 @@ html, body {
   border-top: 1px solid rgba(255,255,255,0.05);
   padding: 2rem 0;
   color: var(--muted);
+}/* ===== Neon Glow Effects ===== */
+
+.glow-text {
+  text-shadow:
+    0 0 8px rgba(76, 201, 255, 0.35),
+    0 0 18px rgba(76, 201, 255, 0.25),
+    0 0 36px rgba(76, 201, 255, 0.15);
+}
+
+.glow-box {
+  position: relative;
+}
+
+.glow-box::before {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: inherit;
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(76, 201, 255, 0.35),
+    transparent 65%
+  );
+  filter: blur(18px);
+  z-index: -1;
 }
