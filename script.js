@@ -1,44 +1,41 @@
-// Basic interactions: year injection and theme toggle.
-// You can expand this with modal logic, routing, or animations.
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("year").textContent = new Date().getFullYear();
 
-document.addEventListener('DOMContentLoaded', () => {
-  // Year
-  const yearEl = document.getElementById('year');
-  if (yearEl) yearEl.textContent = new Date().getFullYear();
+  const canvas = document.getElementById("trail");
+  const ctx = canvas.getContext("2d");
 
-  // Theme toggle (keeps very small state in localStorage)
-  const toggle = document.getElementById('themeToggle');
-  const root = document.documentElement;
-  const body = document.body;
-  const KEY = 'site-theme';
-
-  function applyTheme(t) {
-    body.classList.toggle('theme-dark', t === 'dark');
-    body.classList.toggle('theme-light', t === 'light');
+  let w, h;
+  function resize(){
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
   }
+  window.addEventListener("resize", resize);
+  resize();
 
-  function getStored() {
-    try {
-      return localStorage.getItem(KEY);
-    } catch (e) {
-      return null;
+  const points = [];
+
+  window.addEventListener("mousemove", e => {
+    points.push({ x: e.clientX, y: e.clientY, life: 1 });
+  });
+
+  function draw(){
+    ctx.clearRect(0,0,w,h);
+
+    for(let i = 0; i < points.length; i++){
+      const p = points[i];
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, 12, 0, Math.PI*2);
+      ctx.fillStyle = `rgba(76,201,255,${p.life})`;
+      ctx.fill();
+      p.life -= 0.04;
     }
+
+    while(points.length && points[0].life <= 0){
+      points.shift();
+    }
+
+    requestAnimationFrame(draw);
   }
 
-  function setStored(v) {
-    try {
-      localStorage.setItem(KEY, v);
-    } catch (e) {}
-  }
-
-  let theme = getStored() || 'dark';
-  applyTheme(theme);
-
-  if (toggle) {
-    toggle.addEventListener('click', () => {
-      theme = theme === 'dark' ? 'light' : 'dark';
-      applyTheme(theme);
-      setStored(theme);
-    });
-  }
+  draw();
 });
