@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dark Elegant Site</title>
+
+  <!-- Optional: Inter font for a modern look -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+  <meta name="theme-color" content="#0b0f14">
+</head>
+<body class="theme-dark">
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#">YourBrand</a>
+      <nav class="nav">
+        <a href="#features">Features</a>
+        <a href="#work">Work</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="controls">
+        <button id="themeToggle" class="icon-btn" aria-label="Toggle theme">🌓</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-inner">
+        <div class="hero-copy">
+          <h1 class="headline">Dark. Elegant. Minimal.</h1>
+          <p class="lead">A refined starting point for a modern website — responsive, accessible, and ready to be customized.</p>
+          <div class="hero-cta">
+            <a class="btn btn-primary" href="#features">Explore</a>
+            <a class="btn btn-ghost" href="#contact">Get in touch</a>
+          </div>
+        </div>
+        <div class="hero-card" aria-hidden="true">
+          <div class="card-visual">
+            <svg width="240" height="160" viewBox="0 0 240 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="240" height="160" rx="12" fill="url(#g)"/>
+              <defs>
+                <linearGradient id="g" x1="0" x2="1">
+                  <stop stop-color="#0f1720" offset="0%"/>
+                  <stop stop-color="#15202b" offset="100%"/>
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="features" class="section features">
+      <div class="container">
+        <h2 class="section-title">Features</h2>
+        <p class="section-sub">Clean components, subtle motion, and a neutral palette make customization effortless.</p>
+        <div class="grid">
+          <article class="card">
+            <h3>Responsive</h3>
+            <p>Looks great on any screen size with a simple layout system.</p>
+          </article>
+          <article class="card">
+            <h3>Accessible</h3>
+            <p>Semantic markup and sensible contrast for legibility.</p>
+          </article>
+          <article class="card">
+            <h3>Customizable</h3>
+            <p>Variables and component styles make theming easy.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="work" class="section work">
+      <div class="container">
+        <h2 class="section-title">Selected Work</h2>
+        <div class="work-grid">
+          <div class="work-item">Project A</div>
+          <div class="work-item">Project B</div>
+          <div class="work-item">Project C</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section contact">
+      <div class="container">
+        <h2 class="section-title">Contact</h2>
+        <p class="section-sub">Replace this with your contact form, email link, or CTA.</p>
+        <a class="btn btn-primary" href="mailto:hello@example.com">Say hello</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© <span id="year"></span> YourBrand — Crafted with care.</p>
+      <nav class="footer-nav">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
