@@ -15,7 +15,6 @@
 
   <header class="site-header">
     <div class="container header-inner">
-      <!-- Brand now matches all other text -->
       <a class="brand glow-text" href="#">YourBrand</a>
 
       <nav class="nav">
@@ -24,8 +23,20 @@
         <a href="#contact" class="glow-text">Contact</a>
       </nav>
 
-      <div class="controls">
-        <button id="themeToggle" class="icon-btn glow-text">🌓</button>
+      <!-- AUTH MENU -->
+      <div class="auth-wrapper">
+        <button id="menuToggle" class="hamburger glow-edge" aria-label="Menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <div id="authMenu" class="auth-menu glow-edge">
+          <button data-action="signup">Sign up</button>
+          <button data-action="login">Login</button>
+          <button data-action="active" class="hidden">Active</button>
+          <button data-action="logout" class="hidden">Logout</button>
+        </div>
       </div>
     </div>
   </header>
@@ -38,61 +49,8 @@
           <p class="lead glow-soft">
             A refined starting point for a modern website — responsive, accessible, and ready to be customized.
           </p>
-          <div class="hero-cta">
-            <a class="btn btn-primary glow-edge" href="#features">Explore</a>
-            <a class="btn btn-ghost glow-edge" href="#contact">Get in touch</a>
-          </div>
         </div>
-
-        <div class="hero-card glow-edge" aria-hidden="true"></div>
-      </div>
-    </section>
-
-    <!-- FEATURES → OPTIONS -->
-    <section id="features" class="section">
-      <div class="container">
-        <h2 class="section-title glow-text">Choose Your Option</h2>
-        <p class="section-sub glow-soft">
-          Select the size that best fits your needs.
-        </p>
-
-        <div class="grid">
-          <article class="card glow-edge">
-            <h3 class="glow-text">Option 1</h3>
-            <p class="glow-soft">Small</p>
-          </article>
-
-          <article class="card glow-edge">
-            <h3 class="glow-text">Option 2</h3>
-            <p class="glow-soft">Medium</p>
-          </article>
-
-          <article class="card glow-edge">
-            <h3 class="glow-text">Option 3</h3>
-            <p class="glow-soft">Big</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section id="work" class="section">
-      <div class="container">
-        <h2 class="section-title glow-text">Selected Work</h2>
-        <div class="work-grid">
-          <div class="work-item glow-edge">Project A</div>
-          <div class="work-item glow-edge">Project B</div>
-          <div class="work-item glow-edge">Project C</div>
-        </div>
-      </div>
-    </section>
-
-    <section id="contact" class="section">
-      <div class="container">
-        <h2 class="section-title glow-text">Contact</h2>
-        <p class="section-sub glow-soft">
-          Replace this with your contact form or CTA.
-        </p>
-        <a class="btn btn-primary glow-edge" href="mailto:hello@example.com">Say hello</a>
+        <div class="hero-card glow-edge"></div>
       </div>
     </section>
   </main>
