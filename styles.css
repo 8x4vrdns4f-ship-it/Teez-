@@ -1,11 +1,12 @@
 :root{
   --bg:#0b0f14;
   --neon:#4cc9ff;
-  --neon-soft:rgba(76,201,255,0.4);
+  --neon-haze:rgba(76,201,255,0.55);
+  --neon-smoke:rgba(76,201,255,0.25);
   --text:#e6eef6;
   --muted:#9aa7b2;
   --radius:12px;
-  --transition:240ms ease;
+  --transition:260ms cubic-bezier(.2,.8,.2,1);
 }
 
 *{box-sizing:border-box}
@@ -18,41 +19,63 @@ canvas#trail{
   z-index:9999;
 }
 
-/* Glow text */
+/* ===== TEXT (unchanged, soft energy) ===== */
 .glow-text{
   text-shadow:
-    0 0 6px var(--neon),
-    0 0 16px var(--neon-soft);
+    0 0 10px var(--neon-smoke),
+    0 0 22px var(--neon-haze);
 }
 
 .glow-soft{
-  text-shadow:0 0 10px rgba(76,201,255,0.25);
+  text-shadow:
+    0 0 14px rgba(76,201,255,0.18);
 }
 
-/* Glow containers */
-.glow-box{
+/* ===== FUZZY EDGE ENERGY ===== */
+.glow-edge{
   position:relative;
-  transition:box-shadow var(--transition), transform var(--transition);
+  z-index:0;
 }
 
-.glow-box::before{
+.glow-edge::before{
+  content:"";
+  position:absolute;
+  inset:-6px;
+  border-radius:inherit;
+  background:
+    radial-gradient(120% 120% at 50% 50%,
+      var(--neon-smoke),
+      transparent 65%);
+  filter: blur(14px);
+  opacity:.9;
+  z-index:-2;
+}
+
+.glow-edge::after{
   content:"";
   position:absolute;
   inset:-2px;
   border-radius:inherit;
-  background:radial-gradient(circle,var(--neon-soft),transparent 70%);
-  opacity:.6;
+  box-shadow:
+    0 0 22px var(--neon-haze),
+    0 0 60px var(--neon-smoke);
+  opacity:.75;
   z-index:-1;
 }
 
-.glow-box:hover{
-  box-shadow:
-    0 0 20px var(--neon),
-    0 0 60px rgba(76,201,255,0.25);
-  transform:translateY(-4px);
+/* Hover = more energy bleed */
+.glow-edge:hover::before{
+  filter: blur(22px);
+  opacity:1;
 }
 
-/* Layout (unchanged) */
+.glow-edge:hover::after{
+  box-shadow:
+    0 0 30px var(--neon),
+    0 0 90px var(--neon-smoke);
+}
+
+/* ===== Layout (unchanged) ===== */
 .container{max-width:1100px;margin:auto;padding:2rem}
 .site-header{position:sticky;top:0;background:rgba(11,15,20,.6);backdrop-filter:blur(8px)}
 .header-inner{display:flex;justify-content:space-between;align-items:center}
