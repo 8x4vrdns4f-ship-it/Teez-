@@ -1,35 +1,15 @@
-document.addEventListener("DOMContentLoaded", () => {
-  document.getElementById("year").textContent = new Date().getFullYear();
+const modal = document.getElementById("authModal");
+const modalTitle = document.getElementById("modalTitle");
 
-  // Hamburger
-  const toggle = document.getElementById("menuToggle");
-  const dropdown = document.getElementById("menuDropdown");
-
-  toggle.addEventListener("click", e => {
-    e.stopPropagation();
-    dropdown.style.display =
-      dropdown.style.display === "flex" ? "none" : "flex";
-  });
-
-  document.addEventListener("click", () => {
-    dropdown.style.display = "none";
-  });
-
-  // Auth section
-  const authSection = document.getElementById("authSection");
-  const authTitle = document.getElementById("authTitle");
-
-  document.getElementById("loginBtn").onclick = e => {
+document.querySelectorAll("[data-modal]").forEach(btn => {
+  btn.addEventListener("click", e => {
     e.preventDefault();
-    authTitle.textContent = "Login";
-    authSection.style.display = "flex";
-    window.scrollTo({ top: authSection.offsetTop, behavior: "smooth" });
-  };
+    modalTitle.textContent =
+      btn.dataset.modal === "signup" ? "Sign up" : "Login";
+    modal.classList.add("active");
+  });
+});
 
-  document.getElementById("signupBtn").onclick = e => {
-    e.preventDefault();
-    authTitle.textContent = "Sign up";
-    authSection.style.display = "flex";
-    window.scrollTo({ top: authSection.offsetTop, behavior: "smooth" });
-  };
+document.querySelector(".modal-close").addEventListener("click", () => {
+  modal.classList.remove("active");
 });
