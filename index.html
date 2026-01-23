@@ -1,39 +1,47 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>BookSuite</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
 
 <header class="site-header">
   <div class="container header-inner">
     <div class="brand">
-      <img src="booksuite-logo.png" alt="BookSuite" class="logo">
+      <img src="booksuite-logo.png" alt="BookSuite logo" class="logo">
     </div>
+
     <nav class="nav">
-      <a href="login.html">Login</a>
-      <a href="login.html">Sign up</a>
-      <a href="#features">Features</a>
-      <a href="#contact">Contact</a>
+      <a href="login.html" class="glow-text">Login</a>
+      <a href="#features" class="glow-text">Features</a>
+      <a href="#contact" class="glow-text">Contact</a>
     </nav>
   </div>
 </header>
+
+<main>
 
 <section class="hero">
   <div class="container hero-inner">
     <div>
       <h1 class="glow-text">BookSuite</h1>
       <p class="hero-sub">
-        BookSuite is a modern booking platform designed to help businesses manage
-        calendars, accept bookings, and streamline scheduling — all from one clean dashboard.
+        BookSuite is a streamlined booking dashboard designed to help businesses
+        manage calendars, booking requests, and integrations from one clean,
+        powerful interface.
       </p>
 
       <div class="cta">
-        <a href="try.html" class="btn primary glow-box">Try now</a>
+        <a href="login.html" class="btn primary glow-box">Try now</a>
         <a href="#features" class="btn ghost glow-box">Explore</a>
       </div>
     </div>
@@ -44,20 +52,42 @@
 
 <section id="features" class="section">
   <div class="container">
-    <h2 class="glow-text">Why BookSuite?</h2>
-    <p class="sub">Simple. Powerful. Built to scale.</p>
+    <h2 class="glow-text">Why BookSuite</h2>
+    <p class="sub">
+      Built for simplicity, speed, and seamless booking workflows.
+    </p>
+
+    <div class="grid">
+      <div class="card glow-box">
+        <h3 class="glow-text">Central Dashboard</h3>
+        <p>Manage bookings, requests, and availability in one place.</p>
+      </div>
+      <div class="card glow-box">
+        <h3 class="glow-text">Calendar Control</h3>
+        <p>Clear, visual scheduling with instant status updates.</p>
+      </div>
+      <div class="card glow-box">
+        <h3 class="glow-text">Easy Integration</h3>
+        <p>Embed booking functionality directly into your website.</p>
+      </div>
+    </div>
   </div>
 </section>
 
 <section id="contact" class="section">
   <div class="container">
     <h2 class="glow-text">Contact</h2>
-    <p class="sub">hello@booksuite.com</p>
+    <p class="sub">Questions? Reach out anytime.</p>
+    <a href="mailto:hello@example.com" class="btn primary glow-box">Say hello</a>
   </div>
 </section>
 
+</main>
+
 <footer class="footer">
-  <div class="container">© BookSuite</div>
+  <div class="container">
+    © BookSuite
+  </div>
 </footer>
 
 </body>
