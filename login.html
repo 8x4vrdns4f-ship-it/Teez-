@@ -1,33 +1,37 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>Login — BookSuite</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login – BookSuite</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
 
 <header class="site-header">
   <div class="container header-inner">
-    <a href="index.html">
-      <img src="booksuite-logo.png" class="logo">
-    </a>
+    <div class="brand">
+      <img src="booksuite-logo.png" class="logo" alt="BookSuite logo">
+    </div>
   </div>
 </header>
 
-<section class="section">
-  <div class="container">
-    <div class="card glow-box auth-card">
-      <h2 class="glow-text">Access Portal</h2>
+<main class="auth">
+  <div class="auth-card glow-box">
+    <h2 class="glow-text">Login</h2>
 
-      <input type="text" placeholder="Access Code">
-      <input type="password" placeholder="Password">
+    <input type="email" placeholder="Email">
+    <input type="password" placeholder="Password">
+    <input type="text" placeholder="Unique Access Code">
 
-      <a href="hub.html" class="btn primary glow-box full">Enter Dashboard</a>
-    </div>
+    <a href="hub.html" class="btn primary glow-box full">Enter Dashboard</a>
+
+    <a href="index.html" class="btn ghost glow-box full">← Back</a>
   </div>
-</section>
+</main>
 
 </body>
 </html>
