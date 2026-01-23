@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>BookSuite</title>
 
-  <!-- Google Font -->
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -16,96 +16,95 @@
 
 <body>
 
-  <!-- HEADER -->
-  <header class="site-header">
-    <div class="container header-inner">
+<!-- HEADER -->
+<header class="site-header">
+  <div class="container header-inner">
+    <img src="booksuite-logo.PNG" alt="BookSuite" class="logo">
 
-      <!-- LOGO -->
-      <div class="brand">
-        <img
-          src="booksuite-logo.PNG"
-          alt="BookSuite"
-          class="logo"
-        >
+    <nav class="nav">
+      <a href="#" data-modal="login" class="glow-text">Login</a>
+      <a href="#" data-modal="signup" class="glow-text">Sign up</a>
+      <a href="#features" class="glow-text">Features</a>
+      <a href="#contact" class="glow-text">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container hero-inner">
+    <div>
+      <h1 class="glow-text">BookSuite</h1>
+      <p class="hero-sub">
+        BookSuite is a modern booking and scheduling platform built to help
+        businesses manage appointments, availability, and clients effortlessly —
+        all in one elegant, powerful interface.
+      </p>
+
+      <div class="cta">
+        <a href="try.html" class="btn primary glow-box">Try now</a>
+        <a href="#features" class="btn ghost glow-box">Explore</a>
       </div>
-
-      <!-- NAV -->
-      <nav class="nav">
-        <a href="#" class="glow-text">Login</a>
-        <a href="#" class="glow-text">Sign up</a>
-        <a href="#features" class="glow-text">Features</a>
-        <a href="#contact" class="glow-text">Contact</a>
-      </nav>
-
     </div>
-  </header>
 
-  <main>
+    <div class="hero-box glow-box"></div>
+  </div>
+</section>
 
-    <!-- HERO -->
-    <section class="hero">
-      <div class="container hero-inner">
+<!-- FEATURES -->
+<section id="features" class="section">
+  <div class="container">
+    <h2 class="glow-text">Choose Your Plan</h2>
+    <p class="sub">Flexible options designed to grow with your business.</p>
 
-        <div>
-          <h1 class="glow-text">Dark. Elegant. Minimal.</h1>
-          <p class="hero-sub">
-            A refined starting point for a modern booking platform —
-            responsive, accessible, and ready to scale.
-          </p>
-
-          <div class="cta">
-            <a href="#features" class="btn primary glow-box">Explore</a>
-            <a href="#contact" class="btn ghost glow-box">Get in touch</a>
-          </div>
-        </div>
-
-        <div class="hero-box glow-box"></div>
-
+    <div class="grid">
+      <div class="card glow-box">
+        <h3 class="glow-text">Starter</h3>
+        <p>Simple scheduling for individuals and small teams.</p>
       </div>
-    </section>
-
-    <!-- FEATURES -->
-    <section id="features" class="section">
-      <div class="container">
-        <h2 class="glow-text">Choose Your Option</h2>
-        <p class="sub">Select the size that best fits your needs.</p>
-
-        <div class="grid">
-          <div class="card glow-box">
-            <h3 class="glow-text">Option 1</h3>
-            <p>Small</p>
-          </div>
-          <div class="card glow-box">
-            <h3 class="glow-text">Option 2</h3>
-            <p>Medium</p>
-          </div>
-          <div class="card glow-box">
-            <h3 class="glow-text">Option 3</h3>
-            <p>Big</p>
-          </div>
-        </div>
+      <div class="card glow-box">
+        <h3 class="glow-text">Professional</h3>
+        <p>Advanced bookings, reminders, and client management.</p>
       </div>
-    </section>
-
-    <!-- CONTACT -->
-    <section id="contact" class="section">
-      <div class="container">
-        <h2 class="glow-text">Contact</h2>
-        <p class="sub">Replace this with your contact form or CTA.</p>
-        <a href="mailto:hello@example.com" class="btn primary glow-box">
-          Say hello
-        </a>
+      <div class="card glow-box">
+        <h3 class="glow-text">Business</h3>
+        <p>Full control with analytics and multi-user access.</p>
       </div>
-    </section>
-
-  </main>
-
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div class="container">
-      © BookSuite
     </div>
-  </footer>
+  </div>
+</section>
 
+<!-- CONTACT -->
+<section id="contact" class="section">
+  <div class="container">
+    <h2 class="glow-text">Contact</h2>
+    <p class="sub">Questions? Reach out and we’ll help you get started.</p>
+    <a href="mailto:hello@example.com" class="btn primary glow-box">Say hello</a>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">© BookSuite</div>
+</footer>
+
+<!-- AUTH MODAL -->
+<div class="modal" id="authModal">
+  <div class="modal-box glow-box">
+    <h3 id="modalTitle" class="glow-text">Login</h3>
+
+    <input type="text" placeholder="Email">
+    <input type="password" placeholder="Password">
+
+    <button class="btn primary">Continue</button>
+    <button class="modal-close">Close</button>
+  </div>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
