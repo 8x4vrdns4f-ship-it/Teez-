@@ -17,19 +17,26 @@ html, body {
   font-family: Inter, system-ui, sans-serif;
 }
 
-/* ===== Layout ===== */
+/* ===================== */
+/* ===== Layout ======== */
+/* ===================== */
+
 .container {
   max-width: 1100px;
   margin: 0 auto;
   padding: 2rem;
 }
 
-/* ===== Header ===== */
+/* ===================== */
+/* ===== Header ======== */
+/* ===================== */
+
 .site-header {
   position: sticky;
   top: 0;
   background: rgba(11, 15, 20, 0.7);
   backdrop-filter: blur(8px);
+  z-index: 10;
 }
 
 .header-inner {
@@ -38,12 +45,31 @@ html, body {
   align-items: center;
 }
 
+/* Brand / Logo */
+
 .brand {
-  font-weight: 600;
-  letter-spacing: 0.04em;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
 }
 
-/* ===== Nav ===== */
+.logo img {
+  height: 34px;
+  width: auto;
+  display: block;
+}
+
+/* Smaller logo on small screens */
+@media (max-width: 600px) {
+  .logo img {
+    height: 28px;
+  }
+}
+
+/* ===================== */
+/* ===== Nav =========== */
+/* ===================== */
+
 .nav a {
   color: var(--text);
   text-decoration: none;
@@ -57,7 +83,10 @@ html, body {
   opacity: 0.8;
 }
 
-/* ===== Hero ===== */
+/* ===================== */
+/* ===== Hero ========== */
+/* ===================== */
+
 .hero {
   padding: 6rem 0;
 }
@@ -78,7 +107,10 @@ html, body {
   max-width: 520px;
 }
 
-/* ===== Buttons ===== */
+/* ===================== */
+/* ===== Buttons ======= */
+/* ===================== */
+
 .btn {
   display: inline-block;
   padding: 0.75rem 1rem;
@@ -98,7 +130,10 @@ html, body {
   color: var(--text);
 }
 
-/* ===== Sections ===== */
+/* ===================== */
+/* ===== Sections ====== */
+/* ===================== */
+
 .section {
   padding: 4rem 0;
 }
@@ -112,7 +147,10 @@ html, body {
   margin-bottom: 2rem;
 }
 
-/* ===== Cards ===== */
+/* ===================== */
+/* ===== Cards ========= */
+/* ===================== */
+
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -126,23 +164,29 @@ html, body {
   border-radius: 12px;
 }
 
-/* ===== Hero Box ===== */
+/* ===================== */
+/* ===== Hero Box ====== */
+/* ===================== */
+
 .hero-box {
   height: 220px;
   border-radius: 16px;
   background: linear-gradient(135deg, #0f1720, #15202b);
 }
 
-/* ===== Footer ===== */
+/* ===================== */
+/* ===== Footer ======== */
+/* ===================== */
+
 .footer {
   border-top: 1px solid rgba(255,255,255,0.05);
   padding: 2rem 0;
   color: var(--muted);
 }
 
-/* ============================= */
-/* ===== NEON GLOW EFFECTS ===== */
-/* ============================= */
+/* ================================= */
+/* ===== Neon Glow Effects ========= */
+/* ================================= */
 
 .glow-text {
   text-shadow:
