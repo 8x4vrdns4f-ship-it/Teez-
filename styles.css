@@ -17,62 +17,49 @@ html, body {
   font-family: Inter, system-ui, sans-serif;
 }
 
-/* ===== Layout ===== */
+/* Layout */
 .container {
   max-width: 1100px;
   margin: 0 auto;
   padding: 2rem;
 }
 
-/* ===== Header ===== */
+/* Header */
 .site-header {
   position: sticky;
   top: 0;
-  z-index: 10;
   background: rgba(11, 15, 20, 0.85);
   backdrop-filter: blur(12px);
+  z-index: 10;
 }
 
-/* FORCE HEADER HEIGHT */
 .header-inner {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  min-height: 140px; /* ⬅️ KEY FIX */
+  align-items: center;
+  min-height: 140px;
 }
 
-/* ===== LOGO (FORCED SIZE) ===== */
+/* Logo */
 .logo {
-  height: 120px;          /* BIG */
-  min-height: 120px;      /* FORCE */
+  height: 120px;
   width: auto;
   display: block;
-  object-fit: contain;
-
-  /* Safari/iOS fixes */
-  image-rendering: auto;
-  transform: translateY(4px);
-
   filter:
     drop-shadow(0 0 14px rgba(76,201,255,0.55))
     drop-shadow(0 0 36px rgba(76,201,255,0.45));
 }
 
-/* ===== Nav ===== */
+/* Nav */
 .nav a {
-  color: var(--text);
-  text-decoration: none;
   margin-left: 1.75rem;
+  text-decoration: none;
+  color: var(--text);
   font-size: 1rem;
   letter-spacing: 0.03em;
-  transition: opacity 0.2s ease;
 }
 
-.nav a:hover {
-  opacity: 0.8;
-}
-
-/* ===== Hero ===== */
+/* Hero */
 .hero {
   padding: 5rem 0 6rem;
 }
@@ -85,7 +72,6 @@ html, body {
 
 .hero h1 {
   font-size: 3rem;
-  margin-bottom: 1rem;
 }
 
 .hero-sub {
@@ -93,14 +79,13 @@ html, body {
   max-width: 520px;
 }
 
-/* ===== Buttons ===== */
+/* Buttons */
 .btn {
   display: inline-block;
   padding: 0.8rem 1.2rem;
   border-radius: 12px;
   text-decoration: none;
   font-weight: 600;
-  margin-right: 0.75rem;
 }
 
 .primary {
@@ -113,13 +98,9 @@ html, body {
   color: var(--text);
 }
 
-/* ===== Sections ===== */
+/* Sections */
 .section {
   padding: 4rem 0;
-}
-
-.section h2 {
-  font-size: 1.9rem;
 }
 
 .sub {
@@ -127,7 +108,7 @@ html, body {
   margin-bottom: 2rem;
 }
 
-/* ===== Cards ===== */
+/* Cards */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -137,25 +118,24 @@ html, body {
 .card {
   padding: 1.4rem;
   background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.06);
   border-radius: 14px;
 }
 
-/* ===== Hero Box ===== */
+/* Hero Box */
 .hero-box {
   height: 240px;
   border-radius: 18px;
   background: linear-gradient(135deg, #0f1720, #15202b);
 }
 
-/* ===== Footer ===== */
+/* Footer */
 .footer {
   border-top: 1px solid rgba(255,255,255,0.06);
   padding: 2rem 0;
   color: var(--muted);
 }
 
-/* ===== Glow Effects ===== */
+/* Glow */
 .glow-text {
   text-shadow:
     0 0 10px rgba(76,201,255,0.45),
@@ -179,4 +159,44 @@ html, body {
   );
   filter: blur(22px);
   z-index: -1;
+}
+
+/* Modal */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal.active {
+  display: flex;
+}
+
+.modal-box {
+  background: var(--panel);
+  padding: 2rem;
+  border-radius: 16px;
+  width: 320px;
+  text-align: center;
+}
+
+.modal-box input {
+  width: 100%;
+  margin: 0.75rem 0;
+  padding: 0.6rem;
+  border-radius: 8px;
+  border: none;
+  background: #0b0f14;
+  color: var(--text);
+}
+
+.modal-close {
+  margin-top: 1rem;
+  background: none;
+  border: none;
+  color: var(--muted);
+  cursor: pointer;
 }
