@@ -22,18 +22,20 @@ body {
 }
 
 .site-header {
-  background: rgba(11,15,20,0.8);
+  position: sticky;
+  top: 0;
+  background: rgba(11,15,20,0.7);
   backdrop-filter: blur(8px);
 }
 
 .header-inner {
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
 }
 
 .logo {
-  height: 64px;
+  height: 44px;
 }
 
 .nav a {
@@ -58,58 +60,31 @@ body {
   background: linear-gradient(135deg, #0f1720, #15202b);
 }
 
-.glow-text {
-  text-shadow:
-    0 0 10px rgba(76,201,255,0.5),
-    0 0 30px rgba(76,201,255,0.3);
+.section {
+  padding: 4rem 0;
 }
 
-.glow-box::before {
-  content:"";
-  position:absolute;
-  inset:-6px;
-  background: radial-gradient(circle, rgba(76,201,255,.35), transparent 70%);
-  filter: blur(18px);
-  z-index:-1;
-}
-
-.card {
-  background: rgba(255,255,255,0.04);
-  padding: 1.5rem;
-  border-radius: 14px;
-  text-align: center;
-}
-
-.dashboard-title {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
+.grid,
 .dashboard-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1.25rem;
+  gap: 1rem;
 }
 
-.auth-card {
-  max-width: 420px;
-  margin: 0 auto;
-}
-
-input {
-  width: 100%;
-  padding: .75rem;
-  margin-bottom: 1rem;
-  border-radius: 10px;
-  border: none;
+.card {
+  padding: 1.25rem;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.05);
+  text-align: center;
 }
 
 .btn {
   display: inline-block;
-  padding: .75rem 1rem;
+  padding: 0.75rem 1rem;
   border-radius: 10px;
   text-decoration: none;
+  font-weight: 600;
 }
 
 .primary {
@@ -118,10 +93,64 @@ input {
 }
 
 .ghost {
-  border: 1px solid rgba(255,255,255,.2);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: var(--text);
 }
 
 .full {
   width: 100%;
+  text-align: center;
+}
+
+.footer {
+  padding: 2rem 0;
+  color: var(--muted);
+}
+
+.glow-text {
+  text-shadow:
+    0 0 8px rgba(76,201,255,0.35),
+    0 0 18px rgba(76,201,255,0.25),
+    0 0 36px rgba(76,201,255,0.15);
+}
+
+.glow-box::before {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: inherit;
+  background: radial-gradient(circle, rgba(76,201,255,0.35), transparent 65%);
+  filter: blur(18px);
+  z-index: -1;
+}
+
+.auth {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+}
+
+.auth-card {
+  width: 320px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.auth input {
+  padding: 0.6rem;
+  border-radius: 8px;
+  border: none;
+}
+
+.dashboard-title {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.dashboard-actions {
+  margin-top: 2rem;
   text-align: center;
 }
