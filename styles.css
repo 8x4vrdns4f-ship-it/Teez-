@@ -21,31 +21,41 @@ html, body {
 .container {
   max-width: 1100px;
   margin: 0 auto;
-  padding: 1.5rem 2rem; /* slightly tighter header */
+  padding: 2rem;
 }
 
 /* ===== Header ===== */
 .site-header {
   position: sticky;
   top: 0;
-  background: rgba(11, 15, 20, 0.7);
-  backdrop-filter: blur(10px);
   z-index: 10;
+  background: rgba(11, 15, 20, 0.85);
+  backdrop-filter: blur(12px);
 }
 
+/* FORCE HEADER HEIGHT */
 .header-inner {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
+  min-height: 140px; /* ⬅️ KEY FIX */
 }
 
-/* ===== Logo ===== */
+/* ===== LOGO (FORCED SIZE) ===== */
 .logo {
-  height: 96px; /* ⬅️ ACTUALLY BIG */
+  height: 120px;          /* BIG */
+  min-height: 120px;      /* FORCE */
+  width: auto;
   display: block;
+  object-fit: contain;
+
+  /* Safari/iOS fixes */
+  image-rendering: auto;
+  transform: translateY(4px);
+
   filter:
-    drop-shadow(0 0 10px rgba(76,201,255,0.45))
-    drop-shadow(0 0 28px rgba(76,201,255,0.35));
+    drop-shadow(0 0 14px rgba(76,201,255,0.55))
+    drop-shadow(0 0 36px rgba(76,201,255,0.45));
 }
 
 /* ===== Nav ===== */
@@ -53,8 +63,8 @@ html, body {
   color: var(--text);
   text-decoration: none;
   margin-left: 1.75rem;
-  font-size: 0.95rem;
-  letter-spacing: 0.02em;
+  font-size: 1rem;
+  letter-spacing: 0.03em;
   transition: opacity 0.2s ease;
 }
 
@@ -64,7 +74,7 @@ html, body {
 
 /* ===== Hero ===== */
 .hero {
-  padding: 6rem 0;
+  padding: 5rem 0 6rem;
 }
 
 .hero-inner {
@@ -74,7 +84,7 @@ html, body {
 }
 
 .hero h1 {
-  font-size: 2.8rem;
+  font-size: 3rem;
   margin-bottom: 1rem;
 }
 
@@ -86,8 +96,8 @@ html, body {
 /* ===== Buttons ===== */
 .btn {
   display: inline-block;
-  padding: 0.75rem 1.1rem;
-  border-radius: 10px;
+  padding: 0.8rem 1.2rem;
+  border-radius: 12px;
   text-decoration: none;
   font-weight: 600;
   margin-right: 0.75rem;
@@ -109,7 +119,7 @@ html, body {
 }
 
 .section h2 {
-  font-size: 1.8rem;
+  font-size: 1.9rem;
 }
 
 .sub {
@@ -121,39 +131,36 @@ html, body {
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1rem;
+  gap: 1.2rem;
 }
 
 .card {
-  padding: 1.25rem;
+  padding: 1.4rem;
   background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.05);
-  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 14px;
 }
 
 /* ===== Hero Box ===== */
 .hero-box {
-  height: 220px;
-  border-radius: 16px;
+  height: 240px;
+  border-radius: 18px;
   background: linear-gradient(135deg, #0f1720, #15202b);
 }
 
 /* ===== Footer ===== */
 .footer {
-  border-top: 1px solid rgba(255,255,255,0.05);
+  border-top: 1px solid rgba(255,255,255,0.06);
   padding: 2rem 0;
   color: var(--muted);
 }
 
-/* ============================= */
-/* ===== NEON GLOW EFFECTS ===== */
-/* ============================= */
-
+/* ===== Glow Effects ===== */
 .glow-text {
   text-shadow:
-    0 0 8px rgba(76,201,255,0.35),
-    0 0 18px rgba(76,201,255,0.25),
-    0 0 36px rgba(76,201,255,0.15);
+    0 0 10px rgba(76,201,255,0.45),
+    0 0 26px rgba(76,201,255,0.35),
+    0 0 48px rgba(76,201,255,0.25);
 }
 
 .glow-box {
@@ -163,13 +170,13 @@ html, body {
 .glow-box::before {
   content: "";
   position: absolute;
-  inset: -6px;
+  inset: -8px;
   border-radius: inherit;
   background: radial-gradient(
     circle at center,
-    rgba(76,201,255,0.35),
+    rgba(76,201,255,0.45),
     transparent 65%
   );
-  filter: blur(18px);
+  filter: blur(22px);
   z-index: -1;
 }
