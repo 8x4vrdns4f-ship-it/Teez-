@@ -17,25 +17,19 @@ html, body {
   font-family: Inter, system-ui, sans-serif;
 }
 
-/* ===================== */
-/* ===== Layout ======== */
-/* ===================== */
-
+/* ===== Layout ===== */
 .container {
   max-width: 1100px;
   margin: 0 auto;
   padding: 2rem;
 }
 
-/* ===================== */
-/* ===== Header ======== */
-/* ===================== */
-
+/* ===== Header ===== */
 .site-header {
   position: sticky;
   top: 0;
   background: rgba(11, 15, 20, 0.7);
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(10px);
   z-index: 10;
 }
 
@@ -45,35 +39,20 @@ html, body {
   align-items: center;
 }
 
-/* Brand / Logo */
-
-.brand {
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-}
-
-.logo img {
-  height: 34px;
-  width: auto;
+/* ===== Logo ===== */
+.logo {
+  height: 38px;
   display: block;
+  filter:
+    drop-shadow(0 0 6px rgba(76,201,255,0.35))
+    drop-shadow(0 0 14px rgba(76,201,255,0.25));
 }
 
-/* Smaller logo on small screens */
-@media (max-width: 600px) {
-  .logo img {
-    height: 28px;
-  }
-}
-
-/* ===================== */
-/* ===== Nav =========== */
-/* ===================== */
-
+/* ===== Nav ===== */
 .nav a {
   color: var(--text);
   text-decoration: none;
-  margin-left: 1.25rem;
+  margin-left: 1.5rem;
   font-size: 0.95rem;
   letter-spacing: 0.02em;
   transition: opacity 0.2s ease;
@@ -83,10 +62,7 @@ html, body {
   opacity: 0.8;
 }
 
-/* ===================== */
-/* ===== Hero ========== */
-/* ===================== */
-
+/* ===== Hero ===== */
 .hero {
   padding: 6rem 0;
 }
@@ -107,13 +83,10 @@ html, body {
   max-width: 520px;
 }
 
-/* ===================== */
-/* ===== Buttons ======= */
-/* ===================== */
-
+/* ===== Buttons ===== */
 .btn {
   display: inline-block;
-  padding: 0.75rem 1rem;
+  padding: 0.75rem 1.1rem;
   border-radius: 10px;
   text-decoration: none;
   font-weight: 600;
@@ -126,14 +99,11 @@ html, body {
 }
 
 .ghost {
-  border: 1px solid rgba(255,255,255,0.2);
+  border: 1px solid rgba(255,255,255,0.25);
   color: var(--text);
 }
 
-/* ===================== */
-/* ===== Sections ====== */
-/* ===================== */
-
+/* ===== Sections ===== */
 .section {
   padding: 4rem 0;
 }
@@ -147,10 +117,7 @@ html, body {
   margin-bottom: 2rem;
 }
 
-/* ===================== */
-/* ===== Cards ========= */
-/* ===================== */
-
+/* ===== Cards ===== */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -164,35 +131,29 @@ html, body {
   border-radius: 12px;
 }
 
-/* ===================== */
-/* ===== Hero Box ====== */
-/* ===================== */
-
+/* ===== Hero Box ===== */
 .hero-box {
   height: 220px;
   border-radius: 16px;
   background: linear-gradient(135deg, #0f1720, #15202b);
 }
 
-/* ===================== */
-/* ===== Footer ======== */
-/* ===================== */
-
+/* ===== Footer ===== */
 .footer {
   border-top: 1px solid rgba(255,255,255,0.05);
   padding: 2rem 0;
   color: var(--muted);
 }
 
-/* ================================= */
-/* ===== Neon Glow Effects ========= */
-/* ================================= */
+/* ============================= */
+/* ===== NEON GLOW EFFECTS ===== */
+/* ============================= */
 
 .glow-text {
   text-shadow:
-    0 0 8px rgba(76, 201, 255, 0.35),
-    0 0 18px rgba(76, 201, 255, 0.25),
-    0 0 36px rgba(76, 201, 255, 0.15);
+    0 0 8px rgba(76,201,255,0.35),
+    0 0 18px rgba(76,201,255,0.25),
+    0 0 36px rgba(76,201,255,0.15);
 }
 
 .glow-box {
@@ -206,7 +167,7 @@ html, body {
   border-radius: inherit;
   background: radial-gradient(
     circle at center,
-    rgba(76, 201, 255, 0.35),
+    rgba(76,201,255,0.35),
     transparent 65%
   );
   filter: blur(18px);
