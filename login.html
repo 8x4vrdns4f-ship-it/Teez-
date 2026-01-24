@@ -1,45 +1,24 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Login – BookSuite</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login | BookSuite</title>
+  <link rel="stylesheet" href="style.css">
 </head>
+<body class="login-page">
 
-<body>
+<div class="login-box">
+  <img src="assets/booksuite-logo.png" class="login-logo">
 
-<header class="site-header">
-  <div class="container header-inner">
-    <div class="brand">
-      <img src="booksuite-logo.PNG" alt="BookSuite logo" class="logo">
-    </div>
-  </div>
-</header>
+  <h2>Portal Login</h2>
 
-<main class="auth-page">
-  <div class="auth-card glow-box">
-    <h2 class="glow-text">Login</h2>
+  <input type="text" placeholder="Business Code">
+  <input type="email" placeholder="Email">
+  <input type="password" placeholder="Password">
 
-    <p class="sub">Enter your license code and credentials.</p>
+  <button class="primary-btn full">Login</button>
+</div>
 
-    <form onsubmit="mockLogin(event)">
-      <input type="text" placeholder="License code" required>
-      <input type="email" placeholder="Email address" required>
-      <input type="password" placeholder="Password" required>
-
-      <button class="btn primary glow-box" type="submit">
-        Login
-      </button>
-    </form>
-  </div>
-</main>
-
-<script src="app.js"></script>
 </body>
 </html>
