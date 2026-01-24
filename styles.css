@@ -28,7 +28,7 @@ html, body {
 .site-header {
   position: sticky;
   top: 0;
-  background: rgba(11, 15, 20, 0.8);
+  background: rgba(11, 15, 20, 0.9);
   backdrop-filter: blur(8px);
   z-index: 10;
 }
@@ -37,12 +37,16 @@ html, body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  min-height: 140px; /* FORCE HEADER HEIGHT */
 }
 
-/* ===== Logo (LOCKED SIZE) ===== */
+/* ===== LOGO (HARD LOCKED SIZE) ===== */
 .logo {
-  height: 120px; /* ~3× previous size */
+  height: 120px;
   width: auto;
+  max-height: none;
+  max-width: none;
+  display: block;
 }
 
 /* ===== Nav ===== */
@@ -52,11 +56,6 @@ html, body {
   margin-left: 1.25rem;
   font-size: 0.95rem;
   letter-spacing: 0.02em;
-  transition: opacity 0.2s ease;
-}
-
-.nav a:hover {
-  opacity: 0.8;
 }
 
 /* ===== Hero ===== */
@@ -66,8 +65,12 @@ html, body {
 
 .hero-inner {
   display: grid;
-  grid-template-columns: 1fr 360px;
-  gap: 2rem;
+  grid-template-columns: 1fr;
+}
+
+/* REMOVE THE BLUE BACKGROUND BOX COMPLETELY */
+.hero-box {
+  display: none;
 }
 
 .hero h1 {
@@ -96,7 +99,7 @@ html, body {
 }
 
 .ghost {
-  border: 1px solid rgba(255,255,255,0.25);
+  border: 2px solid var(--blue);
   color: var(--text);
 }
 
@@ -105,42 +108,22 @@ html, body {
   padding: 4rem 0;
 }
 
-.section h2 {
-  font-size: 1.8rem;
-}
-
 .sub {
   color: var(--muted);
-  margin-bottom: 2rem;
 }
 
-/* ===== Cards ===== */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1rem;
-}
-
-.card {
-  padding: 1.25rem;
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 12px;
-}
-
-/* ===== REMOVE BLUE GLOW BACKGROUND ===== */
-.glow-box::before {
-  display: none;
-}
-
-/* ===== Text Glow (KEEP) ===== */
+/* ===== Text Glow (KEEP ONLY TEXT) ===== */
 .glow-text {
   text-shadow:
-    0 0 8px rgba(76, 201, 255, 0.35),
-    0 0 18px rgba(76, 201, 255, 0.25);
+    0 0 6px rgba(76, 201, 255, 0.3);
 }
 
-/* ===== Auth Pages ===== */
+/* ===== REMOVE ALL BACKGROUND GLOWS ===== */
+.glow-box::before {
+  display: none !important;
+}
+
+/* ===== Auth ===== */
 .auth-page {
   min-height: 80vh;
   display: flex;
@@ -149,26 +132,11 @@ html, body {
 }
 
 .auth-card {
-  width: 100%;
   max-width: 380px;
   padding: 2rem;
   background: rgba(255,255,255,0.03);
   border-radius: 16px;
-  border: 1px solid rgba(255,255,255,0.1);
-}
-
-.auth-card form {
-  display: flex;
-  flex-direction: column;
-}
-
-.auth-card input {
-  background: transparent;
-  border: 1px solid rgba(255,255,255,0.25);
-  color: white;
-  padding: 0.7rem;
-  margin-bottom: 1rem;
-  border-radius: 8px;
+  border: 2px solid var(--blue);
 }
 
 /* ===== Dashboards ===== */
@@ -187,24 +155,18 @@ html, body {
 .dashboard-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1.4rem;
+  gap: 1.5rem;
 }
 
-/* ===== DASHBOARD BUTTONS (CLEAR SEPARATION) ===== */
+/* CLEAR BLUE-BORDERED BUTTONS */
 .dash-card {
   padding: 1.6rem;
   text-align: center;
   background: rgba(255,255,255,0.02);
-  border: 2px solid var(--blue); /* STRONG BLUE BORDER */
+  border: 2px solid var(--blue);
   border-radius: 14px;
   font-weight: 600;
   cursor: pointer;
-  transition: transform 0.15s ease, opacity 0.15s ease;
-}
-
-.dash-card:hover {
-  transform: translateY(-2px);
-  opacity: 0.9;
 }
 
 /* ===== Footer ===== */
