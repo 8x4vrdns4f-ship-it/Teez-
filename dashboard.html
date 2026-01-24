@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>BookSuite Dashboard</title>
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="app.js"></script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <img src="assets/booksuite-logo.png" class="logo" />
+    <div class="dashboard-title">Dashboard</div>
+  </div>
+</header>
+
+<main class="container">
+
+  <!-- LOGIN MOCK -->
+  <div id="loginBox" class="login-box glow-box">
+    <h2>Login</h2>
+    <input placeholder="Business code" />
+    <input placeholder="Email" />
+    <input placeholder="Password" type="password" />
+    <button class="btn primary" onclick="login()">Login</button>
+  </div>
+
+  <!-- HUB -->
+  <div id="hub" class="hub hidden">
+    <div class="grid hub-grid">
+      <div class="card glow-border">View calendar</div>
+      <div class="card glow-border">Booking requests</div>
+      <div class="card glow-border">Accepted</div>
+
+      <div class="card glow-border">Declined</div>
+      <div class="card glow-border">Staff</div>
+      <div class="card glow-border">Clients</div>
+
+      <div class="card glow-border">Reports</div>
+      <div class="card glow-border">Settings</div>
+      <div class="card glow-border">Integrate to website</div>
+    </div>
+  </div>
+
+</main>
+
+</body>
+</html>
