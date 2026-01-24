@@ -37,12 +37,12 @@ html, body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  min-height: 140px; /* FORCE HEADER HEIGHT */
+  min-height: 150px; /* ensures logo never shrinks */
 }
 
-/* ===== LOGO (HARD LOCKED SIZE) ===== */
+/* ===== LOGO (FORCED LARGE) ===== */
 .logo {
-  height: 120px;
+  height: 120px;        /* ~3x original */
   width: auto;
   max-height: none;
   max-width: none;
@@ -55,7 +55,6 @@ html, body {
   text-decoration: none;
   margin-left: 1.25rem;
   font-size: 0.95rem;
-  letter-spacing: 0.02em;
 }
 
 /* ===== Hero ===== */
@@ -63,12 +62,7 @@ html, body {
   padding: 6rem 0;
 }
 
-.hero-inner {
-  display: grid;
-  grid-template-columns: 1fr;
-}
-
-/* REMOVE THE BLUE BACKGROUND BOX COMPLETELY */
+/* REMOVE BLUE BACKGROUND CIRCLE COMPLETELY */
 .hero-box {
   display: none;
 }
@@ -112,18 +106,17 @@ html, body {
   color: var(--muted);
 }
 
-/* ===== Text Glow (KEEP ONLY TEXT) ===== */
+/* ===== Text Glow ONLY (NO BACKGROUND GLOW) ===== */
 .glow-text {
-  text-shadow:
-    0 0 6px rgba(76, 201, 255, 0.3);
+  text-shadow: 0 0 6px rgba(76, 201, 255, 0.3);
 }
 
-/* ===== REMOVE ALL BACKGROUND GLOWS ===== */
+/* HARD REMOVE ALL BACKGROUND GLOWS */
 .glow-box::before {
   display: none !important;
 }
 
-/* ===== Auth ===== */
+/* ===== Auth Pages ===== */
 .auth-page {
   min-height: 80vh;
   display: flex;
@@ -132,6 +125,7 @@ html, body {
 }
 
 .auth-card {
+  width: 100%;
   max-width: 380px;
   padding: 2rem;
   background: rgba(255,255,255,0.03);
@@ -158,7 +152,7 @@ html, body {
   gap: 1.5rem;
 }
 
-/* CLEAR BLUE-BORDERED BUTTONS */
+/* ===== DASHBOARD BUTTONS (CLEAR SEPARATION) ===== */
 .dash-card {
   padding: 1.6rem;
   text-align: center;
