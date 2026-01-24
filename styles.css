@@ -37,15 +37,13 @@ html, body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  min-height: 200px; /* increased for larger logo */
+  min-height: 200px;
 }
 
-/* ===== LOGO (DOUBLE SIZE) ===== */
+/* ===== Logo ===== */
 .logo {
-  height: 240px; /* doubled */
+  height: 240px;
   width: auto;
-  max-height: none;
-  max-width: none;
   display: block;
 }
 
@@ -78,7 +76,7 @@ html, body {
   max-width: 520px;
 }
 
-/* ===== Hero Box (RESTORED) ===== */
+/* ===== Hero Video Box ===== */
 .hero-box {
   height: 220px;
   border-radius: 16px;
@@ -112,16 +110,30 @@ html, body {
 
 .sub {
   color: var(--muted);
+  margin-bottom: 2rem;
 }
 
-/* ===== TEXT GLOW ===== */
+/* ===== Cards ===== */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.card {
+  padding: 1.25rem;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+}
+
+/* ===== Glow Effects ===== */
 .glow-text {
   text-shadow:
     0 0 8px rgba(76, 201, 255, 0.35),
     0 0 18px rgba(76, 201, 255, 0.25);
 }
 
-/* ===== BOX GLOW (RESTORED & CLEAN) ===== */
 .glow-box {
   position: relative;
 }
@@ -133,58 +145,11 @@ html, body {
   border-radius: inherit;
   background: radial-gradient(
     circle at center,
-    rgba(76, 201, 255, 0.45),
+    rgba(76, 201, 255, 0.4),
     transparent 65%
   );
   filter: blur(16px);
   z-index: -1;
-}
-
-/* ===== Auth ===== */
-.auth-page {
-  min-height: 80vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.auth-card {
-  width: 100%;
-  max-width: 380px;
-  padding: 2rem;
-  background: rgba(255,255,255,0.03);
-  border-radius: 16px;
-  border: 2px solid var(--blue);
-}
-
-/* ===== Dashboards ===== */
-.dashboard-page {
-  padding: 3rem 1rem;
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-.dashboard-title {
-  text-align: center;
-  margin-bottom: 3rem;
-  font-size: 2.2rem;
-}
-
-.dashboard-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
-}
-
-/* ===== DASHBOARD BUTTONS ===== */
-.dash-card {
-  padding: 1.6rem;
-  text-align: center;
-  background: rgba(255,255,255,0.02);
-  border: 2px solid var(--blue);
-  border-radius: 14px;
-  font-weight: 600;
-  cursor: pointer;
 }
 
 /* ===== Footer ===== */
