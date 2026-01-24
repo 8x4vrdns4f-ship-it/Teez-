@@ -1,15 +1,16 @@
-const modal = document.getElementById("authModal");
-const modalTitle = document.getElementById("modalTitle");
+function openLogin() {
+  document.getElementById("loginModal").style.display = "flex";
+}
 
-document.querySelectorAll("[data-modal]").forEach(btn => {
-  btn.addEventListener("click", e => {
-    e.preventDefault();
-    modalTitle.textContent =
-      btn.dataset.modal === "signup" ? "Sign up" : "Login";
-    modal.classList.add("active");
-  });
-});
+function closeLogin() {
+  document.getElementById("loginModal").style.display = "none";
+}
 
-document.querySelector(".modal-close").addEventListener("click", () => {
-  modal.classList.remove("active");
-});
+function openTry() {
+  alert("Try Now page will open here (mock)");
+}
+
+function mockLogin() {
+  alert("Mock login successful. Dashboard will load.");
+  closeLogin();
+}
