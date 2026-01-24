@@ -1,84 +1,57 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8" />
   <title>BookSuite</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css" />
 </head>
-
 <body>
 
-<!-- HEADER -->
 <header class="site-header">
   <div class="container header-inner">
     <div class="brand">
-      <img src="booksuite-logo.PNG" alt="BookSuite" class="logo">
+      <img src="assets/booksuite-logo.png" class="logo" alt="BookSuite" />
     </div>
-
     <nav class="nav">
-      <a href="login.html">Login</a>
+      <a href="#features">Features</a>
+      <a href="#pricing">Pricing</a>
+      <a href="dashboard.html">Login</a>
     </nav>
   </div>
 </header>
 
-<main>
+<section class="hero">
+  <div class="container hero-inner">
+    <div>
+      <h1 class="glow-text">BookSuite</h1>
+      <p class="hero-sub">
+        A complete booking, scheduling, and staff-management platform built for modern businesses.
+        Accept bookings, manage staff calendars, track attendance, and scale effortlessly — all in one place.
+      </p>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="container hero-inner">
-      <div>
-        <h1 class="glow-text">BookSuite</h1>
-        <p class="hero-sub">
-          A modern booking and scheduling platform for businesses.
-          Manage staff, bookings, and customer flow — all in one system.
-        </p>
-
-        <div class="cta">
-          <a href="login.html" class="btn primary glow-box">Try now</a>
-          <a href="#features" class="btn ghost glow-box">Explore</a>
-        </div>
-      </div>
-
-      <!-- ✅ VIDEO / BLANK BOX (RESTORED) -->
-      <div class="hero-box glow-box"></div>
+      <a href="try.html" class="btn primary">Try now</a>
+      <a href="#features" class="btn ghost">Explore</a>
     </div>
-  </section>
 
-  <!-- FEATURES / INFO BOXES -->
-  <section id="features" class="section">
-    <div class="container">
-      <h2 class="glow-text">What You Can Do</h2>
-      <p class="sub">Everything you need to manage bookings efficiently.</p>
+    <!-- VIDEO PLACEHOLDER (BLANK BOX YOU ASKED FOR) -->
+    <div class="hero-box glow-box"></div>
+  </div>
+</section>
 
-      <!-- ✅ BOXES RESTORED -->
-      <div class="grid">
-        <div class="card glow-box">
-          <h3 class="glow-text">Manage Bookings</h3>
-          <p>Accept, track, and manage bookings in real time.</p>
-        </div>
+<section id="features" class="section">
+  <div class="container">
+    <h2>Why BookSuite</h2>
+    <p class="sub">Designed for service businesses, teams, and venues.</p>
 
-        <div class="card glow-box">
-          <h3 class="glow-text">Staff Scheduling</h3>
-          <p>Assign bookings to staff and manage availability.</p>
-        </div>
-
-        <div class="card glow-box">
-          <h3 class="glow-text">Client Check-In</h3>
-          <p>QR codes and booking numbers for smooth arrivals.</p>
-        </div>
-      </div>
+    <div class="grid">
+      <div class="card glow-box">Staff scheduling</div>
+      <div class="card glow-box">Client bookings</div>
+      <div class="card glow-box">QR check-ins</div>
+      <div class="card glow-box">Admin controls</div>
     </div>
-  </section>
+  </div>
+</section>
 
-</main>
-
-<!-- FOOTER -->
 <footer class="footer">
   <div class="container">
     © BookSuite
