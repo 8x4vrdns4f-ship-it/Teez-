@@ -5,7 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Login – BookSuite</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="styles.css">
 </head>
 
@@ -14,24 +17,29 @@
 <header class="site-header">
   <div class="container header-inner">
     <div class="brand">
-      <img src="booksuite-logo.png" class="logo" alt="BookSuite logo">
+      <img src="booksuite-logo.PNG" alt="BookSuite logo" class="logo">
     </div>
   </div>
 </header>
 
-<main class="auth">
+<main class="auth-page">
   <div class="auth-card glow-box">
     <h2 class="glow-text">Login</h2>
 
-    <input type="email" placeholder="Email">
-    <input type="password" placeholder="Password">
-    <input type="text" placeholder="Unique Access Code">
+    <p class="sub">Enter your license code and credentials.</p>
 
-    <a href="hub.html" class="btn primary glow-box full">Enter Dashboard</a>
+    <form onsubmit="mockLogin(event)">
+      <input type="text" placeholder="License code" required>
+      <input type="email" placeholder="Email address" required>
+      <input type="password" placeholder="Password" required>
 
-    <a href="index.html" class="btn ghost glow-box full">← Back</a>
+      <button class="btn primary glow-box" type="submit">
+        Login
+      </button>
+    </form>
   </div>
 </main>
 
+<script src="app.js"></script>
 </body>
 </html>
