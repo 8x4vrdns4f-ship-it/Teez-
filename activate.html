@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Activate – BookSuite</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+<main class="auth-page">
+  <div class="auth-card glow-box">
+    <h2 class="glow-text">Activate License</h2>
+
+    <p class="sub">
+      Enter the license code you received after purchase.
+    </p>
+
+    <form onsubmit="mockActivate(event)">
+      <input type="text" placeholder="License code" required>
+      <input type="email" placeholder="Business email" required>
+      <input type="password" placeholder="Set password" required>
+
+      <button class="btn primary glow-box" type="submit">
+        Activate
+      </button>
+    </form>
+  </div>
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>
