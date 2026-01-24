@@ -1,109 +1,125 @@
 * {
-  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: system-ui, -apple-system, sans-serif;
+  box-sizing: border-box;
 }
 
 body {
-  background: radial-gradient(circle at top, #0c1220, #05070f);
-  color: #ffffff;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  background: radial-gradient(circle at top, #0a0f1f, #05070f);
+  color: #fff;
 }
 
 /* top bar */
-.topbar {
+
+.top-bar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 40px;
+  padding: 20px 30px;
 }
 
 .logo {
-  height: 40px;
+  height: 42px;
+  width: auto;
 }
 
+/* login button */
+
 .login-btn {
-  color: #4da3ff;
-  border: 2px solid #4da3ff;
-  padding: 8px 18px;
+  color: #5aa2ff;
+  border: 1px solid #5aa2ff;
+  padding: 8px 16px;
   border-radius: 10px;
   text-decoration: none;
 }
 
 /* hero */
+
 .hero {
   text-align: center;
-  padding: 80px 20px 40px;
+  padding: 100px 20px 60px;
 }
 
 .hero h1 {
   font-size: 64px;
-  margin-bottom: 15px;
+  font-weight: 700;
+  margin-bottom: 16px;
 }
 
-.hero p {
+.subtitle {
+  color: #9aa3c7;
   max-width: 700px;
-  margin: 0 auto 30px;
-  color: #9aa4c7;
+  margin: 0 auto 28px;
 }
+
+/* buttons */
 
 .hero-buttons {
   display: flex;
-  gap: 15px;
   justify-content: center;
+  gap: 16px;
 }
 
 .btn {
-  padding: 12px 26px;
-  border-radius: 12px;
+  padding: 12px 22px;
+  border-radius: 14px;
   text-decoration: none;
-  font-weight: 600;
+  font-weight: 500;
 }
 
-.btn.primary {
-  background: #4da3ff;
-  color: #000;
+.primary {
+  background: #2f80ff;
+  color: white;
 }
 
-.btn.outline {
-  border: 2px solid #4da3ff;
-  color: #4da3ff;
+.secondary {
+  border: 1px solid #2f80ff;
+  color: #2f80ff;
 }
 
 /* video */
-.video-box {
+
+.video-placeholder {
   margin: 60px auto;
-  max-width: 900px;
+  width: 85%;
+  max-width: 1100px;
   height: 300px;
-  border: 2px dashed #4da3ff;
+  border: 2px dashed #2f80ff;
   border-radius: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #4da3ff;
+  color: #2f80ff;
 }
 
-/* features */
+/* features — THIS FIXES THE LONG BOX ISSUE */
+
 .features {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 25px;
-  padding: 40px;
+  gap: 24px;
+  padding: 40px 30px 80px;
 }
 
-.feature {
-  border: 2px solid #4da3ff;
+.feature-box {
+  border: 2px solid #2f80ff;
   border-radius: 18px;
-  padding: 25px;
+  padding: 24px;
 }
 
-.feature h3 {
+.feature-box h3 {
   margin-bottom: 10px;
 }
 
 /* mobile */
+
 @media (max-width: 900px) {
   .features {
     grid-template-columns: 1fr;
+  }
+
+  .hero h1 {
+    font-size: 48px;
   }
 }
