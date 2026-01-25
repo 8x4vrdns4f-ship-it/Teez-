@@ -1,61 +1,88 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>booksuite</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <title>BookSuite</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <style>
     body {
       margin: 0;
-      padding: 20px;
-      font-family: -apple-system, blinkmacsystemfont, sans-serif;
-      background: #ffffff;
-      color: #000;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f5f5f5;
     }
 
-    .logo {
-      width: 120px;
-      margin-bottom: 30px;
-    }
-
-    .menu {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-      max-width: 420px;
-    }
-
-    .menu a {
-      height: 100px;
-      border: 1px solid #ccc;
+    header {
       display: flex;
       align-items: center;
-      justify-content: center;
-      text-decoration: none;
-      color: #000;
-      font-size: 14px;
-      background: #fff;
+      gap: 12px;
+      padding: 16px;
+      background: #111;
+      color: #fff;
     }
 
-    .menu a:active {
-      background: #f0f0f0;
+    header img {
+      height: 40px;
+      width: auto;
+    }
+
+    header h1 {
+      font-size: 20px;
+      margin: 0;
+    }
+
+    .container {
+      padding: 20px;
+    }
+
+    /* GRID FIX – square boxes across, not long lines */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+      cursor: pointer;
+      transition: transform 0.15s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+    }
+
+    .card span {
+      display: block;
+      font-size: 14px;
+      margin-top: 8px;
     }
   </style>
 </head>
 
 <body>
 
-  <img src="assets/logo.png" alt="booksuite logo" class="logo">
+  <header>
+    <!-- LOGO: path + caps EXACTLY as screenshot -->
+    <img src="assets/booksuite-logo.PNG" alt="BookSuite Logo">
+    <h1>BookSuite</h1>
+  </header>
 
-  <div class="menu">
-    <a href="dashboard.html">dashboard</a>
-    <a href="bookings.html">bookings</a>
-    <a href="staff.html">staff</a>
-    <a href="customers.html">customers</a>
-    <a href="settings.html">settings</a>
-    <a href="reports.html">reports</a>
+  <div class="container">
+    <div class="grid">
+      <div class="card"><span>Dashboard</span></div>
+      <div class="card"><span>Bookings</span></div>
+      <div class="card"><span>Staff</span></div>
+      <div class="card"><span>Customers</span></div>
+      <div class="card"><span>Settings</span></div>
+      <div class="card"><span>Reports</span></div>
+    </div>
   </div>
 
+  <script src="app.js"></script>
 </body>
 </html>
