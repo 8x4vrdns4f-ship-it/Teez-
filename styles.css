@@ -152,3 +152,9 @@ img[src*="booksuite-logo"] {
   height: 96px !important;
   width: auto !important;
 }
+/* === FORCE BOOKSUITE LOGO SIZE === */
+img.logo {
+  height: 96px !important;
+  width: auto !important;
+  max-width: none !important;
+}
