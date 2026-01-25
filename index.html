@@ -1,33 +1,61 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8">
   <title>booksuite</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      font-family: -apple-system, blinkmacsystemfont, sans-serif;
+      background: #ffffff;
+      color: #000;
+    }
+
+    .logo {
+      width: 120px;
+      margin-bottom: 30px;
+    }
+
+    .menu {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      max-width: 420px;
+    }
+
+    .menu a {
+      height: 100px;
+      border: 1px solid #ccc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: #000;
+      font-size: 14px;
+      background: #fff;
+    }
+
+    .menu a:active {
+      background: #f0f0f0;
+    }
+  </style>
 </head>
+
 <body>
 
-  <header class="top-bar">
-    <img
-      src="assets/d6e66c4c-595d-4dac-9f08-3b92a64c061b.png"
-      alt="booksuite logo"
-      class="logo"
-    />
-  </header>
+  <img src="assets/logo.png" alt="booksuite logo" class="logo">
 
-  <main class="container">
-    <div class="grid">
-      <div class="card">dashboard</div>
-      <div class="card">bookings</div>
-      <div class="card">staff</div>
-      <div class="card">customers</div>
-      <div class="card">settings</div>
-      <div class="card">reports</div>
-    </div>
-  </main>
+  <div class="menu">
+    <a href="dashboard.html">dashboard</a>
+    <a href="bookings.html">bookings</a>
+    <a href="staff.html">staff</a>
+    <a href="customers.html">customers</a>
+    <a href="settings.html">settings</a>
+    <a href="reports.html">reports</a>
+  </div>
 
-  <script src="app.js"></script>
 </body>
 </html>
