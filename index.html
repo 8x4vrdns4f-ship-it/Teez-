@@ -1,88 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>BookSuite</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: #f5f5f5;
-    }
-
-    header {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 16px;
-      background: #111;
-      color: #fff;
-    }
-
-    header img {
-      height: 40px;
-      width: auto;
-    }
-
-    header h1 {
-      font-size: 20px;
-      margin: 0;
-    }
-
-    .container {
-      padding: 20px;
-    }
-
-    /* GRID FIX – square boxes across, not long lines */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-      gap: 16px;
-    }
-
-    .card {
-      background: #fff;
-      border-radius: 10px;
-      padding: 20px;
-      text-align: center;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-      cursor: pointer;
-      transition: transform 0.15s ease;
-    }
-
-    .card:hover {
-      transform: translateY(-4px);
-    }
-
-    .card span {
-      display: block;
-      font-size: 14px;
-      margin-top: 8px;
-    }
-  </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>booksuite</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-
-  <header>
-    <!-- LOGO: path + caps EXACTLY as screenshot -->
-    <img src="assets/booksuite-logo.PNG" alt="BookSuite Logo">
-    <h1>BookSuite</h1>
+  <header class="topbar">
+    <!-- logo with fallback so filename case never breaks you again -->
+    <img
+      src="assets/booksuite-logo.PNG"
+      alt="booksuite logo"
+      class="logo"
+      onerror="this.onerror=null; this.src='assets/booksuite-logo.png';"
+    >
+    <a href="login.html" class="login-btn">login</a>
   </header>
 
-  <div class="container">
-    <div class="grid">
-      <div class="card"><span>Dashboard</span></div>
-      <div class="card"><span>Bookings</span></div>
-      <div class="card"><span>Staff</span></div>
-      <div class="card"><span>Customers</span></div>
-      <div class="card"><span>Settings</span></div>
-      <div class="card"><span>Reports</span></div>
-    </div>
-  </div>
+  <main class="hero">
+    <h1>booksuite</h1>
+    <p>
+      a smart booking and scheduling platform designed for modern businesses.
+      manage bookings, staff, and client flow — all in one place.
+    </p>
 
-  <script src="app.js"></script>
+    <div class="hero-buttons">
+      <a href="try.html" class="btn primary">try now</a>
+      <a href="hub.html" class="btn outline">explore</a>
+    </div>
+  </main>
+
+  <section class="video-box">
+    <span>video goes here</span>
+  </section>
+
+  <section class="features">
+    <div class="feature">
+      <h3>for businesses</h3>
+      <p>accept bookings, deposits, and manage staff schedules easily.</p>
+    </div>
+
+    <div class="feature">
+      <h3>for staff</h3>
+      <p>view bookings, receive check-in alerts, and track job progress.</p>
+    </div>
+
+    <div class="feature">
+      <h3>for clients</h3>
+      <p>get confirmations, receipts, qr codes, and reminders.</p>
+    </div>
+  </section>
 </body>
 </html>
