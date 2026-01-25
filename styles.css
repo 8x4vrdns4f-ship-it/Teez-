@@ -1,75 +1,68 @@
-/* RESET */
 * {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-  font-family: Arial, sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-/* PAGE */
 body {
   background: #ffffff;
-  display: flex;
-  justify-content: center;
+  color: #000;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
   padding: 40px 20px;
 }
 
-/* MAIN CONTAINER */
-.container {
-  max-width: 900px;
-  width: 100%;
-}
+/* HERO */
 
-/* LOGO */
-.logo {
+.hero {
   display: block;
-  margin: 0 auto 40px auto;
-  width: 350px;       /* 🔥 BIGGER LOGO (about 5x previous) */
-  max-width: 90%;
+  max-width: 600px;
+}
+
+.logo {
+  width: 240px;          /* ~5x bigger than before */
   height: auto;
+  display: block;
+  margin-bottom: 24px;
 }
 
-/* GRID */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 30px;
+.hero h1 {
+  font-size: 42px;
+  margin-bottom: 12px;
 }
 
-/* BOXES */
-.box {
-  border: 1px solid #ccc;
-  height: 140px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-transform: lowercase;
+.tagline {
   font-size: 16px;
-  cursor: pointer;
-  transition: all 0.2s ease;
+  line-height: 1.5;
+  margin-bottom: 16px;
 }
 
-.box:hover {
-  background: #f5f5f5;
+.links a {
+  margin-right: 16px;
+  text-decoration: underline;
+  color: #0000ee;
+  font-size: 16px;
 }
 
-/* MOBILE */
-@media (max-width: 768px) {
-  .grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+/* FEATURES */
 
-  .logo {
-    width: 280px;
-  }
+.features {
+  margin-top: 60px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 32px;
 }
 
-@media (max-width: 480px) {
-  .grid {
-    grid-template-columns: 1fr;
-  }
+.features strong {
+  display: block;
+  margin-bottom: 6px;
+}
 
-  .logo {
-    width: 240px;
-  }
+.features p {
+  font-size: 14px;
+  line-height: 1.4;
 }
