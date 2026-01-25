@@ -1,6 +1,7 @@
 /* v2-force-refresh */
+
 /* =========================
-   GLOBAL RESET
+   RESET
 ========================= */
 * {
   margin: 0;
@@ -9,7 +10,8 @@
 }
 
 html, body {
-  height: 100%;
+  width: 100%;
+  min-height: 100%;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   color: #e6edf3;
 }
@@ -24,29 +26,31 @@ body {
     #070b16 60%,
     #05070e 100%
   );
+  overflow-x: hidden;
 }
 
 /* =========================
-   HEADER
+   LOGO (TOP LEFT)
 ========================= */
 .header {
   position: absolute;
-  top: 32px;
+  top: 36px;
   left: 48px;
+  z-index: 10;
 }
 
 img.logo {
-  height: 96px !important;   /* SAME BIG SIZE */
+  height: 96px !important;
   width: auto !important;
-  max-width: none !important;
+  display: block;
 }
 
 /* =========================
-   LOGIN LINK (TOP RIGHT)
+   LOGIN (TOP RIGHT)
 ========================= */
 .login-link {
   position: absolute;
-  top: 32px;
+  top: 36px;
   right: 48px;
   color: #4fb6ff;
   text-decoration: none;
@@ -58,24 +62,30 @@ img.logo {
 }
 
 /* =========================
-   HERO SECTION
+   HERO WRAPPER
 ========================= */
 .hero {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 180px 48px 80px;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  padding: 160px 48px 80px;
-  gap: 80px;
+  gap: 96px;
 }
 
+/* =========================
+   HERO LEFT
+========================= */
 .hero-left {
-  max-width: 520px;
+  width: 520px;
+  flex-shrink: 0;
 }
 
 .hero-left h1 {
   font-size: 64px;
   font-weight: 700;
-  letter-spacing: 0.5px;
   margin-bottom: 24px;
 }
 
@@ -118,20 +128,21 @@ img.logo {
 }
 
 .btn-outline:hover {
-  background: rgba(79, 182, 255, 0.1);
+  background: rgba(79, 182, 255, 0.12);
 }
 
 /* =========================
-   VIDEO PLACEHOLDER
+   HERO RIGHT (VIDEO BOX)
 ========================= */
 .hero-right {
+  width: 460px;
   flex-shrink: 0;
 }
 
 .video-box {
-  width: 420px;
-  height: 240px;
-  border-radius: 12px;
+  width: 100%;
+  height: 260px;
+  border-radius: 14px;
   border: 1px solid rgba(79, 182, 255, 0.6);
   background: linear-gradient(
     135deg,
@@ -141,19 +152,22 @@ img.logo {
 }
 
 /* =========================
-   FEATURE BOXES
+   FEATURES
 ========================= */
 .features {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 48px 96px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 32px;
-  padding: 0 48px 80px;
 }
 
 .feature-box {
-  border-radius: 14px;
+  border-radius: 16px;
   padding: 28px;
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(255, 255, 255, 0.035);
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
@@ -169,7 +183,7 @@ img.logo {
 }
 
 /* =========================
-   RESPONSIVE (TABLET / MOBILE)
+   MOBILE
 ========================= */
 @media (max-width: 900px) {
   .hero {
@@ -177,7 +191,7 @@ img.logo {
   }
 
   .hero-right {
-    margin-top: 40px;
+    width: 100%;
   }
 
   .features {
