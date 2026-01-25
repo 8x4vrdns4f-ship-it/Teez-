@@ -1,56 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>booksuite</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css" />
 </head>
-
 <body>
-  <header class="topbar">
-    <!-- logo with fallback so filename case never breaks you again -->
-    <img
-      src="assets/booksuite-logo.PNG"
-      alt="booksuite logo"
-      class="logo"
-      onerror="this.onerror=null; this.src='assets/booksuite-logo.png';"
-    >
-    <a href="login.html" class="login-btn">login</a>
-  </header>
 
-  <main class="hero">
-    <h1>booksuite</h1>
-    <p>
-      a smart booking and scheduling platform designed for modern businesses.
-      manage bookings, staff, and client flow — all in one place.
-    </p>
+  <main class="container">
 
-    <div class="hero-buttons">
-      <a href="try.html" class="btn primary">try now</a>
-      <a href="hub.html" class="btn outline">explore</a>
-    </div>
+    <section class="hero">
+      <img
+        src="assets/booksuite-logo.PNG"
+        alt="booksuite logo"
+        class="logo"
+      />
+
+      <h1>booksuite</h1>
+
+      <p class="tagline">
+        a smart booking and scheduling platform designed for modern businesses.
+        manage bookings, staff, and client flow — all in one place.
+      </p>
+
+      <div class="links">
+        <a href="login.html">login</a>
+        <a href="hub.html">try now</a>
+        <a href="purchase.html">explore</a>
+      </div>
+    </section>
+
+    <section class="features">
+      <div>
+        <strong>for businesses</strong>
+        <p>accept bookings, deposits, and manage staff schedules easily.</p>
+      </div>
+
+      <div>
+        <strong>for staff</strong>
+        <p>view bookings, receive check-in alerts, and track job progress.</p>
+      </div>
+
+      <div>
+        <strong>for clients</strong>
+        <p>get confirmations, receipts, qr codes, and reminders.</p>
+      </div>
+    </section>
+
   </main>
 
-  <section class="video-box">
-    <span>video goes here</span>
-  </section>
-
-  <section class="features">
-    <div class="feature">
-      <h3>for businesses</h3>
-      <p>accept bookings, deposits, and manage staff schedules easily.</p>
-    </div>
-
-    <div class="feature">
-      <h3>for staff</h3>
-      <p>view bookings, receive check-in alerts, and track job progress.</p>
-    </div>
-
-    <div class="feature">
-      <h3>for clients</h3>
-      <p>get confirmations, receipts, qr codes, and reminders.</p>
-    </div>
-  </section>
 </body>
 </html>
