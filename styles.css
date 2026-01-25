@@ -147,3 +147,8 @@ header {
     grid-template-columns: 1fr;
   }
 }
+/* FORCE LOGO SIZE – OVERRIDES EVERYTHING */
+img[src*="booksuite-logo"] {
+  height: 96px !important;
+  width: auto !important;
+}
