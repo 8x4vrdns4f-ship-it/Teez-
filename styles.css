@@ -19,9 +19,9 @@ body {
   padding: 24px 48px;
 }
 
-/* LOGO — ONLY CHANGE IS HERE */
+/* LOGO — TRIPLE SIZE FOR ANIMATION PRESENCE */
 .logo {
-  height: 64px; /* was smaller before */
+  height: 120px;
 }
 
 .login-link {
