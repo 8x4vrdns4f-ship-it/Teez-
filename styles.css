@@ -19,10 +19,17 @@ body {
   padding: 24px 48px;
 }
 
-/* LOGO — TRIPLE SIZE FOR ANIMATION PRESENCE */
+/* LOGO — DEFINITIVE FIX */
 .logo {
-  height: 120px;
+  display: block;
+  height: 120px;              /* BIG, obvious size */
+  width: auto;
+  max-height: none;
+  max-width: none;
+  object-fit: contain;
 }
+
+/* Login */
 
 .login-link {
   color: #4cc3ff;
