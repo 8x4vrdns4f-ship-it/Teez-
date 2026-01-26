@@ -19,8 +19,9 @@ body {
   padding: 24px 48px;
 }
 
+/* LOGO — ONLY CHANGE IS HERE */
 .logo {
-  height: 34px;
+  height: 64px; /* was smaller before */
 }
 
 .login-link {
