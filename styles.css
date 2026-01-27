@@ -106,6 +106,36 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
+/* SYSTEM FLOW */
+.system-flow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 48px;
+  gap: 24px;
+}
+
+.flow-item {
+  text-align: center;
+  color: #eaf2ff;
+}
+
+.flow-icon {
+  font-size: 42px;
+  margin-bottom: 10px;
+  opacity: 0.9;
+}
+
+.flow-item span {
+  font-size: 16px;
+}
+
+.flow-line {
+  width: 60px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.25);
+}
+
 /* BEFORE / AFTER */
 .before-after {
   display: grid;
@@ -114,19 +144,19 @@ body {
   gap: 40px;
 }
 
-.before ul,
-.after ul {
-  list-style: none;
-  font-size: 18px;
-  line-height: 2.2;
-}
-
 .before {
   color: #9aa6b2;
 }
 
 .after {
   color: #5ec2ff;
+}
+
+.before ul,
+.after ul {
+  list-style: none;
+  font-size: 18px;
+  line-height: 2.2;
 }
 
 /* CONTACT */
