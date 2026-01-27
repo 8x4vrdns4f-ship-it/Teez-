@@ -5,56 +5,81 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>BookSuite</title>
 
-  <!-- Inter font -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
   <link rel="stylesheet" href="styles.css" />
 </head>
+
 <body>
 
-  <header class="top-bar">
-    <img src="assets/booksuite-logo.PNG" alt="BookSuite logo" class="logo" />
-    <a href="login.html" class="login-link">login</a>
+  <!-- HEADER -->
+  <header class="header">
+    <div class="logo-container">
+      <img
+        src="assets/booksuite-logo.PNG"
+        alt="BookSuite logo"
+        class="logo"
+      />
+      <h1 class="site-title">
+        <span class="blue">B</span>ook<span class="blue">S</span>uite
+      </h1>
+    </div>
+
+    <a href="#" class="login-btn">Login</a>
   </header>
 
+  <!-- HERO SECTION -->
   <main class="hero">
     <div class="hero-left">
-      <h1 class="hero-title">
-        <span class="brand-b">B</span>ook<span class="brand-s">S</span>uite
-      </h1>
+      <h2 class="hero-title">
+        Everything your business needs to stay organised
+      </h2>
 
       <p class="hero-description">
         Bookings, Clients, and Staff schedules, all in one place
       </p>
 
       <div class="hero-buttons">
-        <a href="#" class="btn primary">try now</a>
-        <a href="#" class="btn secondary">explore</a>
+        <a href="#" class="primary-btn">Try Now</a>
+        <a href="#" class="secondary-btn">Explore</a>
       </div>
     </div>
 
     <div class="hero-right">
-      <div class="video-placeholder"></div>
+      <div class="video-placeholder">
+        <!-- Future animated explainer video -->
+      </div>
     </div>
   </main>
 
+  <!-- FEATURES SECTION -->
   <section class="features">
     <div class="feature-box">
-      <h3>for businesses</h3>
-      <p>accept bookings, deposits, and manage staff schedules easily.</p>
+      <h3>Smart Bookings</h3>
+      <p>Manage appointments with ease.</p>
     </div>
 
     <div class="feature-box">
-      <h3>for staff</h3>
-      <p>view bookings, receive check-in alerts, and track job progress.</p>
+      <h3>Client Management</h3>
+      <p>Keep all client information organised.</p>
     </div>
 
     <div class="feature-box">
-      <h3>for clients</h3>
-      <p>get confirmations, receipts, qr codes, and reminders.</p>
+      <h3>Staff Scheduling</h3>
+      <p>See availability and shifts instantly.</p>
     </div>
+  </section>
+
+  <!-- CONTACT SECTION (NEW) -->
+  <section class="contact">
+    <h3>Need help or have any enquiries?</h3>
+
+    <p>
+      If you have any questions or would like more information,
+      feel free to get in touch with us.
+    </p>
+
+    <a href="mailto:your@email.com" class="contact-btn">
+      Email Us
+    </a>
   </section>
 
 </body>
