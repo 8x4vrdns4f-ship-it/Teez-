@@ -15,7 +15,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 40px 48px; /* adjusted ONLY to fit larger logo */
+  padding: 40px 48px;
 }
 
 .logo-wrap {
@@ -24,7 +24,7 @@ body {
 }
 
 .logo {
-  height: 360px; /* EXACTLY 3x previous size */
+  height: 180px; /* HALF of previous size */
   width: auto;
 }
 
