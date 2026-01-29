@@ -117,17 +117,11 @@ body {
 
 .flow-item {
   text-align: center;
-  color: #eaf2ff;
 }
 
 .flow-icon {
   font-size: 42px;
   margin-bottom: 10px;
-  opacity: 0.9;
-}
-
-.flow-item span {
-  font-size: 16px;
 }
 
 .flow-line {
@@ -174,6 +168,11 @@ body {
 
 .contact-section p {
   color: #b9c7da;
-  margin-bottom: 28px;
+  margin-bottom: 18px;
   font-size: 18px;
+}
+
+.contact-email {
+  font-weight: 500;
+  color: #5ec2ff;
 }
