@@ -1,24 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login | BookSuite</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body class="login-page">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BookSuite – Login</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
 
-<div class="login-box">
-  <img src="assets/booksuite-logo.png" class="login-logo">
+  <body>
+    <header class="top-bar">
+      <div class="logo-wrap">
+        <img src="assets/booksuite-logo.PNG" alt="BookSuite logo" class="logo" />
+      </div>
+    </header>
 
-  <h2>Portal Login</h2>
+    <main class="auth-page">
+      <div class="auth-card">
+        <h2>Login to your portal</h2>
 
-  <input type="text" placeholder="Business Code">
-  <input type="email" placeholder="Email">
-  <input type="password" placeholder="Password">
+        <form
+          onsubmit="event.preventDefault(); window.location.href='portal.html';"
+        >
+          <label>Email</label>
+          <input type="email" placeholder="you@company.com" />
 
-  <button class="primary-btn full">Login</button>
-</div>
+          <label>Password</label>
+          <input type="password" placeholder="••••••••" />
 
-</body>
+          <label>Business Code</label>
+          <input type="text" placeholder="e.g. BS-92KF3" />
+
+          <button class="btn primary auth-btn">Login to portal</button>
+        </form>
+      </div>
+    </main>
+  </body>
 </html>
