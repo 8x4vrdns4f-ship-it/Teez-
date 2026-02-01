@@ -1,228 +1,88 @@
-/* =========================
-   BASE STYLES (UNCHANGED)
-   ========================= */
+/* ===============================
+   PORTAL (SCOPED – SAFE)
+================================ */
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: Inter, system-ui, sans-serif;
-  background: radial-gradient(circle at top left, #0b1f3a, #020814 70%);
-  color: #eaf2ff;
-}
-
-/* HEADER */
-.top-bar {
+.portal {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 36px;
+  min-height: 100vh;
+  background: radial-gradient(1200px 600px at 10% 10%, #0f1c2e, #060b13);
+  font-family: 'Inter', sans-serif;
+  color: #e8f1ff;
 }
 
-.logo {
-  height: 180px;
+/* Sidebar */
+.portal-sidebar {
+  width: 260px;
+  background: rgba(8, 14, 25, 0.9);
+  border-right: 1px solid rgba(255,255,255,0.06);
+  padding: 24px;
 }
 
-.login-link {
-  color: #5ec2ff;
-  text-decoration: none;
-  font-weight: 500;
-}
-
-/* HERO */
-.hero {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  padding: 80px 48px;
-  gap: 40px;
-}
-
-.hero-left {
-  max-width: 520px;
-}
-
-.hero-title {
-  font-size: 64px;
-  font-weight: 800;
-  margin-bottom: 20px;
-}
-
-.brand-b,
-.brand-s {
-  color: #5ec2ff;
-}
-
-.hero-desc {
-  font-size: 18px;
-  color: #b9c7da;
+.portal-logo img {
+  width: 160px;
+  height: auto;
   margin-bottom: 32px;
 }
 
-.hero-buttons {
-  display: flex;
-  gap: 16px;
-}
-
-.btn {
-  padding: 12px 22px;
-  border-radius: 10px;
-  font-size: 16px;
-  cursor: pointer;
-  text-decoration: none;
-}
-
-.btn.primary {
-  background: #5ec2ff;
-  color: #00101f;
-  border: none;
-}
-
-.btn.outline {
-  background: transparent;
-  color: #5ec2ff;
-  border: 1px solid #5ec2ff;
-}
-
-/* =========================
-   AUTH (LOGIN PAGE ONLY)
-   ========================= */
-
-.auth-page {
-  min-height: calc(100vh - 120px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.auth-card {
-  width: 100%;
-  max-width: 420px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 16px;
-  padding: 32px;
-}
-
-.auth-card label {
+/* Nav */
+.portal-nav a {
   display: block;
-  margin-bottom: 6px;
-  font-size: 14px;
-  color: #b9c7da;
-}
-
-.auth-card input {
-  width: 100%;
-  padding: 12px;
-  margin-bottom: 18px;
-  border-radius: 8px;
-  border: none;
-  background: rgba(255, 255, 255, 0.08);
-  color: #eaf2ff;
-}
-
-/* =========================
-   PORTAL SIDEBAR LAYOUT
-   ========================= */
-
-.portal-layout {
-  display: flex;
-  min-height: 100vh;
-}
-
-.portal-sidebar {
-  width: 260px;
-  background: rgba(255, 255, 255, 0.03);
-  border-right: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 32px 20px;
-  display: flex;
-  flex-direction: column;
-}
-
-.portal-logo {
-  height: 100px;
-  margin-bottom: 40px;
-}
-
-.portal-nav {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  flex: 1;
-}
-
-.portal-link {
   padding: 10px 14px;
+  margin-bottom: 6px;
   border-radius: 10px;
-  cursor: pointer;
-  color: #b9c7da;
-}
-
-.portal-link.active,
-.portal-link:hover {
-  background: rgba(94, 194, 255, 0.15);
-  color: #5ec2ff;
-}
-
-.portal-logout {
-  margin-top: auto;
-  color: #7f8fa3;
+  color: #b8c7e0;
   text-decoration: none;
-  font-size: 14px;
+  cursor: pointer;
 }
 
-/* MAIN AREA */
+.portal-nav a:hover,
+.portal-nav a.active {
+  background: rgba(100,180,255,0.12);
+  color: #ffffff;
+}
+
+/* Main */
 .portal-main {
   flex: 1;
   padding: 48px;
 }
 
-.portal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 40px;
-}
-
+/* Header */
 .portal-header h1 {
-  font-size: 36px;
+  margin: 0;
+  font-size: 32px;
 }
 
-.portal-business {
-  color: #b9c7da;
+.business-name {
+  opacity: 0.7;
   font-size: 14px;
 }
 
-/* STATS */
+/* Cards */
 .portal-cards {
+  margin-top: 32px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 24px;
-  margin-bottom: 48px;
+  gap: 20px;
 }
 
-.portal-stat {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+.portal-card {
+  padding: 20px;
   border-radius: 16px;
-  padding: 24px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  font-size: 14px;
 }
 
-.stat-number {
-  font-size: 32px;
-  font-weight: 700;
-  margin-top: 12px;
-  color: #5ec2ff;
+.portal-card strong {
+  display: block;
+  font-size: 26px;
+  margin-top: 6px;
 }
 
-/* ACTIONS */
-.portal-section h2 {
-  margin-bottom: 16px;
-}
-
+/* Actions */
 .portal-actions {
+  margin-top: 36px;
   display: flex;
   gap: 16px;
 }
