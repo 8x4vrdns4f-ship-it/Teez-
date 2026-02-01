@@ -1,88 +1,136 @@
-/* ===============================
-   PORTAL (SCOPED – SAFE)
-================================ */
+/* =========================
+   BASE STYLES (UNCHANGED)
+   ========================= */
 
-.portal {
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Inter, system-ui, sans-serif;
+  background: radial-gradient(circle at top left, #0b1f3a, #020814 70%);
+  color: #eaf2ff;
+}
+
+/* HEADER */
+.top-bar {
   display: flex;
-  min-height: 100vh;
-  background: radial-gradient(1200px 600px at 10% 10%, #0f1c2e, #060b13);
-  font-family: 'Inter', sans-serif;
-  color: #e8f1ff;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 36px;
 }
 
-/* Sidebar */
-.portal-sidebar {
-  width: 260px;
-  background: rgba(8, 14, 25, 0.9);
-  border-right: 1px solid rgba(255,255,255,0.06);
-  padding: 24px;
+.logo {
+  height: 180px;
 }
 
-.portal-logo img {
-  width: 160px;
-  height: auto;
+.login-link {
+  color: #5ec2ff;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+/* HERO */
+.hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 80px 48px;
+  gap: 40px;
+}
+
+.hero-left {
+  max-width: 520px;
+}
+
+.hero-title {
+  font-size: 64px;
+  font-weight: 800;
+  margin-bottom: 20px;
+}
+
+.brand-b,
+.brand-s {
+  color: #5ec2ff;
+}
+
+.hero-desc {
+  font-size: 18px;
+  color: #b9c7da;
   margin-bottom: 32px;
 }
 
-/* Nav */
-.portal-nav a {
-  display: block;
-  padding: 10px 14px;
-  margin-bottom: 6px;
-  border-radius: 10px;
-  color: #b8c7e0;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.portal-nav a:hover,
-.portal-nav a.active {
-  background: rgba(100,180,255,0.12);
-  color: #ffffff;
-}
-
-/* Main */
-.portal-main {
-  flex: 1;
-  padding: 48px;
-}
-
-/* Header */
-.portal-header h1 {
-  margin: 0;
-  font-size: 32px;
-}
-
-.business-name {
-  opacity: 0.7;
-  font-size: 14px;
-}
-
-/* Cards */
-.portal-cards {
-  margin-top: 32px;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 20px;
-}
-
-.portal-card {
-  padding: 20px;
-  border-radius: 16px;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.08);
-  font-size: 14px;
-}
-
-.portal-card strong {
-  display: block;
-  font-size: 26px;
-  margin-top: 6px;
-}
-
-/* Actions */
-.portal-actions {
-  margin-top: 36px;
+.hero-buttons {
   display: flex;
   gap: 16px;
+}
+
+.btn {
+  padding: 12px 22px;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn.primary {
+  background: #5ec2ff;
+  color: #00101f;
+  border: none;
+}
+
+.btn.outline {
+  background: transparent;
+  color: #5ec2ff;
+  border: 1px solid #5ec2ff;
+}
+
+/* VIDEO */
+.video-placeholder {
+  width: 100%;
+  max-width: 520px;
+  height: 300px;
+  border-radius: 16px;
+  border: 2px dashed rgba(94, 194, 255, 0.6);
+}
+
+/* INFO CARDS */
+.info-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  padding: 80px 48px;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 16px;
+  padding: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* SYSTEM FLOW */
+.system-flow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 48px;
+  gap: 24px;
+}
+
+/* BEFORE / AFTER */
+.before-after {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 80px 48px;
+  gap: 40px;
+}
+
+/* CONTACT */
+.contact-section {
+  padding: 100px 48px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.02);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
