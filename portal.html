@@ -1,71 +1,52 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BookSuite – Portal</title>
-    <link rel="stylesheet" href="styles.css" />
-  </head>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BookSuite – Portal</title>
 
-  <body class="portal-body">
-    <div class="portal-layout">
-      <!-- SIDEBAR -->
-      <aside class="portal-sidebar">
-        <div class="portal-brand">
-          <img src="assets/booksuite-logo.PNG" alt="BookSuite" />
-        </div>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
 
-        <nav class="portal-nav">
-          <a class="portal-link active">📊 Overview</a>
-          <a class="portal-link">📅 Calendar</a>
-          <a class="portal-link">📥 Bookings</a>
-          <a class="portal-link">👥 Staff</a>
-          <a class="portal-link">⏱ Shifts</a>
-          <a class="portal-link">💰 Payments</a>
-          <a class="portal-link">⭐ Reviews</a>
-          <a class="portal-link">⚙️ Settings</a>
-        </nav>
+<body class="portal">
 
-        <a href="index.html" class="portal-logout">Logout</a>
-      </aside>
-
-      <!-- MAIN -->
-      <main class="portal-main">
-        <header class="portal-header">
-          <div>
-            <h1>Business Overview</h1>
-            <span class="portal-business">Demo Business</span>
-          </div>
-        </header>
-
-        <section class="portal-stats">
-          <div class="portal-stat">
-            <span>Today’s Bookings</span>
-            <strong>12</strong>
-          </div>
-
-          <div class="portal-stat">
-            <span>Active Staff</span>
-            <strong>6</strong>
-          </div>
-
-          <div class="portal-stat">
-            <span>Pending Requests</span>
-            <strong>3</strong>
-          </div>
-
-          <div class="portal-stat">
-            <span>Revenue (Today)</span>
-            <strong>£420</strong>
-          </div>
-        </section>
-
-        <section class="portal-actions">
-          <button class="btn primary">View Calendar</button>
-          <button class="btn outline">Manage Staff</button>
-          <button class="btn outline">Review Bookings</button>
-        </section>
-      </main>
+  <aside class="portal-sidebar">
+    <div class="portal-logo">
+      <img src="assets/booksuite-logo.PNG" alt="BookSuite">
     </div>
-  </body>
+
+    <nav class="portal-nav">
+      <a class="active">📊 Overview</a>
+      <a>📅 Calendar</a>
+      <a>📥 Bookings</a>
+      <a>👥 Staff</a>
+      <a>⏱ Shifts</a>
+      <a>💰 Payments</a>
+      <a>⭐ Reviews</a>
+      <a>⚙️ Settings</a>
+    </nav>
+  </aside>
+
+  <main class="portal-main">
+    <header class="portal-header">
+      <h1>Business Overview</h1>
+      <span class="business-name">Demo Business</span>
+    </header>
+
+    <section class="portal-cards">
+      <div class="portal-card">Today’s Bookings <strong>12</strong></div>
+      <div class="portal-card">Active Staff <strong>6</strong></div>
+      <div class="portal-card">Pending Requests <strong>3</strong></div>
+      <div class="portal-card">Revenue Today <strong>£420</strong></div>
+    </section>
+
+    <section class="portal-actions">
+      <button class="btn btn-primary">View Calendar</button>
+      <button class="btn btn-ghost">Manage Staff</button>
+      <button class="btn btn-ghost">Review Bookings</button>
+    </section>
+  </main>
+
+</body>
 </html>
