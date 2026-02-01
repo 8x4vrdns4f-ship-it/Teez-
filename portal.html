@@ -7,15 +7,13 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
 
-  <body>
+  <body class="portal-body">
     <div class="portal-layout">
       <!-- SIDEBAR -->
       <aside class="portal-sidebar">
-        <img
-          src="assets/booksuite-logo.PNG"
-          alt="BookSuite logo"
-          class="logo portal-logo"
-        />
+        <div class="portal-brand">
+          <img src="assets/booksuite-logo.PNG" alt="BookSuite" />
+        </div>
 
         <nav class="portal-nav">
           <a class="portal-link active">📊 Overview</a>
@@ -31,43 +29,41 @@
         <a href="index.html" class="portal-logout">Logout</a>
       </aside>
 
-      <!-- MAIN CONTENT -->
+      <!-- MAIN -->
       <main class="portal-main">
         <header class="portal-header">
-          <h1>Business Overview</h1>
-          <span class="portal-business">Demo Business</span>
+          <div>
+            <h1>Business Overview</h1>
+            <span class="portal-business">Demo Business</span>
+          </div>
         </header>
 
-        <section class="portal-cards">
+        <section class="portal-stats">
           <div class="portal-stat">
-            <h3>Today’s Bookings</h3>
-            <p class="stat-number">12</p>
+            <span>Today’s Bookings</span>
+            <strong>12</strong>
           </div>
 
           <div class="portal-stat">
-            <h3>Active Staff</h3>
-            <p class="stat-number">6</p>
+            <span>Active Staff</span>
+            <strong>6</strong>
           </div>
 
           <div class="portal-stat">
-            <h3>Pending Requests</h3>
-            <p class="stat-number">3</p>
+            <span>Pending Requests</span>
+            <strong>3</strong>
           </div>
 
           <div class="portal-stat">
-            <h3>Revenue (Today)</h3>
-            <p class="stat-number">£420</p>
+            <span>Revenue (Today)</span>
+            <strong>£420</strong>
           </div>
         </section>
 
-        <section class="portal-section">
-          <h2>Quick Actions</h2>
-
-          <div class="portal-actions">
-            <button class="btn primary">View Calendar</button>
-            <button class="btn outline">Manage Staff</button>
-            <button class="btn outline">Review Bookings</button>
-          </div>
+        <section class="portal-actions">
+          <button class="btn primary">View Calendar</button>
+          <button class="btn outline">Manage Staff</button>
+          <button class="btn outline">Review Bookings</button>
         </section>
       </main>
     </div>
