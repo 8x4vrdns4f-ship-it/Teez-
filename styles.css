@@ -1,136 +1,149 @@
-/* =========================
-   BASE STYLES (UNCHANGED)
-   ========================= */
-
+/* Base reset */
 * {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 body {
-  font-family: Inter, system-ui, sans-serif;
-  background: radial-gradient(circle at top left, #0b1f3a, #020814 70%);
-  color: #eaf2ff;
+  background: radial-gradient(circle at top left, #0b2a44, #020814);
+  color: #e6f1ff;
+  min-height: 100vh;
 }
 
-/* HEADER */
+/* Top bar */
 .top-bar {
+  height: 56px;
+  background: linear-gradient(90deg, #2a0b45, #3a0f5f);
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 20px 36px;
+  padding: 0 20px;
 }
 
-.logo {
-  height: 180px;
-}
-
-.login-link {
-  color: #5ec2ff;
-  text-decoration: none;
-  font-weight: 500;
-}
-
-/* HERO */
-.hero {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  padding: 80px 48px;
-  gap: 40px;
-}
-
-.hero-left {
-  max-width: 520px;
-}
-
-.hero-title {
-  font-size: 64px;
-  font-weight: 800;
-  margin-bottom: 20px;
-}
-
-.brand-b,
-.brand-s {
-  color: #5ec2ff;
-}
-
-.hero-desc {
-  font-size: 18px;
-  color: #b9c7da;
-  margin-bottom: 32px;
-}
-
-.hero-buttons {
+/* Logo */
+.logo-wrap {
   display: flex;
-  gap: 16px;
+  align-items: center;
+  gap: 10px;
 }
 
+.logo-wrap img {
+  height: 28px;
+}
+
+.logo-wrap span {
+  font-size: 20px;
+  font-weight: 600;
+  color: #7fd3ff;
+}
+
+/* Buttons */
 .btn {
-  padding: 12px 22px;
-  border-radius: 10px;
-  font-size: 16px;
+  padding: 10px 18px;
+  border-radius: 8px;
+  border: 1px solid #5bbcff;
+  background: transparent;
+  color: #7fd3ff;
   cursor: pointer;
-  text-decoration: none;
 }
 
 .btn.primary {
-  background: #5ec2ff;
-  color: #00101f;
+  background: #5bbcff;
+  color: #00131f;
   border: none;
 }
 
-.btn.outline {
-  background: transparent;
-  color: #5ec2ff;
-  border: 1px solid #5ec2ff;
+/* Hero */
+.hero {
+  padding: 80px 60px;
+  max-width: 1200px;
 }
 
-/* VIDEO */
-.video-placeholder {
-  width: 100%;
-  max-width: 520px;
-  height: 300px;
-  border-radius: 16px;
-  border: 2px dashed rgba(94, 194, 255, 0.6);
+.hero h1 {
+  font-size: 56px;
+  margin-bottom: 16px;
 }
 
-/* INFO CARDS */
-.info-cards {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-  padding: 80px 48px;
+.hero p {
+  font-size: 18px;
+  opacity: 0.85;
+  margin-bottom: 30px;
 }
 
-.card {
-  background: rgba(255, 255, 255, 0.04);
-  border-radius: 16px;
-  padding: 24px;
-  border: 1px solid rgba(255, 255, 255, 0.06);
-}
-
-/* SYSTEM FLOW */
-.system-flow {
+.hero-actions {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 80px 48px;
-  gap: 24px;
+  gap: 14px;
+  margin-bottom: 50px;
 }
 
-/* BEFORE / AFTER */
-.before-after {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  padding: 80px 48px;
-  gap: 40px;
+/* Sections */
+.section {
+  max-width: 1200px;
+  padding: 40px 60px;
 }
 
-/* CONTACT */
-.contact-section {
-  padding: 100px 48px;
-  text-align: center;
-  background: rgba(255, 255, 255, 0.02);
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+.section-divider {
+  height: 1px;
+  background: rgba(255,255,255,0.08);
+  margin: 40px 60px;
+}
+
+/* Lists */
+.feature-list {
+  list-style: none;
+  margin-top: 16px;
+}
+
+.feature-list li {
+  margin-bottom: 10px;
+  opacity: 0.85;
+}
+
+/* Positives / negatives */
+.compare {
+  display: flex;
+  gap: 80px;
+  margin-top: 30px;
+}
+
+.compare ul {
+  list-style: none;
+}
+
+.compare li {
+  margin-bottom: 10px;
+}
+
+.good li::before {
+  content: "✔ ";
+  color: #3cff9e;
+}
+
+.bad li::before {
+  content: "✖ ";
+  color: #ff5b5b;
+}
+
+/* Email capture */
+.email-box {
+  display: flex;
+  gap: 14px;
+  margin-top: 30px;
+}
+
+.email-box input {
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  min-width: 260px;
+}
+
+.email-box button {
+  padding: 12px 20px;
+  border-radius: 8px;
+  border: none;
+  background: #5bbcff;
+  color: #00131f;
+  cursor: pointer;
 }
