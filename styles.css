@@ -1,53 +1,64 @@
-:root {
-  --bg-main: linear-gradient(135deg, #050b1a, #0a1f3a);
-  --accent: #66ccff;
-  --text-main: #e6f0ff;
-  --muted: #a8b3cf;
-  --divider: rgba(255,255,255,0.08);
-}
+/* =========================
+   BASE STYLES (UNCHANGED)
+   ========================= */
 
 * {
-  box-sizing: border-box;
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  background: var(--bg-main);
-  color: var(--text-main);
-  line-height: 1.6;
+  font-family: Inter, system-ui, sans-serif;
+  background: radial-gradient(circle at top left, #0b1f3a, #020814 70%);
+  color: #eaf2ff;
 }
 
-/* ===== HEADER ===== */
-header {
-  padding: 20px 40px;
+/* HEADER */
+.top-bar {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 20px 36px;
 }
 
-header a {
-  color: var(--accent);
+.logo {
+  height: 180px;
+}
+
+.login-link {
+  color: #5ec2ff;
   text-decoration: none;
   font-weight: 500;
 }
 
-/* ===== HERO ===== */
+/* HERO */
 .hero {
-  padding: 120px 40px 80px;
-  max-width: 1200px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 80px 48px;
+  gap: 40px;
 }
 
-.hero h1 {
-  font-size: 3rem;
-  margin-bottom: 16px;
-}
-
-.hero p {
+.hero-left {
   max-width: 520px;
-  color: var(--muted);
-  margin-bottom: 28px;
+}
+
+.hero-title {
+  font-size: 64px;
+  font-weight: 800;
+  margin-bottom: 20px;
+}
+
+.brand-b,
+.brand-s {
+  color: #5ec2ff;
+}
+
+.hero-desc {
+  font-size: 18px;
+  color: #b9c7da;
+  margin-bottom: 32px;
 }
 
 .hero-buttons {
@@ -57,87 +68,115 @@ header a {
 
 .btn {
   padding: 12px 22px;
-  border-radius: 8px;
-  border: none;
+  border-radius: 10px;
+  font-size: 16px;
   cursor: pointer;
-  font-size: 0.95rem;
+  text-decoration: none;
 }
 
-.btn-primary {
-  background: var(--accent);
-  color: #00111f;
+.btn.primary {
+  background: #5ec2ff;
+  color: #00101f;
+  border: none;
 }
 
-.btn-secondary {
+.btn.outline {
   background: transparent;
-  border: 1px solid var(--accent);
-  color: var(--accent);
+  color: #5ec2ff;
+  border: 1px solid #5ec2ff;
 }
 
-/* ===== DIVIDER ===== */
-.section-divider {
-  height: 1px;
-  background: var(--divider);
-  margin: 80px 0;
+/* VIDEO */
+.video-placeholder {
+  width: 100%;
+  max-width: 520px;
+  height: 300px;
+  border-radius: 16px;
+  border: 2px dashed rgba(94, 194, 255, 0.6);
 }
 
-/* ===== FEATURES ===== */
-.section {
-  padding: 0 40px 80px;
-  max-width: 1200px;
+/* INFO CARDS */
+.info-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  padding: 80px 48px;
 }
 
-.section h3 {
-  margin-bottom: 8px;
+.card {
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 16px;
+  padding: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-.section p {
-  color: var(--muted);
-  max-width: 600px;
-}
-
-/* ===== EMAIL ===== */
-.email-signup {
-  margin-top: 40px;
+/* SYSTEM FLOW */
+.system-flow {
   display: flex;
-  gap: 12px;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 48px;
+  gap: 24px;
 }
 
-.email-signup input {
-  padding: 12px;
-  border-radius: 6px;
-  border: none;
-  width: 260px;
+.flow-item {
+  text-align: center;
 }
 
-.email-signup button {
-  padding: 12px 20px;
-  border-radius: 6px;
-  background: var(--accent);
-  border: none;
-  cursor: pointer;
+.flow-icon {
+  font-size: 42px;
+  margin-bottom: 10px;
 }
 
-/* ===== MOBILE ===== */
-@media (max-width: 768px) {
-  .hero {
-    padding: 80px 20px;
-  }
+.flow-line {
+  width: 60px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.25);
+}
 
-  .hero h1 {
-    font-size: 2.2rem;
-  }
+/* BEFORE / AFTER */
+.before-after {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 80px 48px;
+  gap: 40px;
+}
 
-  .hero-buttons {
-    flex-direction: column;
-    width: fit-content;
-  }
+.before {
+  color: #9aa6b2;
+}
 
-  header {
-    padding: 20px;
-  }
+.after {
+  color: #5ec2ff;
+}
 
-  .section {
-    padding: 0 20px 60px;
-  }
+.before ul,
+.after ul {
+  list-style: none;
+  font-size: 18px;
+  line-height: 2.2;
+}
+
+/* CONTACT */
+.contact-section {
+  padding: 100px 48px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.02);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.contact-section h2 {
+  font-size: 36px;
+  margin-bottom: 12px;
+}
+
+.contact-section p {
+  color: #b9c7da;
+  margin-bottom: 18px;
+  font-size: 18px;
+}
+
+.contact-email {
+  font-weight: 500;
+  color: #5ec2ff;
 }
