@@ -2,36 +2,49 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>BookSuite – Portal</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BookSuite – Portal</title>
   <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
+  <header class="top-bar">
+    <div class="logo-wrap">
+      <img src="assets/booksuite-logo.PNG" alt="BookSuite logo">
+      <span>BookSuite</span>
+    </div>
+    <a href="index.html" class="login-link">logout</a>
+  </header>
 
-<header class="top-bar">
-  <div class="logo-wrap">
-    <img src="assets/booksuite-logo.PNG">
-    <span>BookSuite – Portal</span>
+  <div class="portal-layout">
+    <aside class="sidebar">
+      📊 Overview<br>
+      📅 Calendar<br>
+      📦 Bookings<br>
+      👥 Staff<br>
+      ⏱ Shifts<br>
+      💰 Payments<br>
+      ⭐ Reviews<br>
+      ⚙ Settings
+    </aside>
+
+    <main class="portal-main">
+      <h1>Business Overview</h1>
+      <p>Demo Business</p>
+
+      <div class="stats">
+        <div>Today's Bookings<br><strong>12</strong></div>
+        <div>Active Staff<br><strong>6</strong></div>
+        <div>Pending Requests<br><strong>3</strong></div>
+        <div>Revenue (Today)<br><strong>£420</strong></div>
+      </div>
+
+      <div class="actions">
+        <button class="primary">View Calendar</button>
+        <button class="secondary">Manage Staff</button>
+        <button class="secondary">Review Bookings</button>
+      </div>
+    </main>
   </div>
-</header>
-
-<section class="section">
-  <h1>Business Overview</h1>
-  <p>Demo Business</p>
-
-  <ul class="feature-list">
-    <li>Today's Bookings: 12</li>
-    <li>Active Staff: 6</li>
-    <li>Pending Requests: 3</li>
-    <li>Revenue Today: £420</li>
-  </ul>
-
-  <div class="hero-actions">
-    <button class="btn primary">View Calendar</button>
-    <button class="btn">Manage Staff</button>
-    <button class="btn">Review Bookings</button>
-  </div>
-</section>
-
 </body>
 </html>
