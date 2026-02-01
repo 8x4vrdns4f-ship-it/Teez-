@@ -1,15 +1,20 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>BookSuite – Portal</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <!-- BASE (landing-safe) -->
   <link rel="stylesheet" href="styles.css">
+
+  <!-- PORTAL ONLY -->
+  <link rel="stylesheet" href="portal.css">
 </head>
 
-<body class="portal">
+<body class="portal-root">
 
   <aside class="portal-sidebar">
     <div class="portal-logo">
@@ -31,14 +36,14 @@
   <main class="portal-main">
     <header class="portal-header">
       <h1>Business Overview</h1>
-      <span class="business-name">Demo Business</span>
+      <span>Demo Business</span>
     </header>
 
-    <section class="portal-cards">
-      <div class="portal-card">Today’s Bookings <strong>12</strong></div>
-      <div class="portal-card">Active Staff <strong>6</strong></div>
-      <div class="portal-card">Pending Requests <strong>3</strong></div>
-      <div class="portal-card">Revenue Today <strong>£420</strong></div>
+    <section class="portal-stats">
+      <div class="stat">Today’s Bookings <strong>12</strong></div>
+      <div class="stat">Active Staff <strong>6</strong></div>
+      <div class="stat">Pending Requests <strong>3</strong></div>
+      <div class="stat">Revenue Today <strong>£420</strong></div>
     </section>
 
     <section class="portal-actions">
