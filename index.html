@@ -1,102 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BookSuite</title>
-    <link rel="stylesheet" href="styles.css" />
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BookSuite</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
 
-  <body>
-    <header class="top-bar">
-      <div class="logo-wrap">
-        <img
-          src="assets/booksuite-logo.PNG"
-          alt="BookSuite logo"
-          class="logo"
-        />
-      </div>
+<body>
 
-      <a href="login.html" class="login-link">login</a>
-    </header>
+<header class="top-bar">
+  <div class="logo-wrap">
+    <img src="assets/booksuite-logo.PNG" alt="BookSuite logo" />
+    <span>BookSuite</span>
+  </div>
+  <a href="login.html" class="login-link">login</a>
+</header>
 
-    <main class="hero">
-      <div class="hero-left">
-        <h1 class="hero-title">
-          <span class="brand-b">B</span>ook<span class="brand-s">S</span>uite
-        </h1>
+<main class="hero">
 
-        <p class="hero-desc">
-          Bookings, Clients, and Staff schedules, all in one place
-        </p>
+  <div class="hero-left">
+    <h1><span>Book</span>Suite</h1>
+    <p>Bookings, Clients, and Staff schedules, all in one place</p>
 
-        <div class="hero-buttons">
-          <button class="btn primary">try now</button>
-          <button class="btn outline">explore</button>
-        </div>
-      </div>
+    <div class="hero-buttons">
+      <button class="primary">try now</button>
+      <button class="secondary">explore</button>
+    </div>
+  </div>
 
-      <div class="hero-right">
-        <div class="video-placeholder"></div>
-      </div>
-    </main>
+  <!-- ARROW + TEXT -->
+  <div class="arrow-wrapper" id="arrowSection">
+    <div class="arrow-text">Watch a quick product walkthrough</div>
 
-    <section class="info-cards">
-      <div class="card">
-        <h3>for businesses</h3>
-        <p>accept bookings, deposits, and manage staff schedules easily.</p>
-      </div>
+    <svg class="draw-arrow" viewBox="0 0 300 200">
+      <path
+        d="M10 180 C120 120, 160 80, 230 60"
+        fill="none"
+        stroke="#7fd9ff"
+        stroke-width="3"
+        stroke-linecap="round"
+      />
+      <polyline
+        points="220,55 240,60 225,75"
+        fill="none"
+        stroke="#7fd9ff"
+        stroke-width="3"
+        stroke-linecap="round"
+      />
+    </svg>
+  </div>
 
-      <div class="card">
-        <h3>for staff</h3>
-        <p>view bookings, receive check-in alerts, and track job progress.</p>
-      </div>
+  <!-- VIDEO PLACEHOLDER -->
+  <div class="video-box">
+    <span>Explainer video</span>
+  </div>
 
-      <div class="card">
-        <h3>for clients</h3>
-        <p>get confirmations, receipts, qr codes, and reminders.</p>
-      </div>
-    </section>
+</main>
 
-    <section class="system-flow">
-      <div class="flow-item"><div class="flow-icon">📅</div><span>Bookings</span></div>
-      <div class="flow-line"></div>
-      <div class="flow-item"><div class="flow-icon">👤</div><span>Clients</span></div>
-      <div class="flow-line"></div>
-      <div class="flow-item"><div class="flow-icon">🧑‍💼</div><span>Staff</span></div>
-      <div class="flow-line"></div>
-      <div class="flow-item"><div class="flow-icon">⚙️</div><span>Automation</span></div>
-      <div class="flow-line"></div>
-      <div class="flow-item"><div class="flow-icon">📊</div><span>Control</span></div>
-    </section>
+<section class="feature-cards">
+  <div class="card">
+    <h3>for businesses</h3>
+    <p>accept bookings, deposits, and manage staff schedules easily.</p>
+  </div>
 
-    <section class="before-after">
-      <div class="before">
-        <ul>
-          <li>❌ missed bookings</li>
-          <li>❌ double-booked staff</li>
-          <li>❌ manual follow-ups</li>
-          <li>❌ admin chaos</li>
-          <li>❌ no clear overview</li>
-        </ul>
-      </div>
+  <div class="card">
+    <h3>for staff</h3>
+    <p>view bookings, receive check-in alerts, and track job progress.</p>
+  </div>
 
-      <div class="after">
-        <ul>
-          <li>✅ automated bookings</li>
-          <li>✅ synced staff schedules</li>
-          <li>✅ reminders sent</li>
-          <li>✅ hours saved weekly</li>
-          <li>✅ calm dashboard</li>
-        </ul>
-      </div>
-    </section>
+  <div class="card">
+    <h3>for clients</h3>
+    <p>get confirmations, receipts, qr codes, and reminders.</p>
+  </div>
+</section>
 
-    <section class="contact-section">
-      <h2>Need help or have a question?</h2>
-      <p>If you have any questions or enquiries, feel free to get in touch.</p>
-      <p class="contact-email">mngr.booksuite@outlook.com</p>
-      <a href="mailto:mngr.booksuite@outlook.com" class="btn primary">email us</a>
-    </section>
-  </body>
+<script>
+  const arrow = document.querySelector('.draw-arrow');
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        arrow.classList.add('animate');
+      }
+    });
+  }, { threshold: 0.5 });
+
+  observer.observe(document.getElementById('arrowSection'));
+</script>
+
+</body>
 </html>
