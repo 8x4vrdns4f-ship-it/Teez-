@@ -29,31 +29,31 @@
     </div>
   </div>
 
-  <!-- ARROW + TEXT -->
-  <div class="arrow-wrapper" id="arrowSection">
+  <!-- VIDEO BOX -->
+  <div class="video-box" id="videoBox">
+    <span>Explainer video</span>
+  </div>
+
+  <!-- ARROW OVERLAY -->
+  <div class="arrow-overlay" id="arrowOverlay">
     <div class="arrow-text">Watch a quick product walkthrough</div>
 
-    <svg class="draw-arrow" viewBox="0 0 300 200">
+    <svg viewBox="0 0 320 200">
       <path
-        d="M10 180 C120 120, 160 80, 230 60"
+        d="M20 160 C140 120, 190 90, 270 60"
         fill="none"
         stroke="#7fd9ff"
         stroke-width="3"
         stroke-linecap="round"
       />
       <polyline
-        points="220,55 240,60 225,75"
+        points="260,55 285,60 265,80"
         fill="none"
         stroke="#7fd9ff"
         stroke-width="3"
         stroke-linecap="round"
       />
     </svg>
-  </div>
-
-  <!-- VIDEO PLACEHOLDER -->
-  <div class="video-box">
-    <span>Explainer video</span>
   </div>
 
 </main>
@@ -76,7 +76,7 @@
 </section>
 
 <script>
-  const arrow = document.querySelector('.draw-arrow');
+  const arrow = document.querySelector('.arrow-overlay svg');
 
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
@@ -84,9 +84,9 @@
         arrow.classList.add('animate');
       }
     });
-  }, { threshold: 0.5 });
+  }, { threshold: 0.4 });
 
-  observer.observe(document.getElementById('arrowSection'));
+  observer.observe(document.getElementById('videoBox'));
 </script>
 
 </body>
