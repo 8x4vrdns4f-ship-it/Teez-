@@ -6,18 +6,17 @@
   <title>BookSuite</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
-
 <body>
 
 <header class="top-bar">
-  <div class="logo-wrap">
-    <img src="assets/booksuite-logo.PNG" alt="BookSuite logo" />
+  <div class="logo">
+    <img src="logo.svg" alt="BookSuite" />
     <span>BookSuite</span>
   </div>
   <a href="login.html" class="login-link">login</a>
 </header>
 
-<main class="hero">
+<section class="hero">
 
   <div class="hero-left">
     <h1><span>Book</span>Suite</h1>
@@ -29,65 +28,57 @@
     </div>
   </div>
 
-  <!-- VIDEO BOX -->
-  <div class="video-box" id="videoBox">
-    <span>Explainer video</span>
-  </div>
-
   <!-- ARROW OVERLAY -->
-  <div class="arrow-overlay" id="arrowOverlay">
+  <div class="arrow-overlay">
     <div class="arrow-text">Watch a quick product walkthrough</div>
 
-    <svg viewBox="0 0 320 200">
+    <svg
+      class="drawn-arrow"
+      viewBox="0 0 600 300"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
       <path
-        d="M20 160 C140 120, 190 90, 270 60"
-        fill="none"
-        stroke="#7fd9ff"
-        stroke-width="3"
+        d="M40 220 C180 140, 320 140, 460 80"
+        stroke="#7DD3FC"
+        stroke-width="4"
         stroke-linecap="round"
+        stroke-linejoin="round"
+        pathLength="1"
       />
-      <polyline
-        points="260,55 285,60 265,80"
-        fill="none"
-        stroke="#7fd9ff"
-        stroke-width="3"
+      <path
+        d="M450 70 L490 80 L455 105"
+        stroke="#7DD3FC"
+        stroke-width="4"
         stroke-linecap="round"
+        stroke-linejoin="round"
+        pathLength="1"
       />
     </svg>
   </div>
 
-</main>
+  <!-- VIDEO PLACEHOLDER -->
+  <div class="video-box">
+    <span>Explainer video</span>
+  </div>
 
-<section class="feature-cards">
+</section>
+
+<section class="cards">
   <div class="card">
     <h3>for businesses</h3>
     <p>accept bookings, deposits, and manage staff schedules easily.</p>
   </div>
-
   <div class="card">
     <h3>for staff</h3>
     <p>view bookings, receive check-in alerts, and track job progress.</p>
   </div>
-
   <div class="card">
     <h3>for clients</h3>
     <p>get confirmations, receipts, qr codes, and reminders.</p>
   </div>
 </section>
 
-<script>
-  const arrow = document.querySelector('.arrow-overlay svg');
-
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        arrow.classList.add('animate');
-      }
-    });
-  }, { threshold: 0.4 });
-
-  observer.observe(document.getElementById('videoBox'));
-</script>
-
+<script src="scroll-arrow.js"></script>
 </body>
 </html>
