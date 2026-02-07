@@ -1,71 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BookSuite – Portal</title>
-  <link rel="stylesheet" href="styles.css" />
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BookSuite – Portal</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
 
-<body>
+  <body>
+    <header class="top-bar">
+      <img src="assets/booksuite-logo.PNG" class="logo" />
+      <a href="index.html" class="login-link">logout</a>
+    </header>
 
-  <header class="top-bar">
-    <img src="assets/booksuite-logo.PNG" class="logo small" />
-    <a href="index.html" class="login-link">logout</a>
-  </header>
-
-  <main class="portal">
-
-    <div class="portal-header">
+    <main class="portal">
       <h1>Business Control Panel</h1>
-      <p class="portal-subtitle">Here’s what’s happening today</p>
-    </div>
 
-    <!-- STATS STRIP -->
-    <section class="portal-stats">
-      <div class="stat-card">
-        <span class="stat-number">12</span>
-        <span class="stat-label">Bookings</span>
+      <div class="portal-grid">
+        <div class="portal-card">Calendar</div>
+        <div class="portal-card">Bookings</div>
+        <div class="portal-card">Shifts</div>
+        <div class="portal-card">Staff</div>
+        <div class="portal-card">Payments</div>
+        <div class="portal-card">Reviews</div>
+        <div class="portal-card">Settings</div>
       </div>
-      <div class="stat-card">
-        <span class="stat-number">£1,240</span>
-        <span class="stat-label">Revenue</span>
-      </div>
-      <div class="stat-card">
-        <span class="stat-number">3</span>
-        <span class="stat-label">Staff on shift</span>
-      </div>
-      <div class="stat-card">
-        <span class="stat-number">0</span>
-        <span class="stat-label">Missed</span>
-      </div>
-    </section>
-
-    <!-- MAIN GRID -->
-    <section class="portal-columns">
-
-      <div class="portal-column">
-        <h2 class="column-title">Operations</h2>
-        <div class="portal-card">📅 Calendar</div>
-        <div class="portal-card">📥 Bookings</div>
-        <div class="portal-card">⏱ Shifts</div>
-        <div class="portal-card">👥 Staff</div>
-      </div>
-
-      <div class="portal-column">
-        <h2 class="column-title">Money</h2>
-        <div class="portal-card">💰 Payments</div>
-        <div class="portal-card">⭐ Reviews</div>
-      </div>
-
-      <div class="portal-column">
-        <h2 class="column-title">System</h2>
-        <div class="portal-card">⚙️ Settings</div>
-      </div>
-
-    </section>
-
-  </main>
-
-</body>
+    </main>
+  </body>
 </html>
