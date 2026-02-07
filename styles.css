@@ -1,7 +1,3 @@
-/* =========================
-   BASE STYLES
-   ========================= */
-
 * {
   margin: 0;
   padding: 0;
@@ -86,16 +82,7 @@ body {
   border: 1px solid #5ec2ff;
 }
 
-/* VIDEO */
-.video-placeholder {
-  width: 100%;
-  max-width: 520px;
-  height: 300px;
-  border-radius: 16px;
-  border: 2px dashed rgba(94, 194, 255, 0.6);
-}
-
-/* INFO CARDS */
+/* INFO */
 .info-cards {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -110,36 +97,18 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-/* SYSTEM FLOW */
-.system-flow {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 80px 48px;
-  gap: 24px;
-}
-
-.flow-item {
-  text-align: center;
-}
-
-.flow-icon {
-  font-size: 42px;
-  margin-bottom: 10px;
-}
-
-.flow-line {
-  width: 60px;
-  height: 1px;
-  background: rgba(255, 255, 255, 0.25);
-}
-
 /* COMPARISON */
 .before-after {
+  padding: 100px 0;
+  background: rgba(94, 194, 255, 0.06);
+}
+
+.comparison-inner {
+  max-width: 1100px;
+  margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  padding: 80px 48px;
-  gap: 40px;
+  gap: 80px;
   text-align: center;
 }
 
@@ -150,16 +119,18 @@ body {
 }
 
 .comparison-title {
-  font-size: 22px;
-  margin-bottom: 12px;
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  margin-bottom: 14px;
 }
 
 .comparison-line {
-  width: 60%;
+  width: 70%;
   height: 1px;
   border: none;
-  background: rgba(255, 255, 255, 0.25);
-  margin-bottom: 24px;
+  background: rgba(255, 255, 255, 0.3);
+  margin-bottom: 28px;
 }
 
 .before {
@@ -174,7 +145,7 @@ body {
 .after ul {
   list-style: none;
   font-size: 18px;
-  line-height: 2.2;
+  line-height: 2.3;
 }
 
 /* CONTACT */
