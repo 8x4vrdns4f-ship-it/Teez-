@@ -9,23 +9,25 @@
 
   <body>
     <header class="top-bar">
-      <img src="assets/booksuite-logo.PNG" class="logo" />
+      <img src="assets/booksuite-logo.PNG" class="logo small" />
     </header>
 
     <main class="auth-page">
       <div class="auth-card">
-        <h2>Login</h2>
+        <h2>Login to your portal</h2>
 
-        <label>Email</label>
-        <input type="email" placeholder="you@business.com" />
+        <form onsubmit="event.preventDefault(); window.location.href='portal.html';">
+          <label>Email</label>
+          <input type="email" placeholder="you@company.com" />
 
-        <label>Password</label>
-        <input type="password" placeholder="••••••••" />
+          <label>Password</label>
+          <input type="password" placeholder="••••••••" />
 
-        <label>Business Code</label>
-        <input type="text" placeholder="ABC123" />
+          <label>Business Code</label>
+          <input type="text" placeholder="BS-XXXXXX" />
 
-        <button class="btn primary auth-btn">login</button>
+          <button class="btn primary auth-btn">Login to portal</button>
+        </form>
       </div>
     </main>
   </body>
