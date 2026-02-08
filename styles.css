@@ -1,3 +1,7 @@
+/* =========================
+   BASE STYLES (UNCHANGED)
+   ========================= */
+
 * {
   margin: 0;
   padding: 0;
@@ -82,7 +86,16 @@ body {
   border: 1px solid #5ec2ff;
 }
 
-/* INFO */
+/* VIDEO */
+.video-placeholder {
+  width: 100%;
+  max-width: 520px;
+  height: 300px;
+  border-radius: 16px;
+  border: 2px dashed rgba(94, 194, 255, 0.6);
+}
+
+/* INFO CARDS */
 .info-cards {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -97,40 +110,36 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-/* COMPARISON */
-.before-after {
-  padding: 100px 0;
-  background: rgba(94, 194, 255, 0.06);
+/* SYSTEM FLOW */
+.system-flow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 48px;
+  gap: 24px;
 }
 
-.comparison-inner {
-  max-width: 1100px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
+.flow-item {
   text-align: center;
 }
 
-.comparison-column {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.flow-icon {
+  font-size: 42px;
+  margin-bottom: 10px;
 }
 
-.comparison-title {
-  font-size: 26px;
-  font-weight: 700;
-  letter-spacing: 0.4px;
-  margin-bottom: 14px;
-}
-
-.comparison-line {
-  width: 70%;
+.flow-line {
+  width: 60px;
   height: 1px;
-  border: none;
-  background: rgba(255, 255, 255, 0.3);
-  margin-bottom: 28px;
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* BEFORE / AFTER */
+.before-after {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 80px 48px;
+  gap: 40px;
 }
 
 .before {
@@ -145,7 +154,7 @@ body {
 .after ul {
   list-style: none;
   font-size: 18px;
-  line-height: 2.3;
+  line-height: 2.2;
 }
 
 /* CONTACT */
@@ -170,4 +179,95 @@ body {
 .contact-email {
   font-weight: 500;
   color: #5ec2ff;
+}
+
+/* =========================
+   AUTH (LOGIN PAGE ONLY)
+   ========================= */
+
+.auth-page {
+  min-height: calc(100vh - 120px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 32px;
+}
+
+.auth-card h2 {
+  margin-bottom: 24px;
+  font-size: 28px;
+}
+
+.auth-card label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 14px;
+  color: #b9c7da;
+}
+
+.auth-card input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 18px;
+  border-radius: 8px;
+  border: none;
+  background: rgba(255, 255, 255, 0.08);
+  color: #eaf2ff;
+}
+
+.auth-card input::placeholder {
+  color: #7f8fa3;
+}
+
+.auth-btn {
+  width: 100%;
+}
+
+/* Smaller logo ONLY for auth + portal */
+.auth-page .logo,
+.portal .logo {
+  height: 90px;
+}
+
+/* =========================
+   PORTAL (DASHBOARD ONLY)
+   ========================= */
+
+.portal {
+  padding: 60px 48px;
+}
+
+.portal h1 {
+  margin-bottom: 32px;
+  font-size: 36px;
+}
+
+.portal-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 24px;
+}
+
+.portal-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 32px;
+  text-align: center;
+  font-size: 18px;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.portal-card:hover {
+  transform: translateY(-6px);
+  background: rgba(255, 255, 255, 0.08);
 }
