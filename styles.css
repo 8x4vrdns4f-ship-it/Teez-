@@ -97,13 +97,13 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-/* SYSTEM FLOW – REFINED SIZE */
+/* SYSTEM FLOW */
 .system-flow {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 80px 48px;   /* reduced */
-  gap: 24px;            /* reduced */
+  padding: 80px 48px;
+  gap: 24px;
 }
 
 .flow-item {
@@ -111,17 +111,17 @@ body {
 }
 
 .flow-icon {
-  font-size: 40px;      /* reduced from 56 */
+  font-size: 40px;
   margin-bottom: 10px;
 }
 
 .flow-item span {
-  font-size: 16px;      /* reduced from 20 */
+  font-size: 16px;
   font-weight: 500;
 }
 
 .flow-line {
-  width: 56px;          /* reduced from 80 */
+  width: 56px;
   height: 1px;
   background: rgba(255, 255, 255, 0.25);
 }
@@ -140,6 +140,29 @@ body {
   grid-template-columns: 1fr 1fr;
   gap: 96px;
   text-align: center;
+}
+
+.comparison-title {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  letter-spacing: 0.3px;
+}
+
+.comparison-title.muted {
+  color: #9aa6b2;
+}
+
+.comparison-title.positive {
+  color: #5ec2ff;
+}
+
+.comparison-divider {
+  width: 60px;
+  height: 2px;
+  margin: 0 auto 24px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
 }
 
 .before {
