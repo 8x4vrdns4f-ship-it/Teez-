@@ -8,21 +8,31 @@
   </head>
 
   <body>
-    <header class="top-bar">
-      <img src="assets/booksuite-logo.PNG" class="logo small" />
-      <a href="index.html" class="login-link">logout</a>
+    <!-- TOP BAR -->
+    <header class="portal-top-bar">
+      <img src="assets/booksuite-logo.PNG" alt="BookSuite logo" class="logo small" />
+
+      <div class="portal-user">
+        <span class="user-name">John Smith</span>
+        <span class="user-company">Acme Barbers</span>
+      </div>
+
+      <a href="login.html" class="logout-btn">logout</a>
     </header>
 
+    <!-- DASHBOARD -->
     <main class="portal">
-      <h1>Business Control Panel</h1>
-
       <div class="portal-grid">
-        <div class="portal-card">📅 Calendar</div>
         <div class="portal-card">📥 Bookings</div>
+        <div class="portal-card">📅 Calendar</div>
+        <div class="portal-card">🗓 Schedule</div>
+
         <div class="portal-card">👥 Staff</div>
-        <div class="portal-card">⏱ Shifts</div>
-        <div class="portal-card">💰 Payments</div>
-        <div class="portal-card">⭐ Reviews</div>
+        <div class="portal-card">👤 Clients</div>
+        <div class="portal-card">✂️ Services</div>
+
+        <div class="portal-card">💳 Payments</div>
+        <div class="portal-card">📊 Reports</div>
         <div class="portal-card">⚙️ Settings</div>
       </div>
     </main>
