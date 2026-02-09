@@ -97,17 +97,31 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-/* SYSTEM FLOW */
+/* SYSTEM FLOW – ENLARGED */
 .system-flow {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 80px 48px;
-  gap: 24px;
+  padding: 110px 48px;   /* more vertical presence */
+  gap: 36px;
+}
+
+.flow-item {
+  text-align: center;
+}
+
+.flow-icon {
+  font-size: 56px;      /* bigger icon */
+  margin-bottom: 14px;
+}
+
+.flow-item span {
+  font-size: 20px;      /* bigger label */
+  font-weight: 500;
 }
 
 .flow-line {
-  width: 60px;
+  width: 80px;          /* slightly longer connectors */
   height: 1px;
   background: rgba(255, 255, 255, 0.25);
 }
