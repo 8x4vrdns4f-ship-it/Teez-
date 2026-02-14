@@ -65,6 +65,26 @@
       <div class="flow-item"><div class="flow-icon">📊</div><span>Control</span></div>
     </section>
 
+    <div class="carousel">
+<div class="slides" id="slides">
+<div class="review">
+<div class="stars">★★★★★</div>
+<p>"Great service, highly recommend!"</p>
+<div class="name">— Alex</div>
+</div>
+<div class="review">
+<div class="stars">★★★★★</div>
+<p>"Fast, professional, and friendly."</p>
+<div class="name">— Maya</div>
+</div>
+<div class="review">
+<div class="stars">★★★★☆</div>
+<p>"Really good experience overall."</p>
+<div class="name">— Chris</div>
+</div>
+</div>
+</div>
+
     <!-- COMPARISON -->
     <section class="before-after">
       <div class="comparison-inner">
@@ -72,11 +92,11 @@
           <h3 class="comparison-title muted">Without BookSuite</h3>
           <div class="comparison-divider"></div>
           <ul>
-            <li>❌ missed bookings</li>
-            <li>❌ double-booked staff</li>
-            <li>❌ manual follow-ups</li>
-            <li>❌ admin chaos</li>
-            <li>❌ no clear overview</li>
+            <li>❌ Missed bookings</li>
+            <li>❌ Double-booked staff</li>
+            <li>❌ Manual follow-ups</li>
+            <li>❌ Admin chaos</li>
+            <li>❌ No clear overview</li>
           </ul>
         </div>
 
@@ -84,11 +104,11 @@
           <h3 class="comparison-title positive">Using BookSuite</h3>
           <div class="comparison-divider"></div>
           <ul>
-            <li>✅ automated bookings</li>
-            <li>✅ synced staff schedules</li>
-            <li>✅ reminders sent</li>
-            <li>✅ hours saved weekly</li>
-            <li>✅ calm dashboard</li>
+            <li>✅ Automated bookings</li>
+            <li>✅ Synced staff schedules</li>
+            <li>✅ Reminders sent</li>
+            <li>✅ Hours saved weekly</li>
+            <li>✅ Calm dashboard</li>
           </ul>
         </div>
       </div>
@@ -98,7 +118,22 @@
       <h2>Need help or have a question?</h2>
       <p>If you have any questions or enquiries, feel free to get in touch.</p>
       <p class="contact-email">mngr.booksuite@outlook.com</p>
-      <a href="mailto:mngr.booksuite@outlook.com" class="btn primary">email us</a>
+      <div style="margin-top: 40px;">
+  <a href="mailto:mngr.booksuite@outlook.com" class="btn primary">email us</a>
+</div>
     </section>
+
+<script>
+let index = 0;
+const slides = document.getElementById('slides');
+const total = document.querySelectorAll('.review').length;
+
+
+setInterval(() => {
+index = (index + 1) % total;
+slides.style.transform = `translateX(-${index * 100}%)`;
+}, 3000); // change review every 3 seconds
+</script>
+
   </body>
 </html>
