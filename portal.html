@@ -22,19 +22,84 @@
 
     <!-- DASHBOARD -->
     <main class="portal">
-      <div class="portal-grid">
-        <div class="portal-card">📥 Bookings</div>
-        <div class="portal-card">📅 Calendar</div>
-        <div class="portal-card">🗓 Schedule</div>
 
-        <div class="portal-card">👥 Staff</div>
-        <div class="portal-card">👤 Clients</div>
-        <div class="portal-card">✂️ Services</div>
+      <!-- Dashboard Grid -->
+      <div class="portal-grid" id="dashboard">
+        <div class="portal-card" onclick="openSection('bookings')">📥 Bookings</div>
+        <div class="portal-card" onclick="openSection('calendar')">📅 Calendar</div>
+        <div class="portal-card" onclick="openSection('schedule')">🗓 Schedule</div>
 
-        <div class="portal-card">💳 Payments</div>
-        <div class="portal-card">📊 Reports</div>
-        <div class="portal-card">⚙️ Settings</div>
+        <div class="portal-card" onclick="openSection('staff')">👥 Staff</div>
+        <div class="portal-card" onclick="openSection('clients')">👤 Clients</div>
+        <div class="portal-card" onclick="openSection('services')">✂️ Services</div>
+
+        <div class="portal-card" onclick="openSection('payments')">💳 Payments</div>
+        <div class="portal-card" onclick="openSection('reports')">📊 Reports</div>
+        <div class="portal-card" onclick="openSection('settings')">⚙️ Settings</div>
       </div>
+
+      <!-- Hidden Sections -->
+      <div class="portal-section" id="bookings">
+        <button class="back-btn" onclick="goBack()">← Back to Dashboard</button>
+        <h2>Bookings</h2>
+      </div>
+
+      <div class="portal-section" id="calendar">
+        <button class="back-btn" onclick="goBack()">← Back to Dashboard</button>
+        <h2>Calendar</h2>
+      </div>
+
+      <div class="portal-section" id="schedule">
+        <button class="back-btn" onclick="goBack()">← Back to Dashboard</button>
+        <h2>Schedule</h2>
+      </div>
+
+      <div class="portal-section" id="staff">
+        <button class="back-btn" onclick="goBack()">← Back to Dashboard</button>
+        <h2>Staff</h2>
+      </div>
+
+      <div class="portal-section" id="clients">
+        <button class="back-btn" onclick="goBack()">← Back to Dashboard</button>
+        <h2>Clients</h2>
+      </div>
+
+      <div class="portal-section" id="services">
+        <button class="back-btn" onclick="goBack()">← Back to Dashboard</button>
+        <h2>Services</h2>
+      </div>
+
+      <div class="portal-section" id="payments">
+        <button class="back-btn" onclick="goBack()">← Back to Dashboard</button>
+        <h2>Payments</h2>
+      </div>
+
+      <div class="portal-section" id="reports">
+        <button class="back-btn" onclick="goBack()">← Back to Dashboard</button>
+        <h2>Reports</h2>
+      </div>
+
+      <div class="portal-section" id="settings">
+        <button class="back-btn" onclick="goBack()">← Back to Dashboard</button>
+        <h2>Settings</h2>
+      </div>
+
     </main>
+
+    <script>
+      function openSection(id) {
+        document.getElementById("dashboard").style.display = "none";
+        const sections = document.querySelectorAll(".portal-section");
+        sections.forEach(section => section.style.display = "none");
+        document.getElementById(id).style.display = "block";
+      }
+
+      function goBack() {
+        const sections = document.querySelectorAll(".portal-section");
+        sections.forEach(section => section.style.display = "none");
+        document.getElementById("dashboard").style.display = "grid";
+      }
+    </script>
+
   </body>
 </html>
