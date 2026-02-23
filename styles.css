@@ -570,3 +570,325 @@ input:focus {
 .back-btn:hover {
   background: rgba(94, 194, 255, 0.1);
 }
+
+/* GLOBAL FIX */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+}
+
+/* HERO */
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 60px 8%;
+  gap: 40px;
+}
+
+.hero-left,
+.hero-right {
+  flex: 1;
+}
+
+/* VIDEO */
+.video-wrapper {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+}
+
+.video-wrapper iframe,
+.video-wrapper video {
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+}
+
+/* INFO CARDS */
+.info-cards {
+  display: flex;
+  gap: 20px;
+  padding: 60px 8%;
+}
+
+.card {
+  flex: 1;
+}
+
+/* BEFORE AFTER FIX */
+.comparison-inner {
+  display: flex;
+  gap: 40px;
+}
+
+/* CAROUSEL FIX */
+.carousel {
+  overflow: hidden;
+  width: 100%;
+}
+
+.slides {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+.review {
+  min-width: 100%;
+  padding: 40px 20px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+/* ===================== */
+/* MOBILE VIEW */
+/* ===================== */
+
+@media (max-width: 768px) {
+
+  .hero {
+    flex-direction: column;
+    text-align: center;
+    padding: 40px 20px;
+  }
+
+  .hero-left,
+  .hero-right {
+    width: 100%;
+  }
+
+  .hero-buttons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .info-cards {
+    flex-direction: column;
+    padding: 40px 20px;
+  }
+
+  .card {
+    width: 100%;
+  }
+
+  .system-flow {
+    flex-direction: column;
+  }
+
+  .flow-line {
+    display: none;
+  }
+
+  .comparison-inner {
+    flex-direction: column;
+  }
+
+  .before,
+  .after {
+    width: 100%;
+  }
+
+}
+
+
+/* RESET */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+
+/* PAGE LAYOUT */
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+  background: #ffffff;
+  padding: 40px;
+  border-radius: 18px;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.08);
+}
+
+.auth-title {
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.auth-subtext {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #666;
+  font-size: 14px;
+}
+
+/* FORM */
+.input-group {
+  margin-bottom: 18px;
+}
+
+.input-group label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+}
+
+.input-group input:focus {
+  outline: none;
+  border-color: #4f46e5;
+}
+
+/* PASSWORD */
+.password-wrapper {
+  position: relative;
+}
+
+.password-wrapper input {
+  padding-right: 65px;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 13px;
+  cursor: pointer;
+  color: #4f46e5;
+}
+
+#strength-text {
+  font-size: 13px;
+  margin-top: 6px;
+}
+
+/* BUTTON */
+.btn {
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.primary {
+  background: #4f46e5;
+  color: white;
+}
+
+.primary:hover {
+  background: #4338ca;
+}
+
+.full-width {
+  width: 100%;
+}
+
+/* FOOTER */
+.auth-footer {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 14px;
+  color: #0b1f3a;
+}
+
+.auth-footer a {
+  color: #4f46e5;
+  text-decoration: none;
+}
+
+/* SUCCESS */
+.success-message {
+  display: none;
+  text-align: center;
+  color: green;
+  margin-top: 20px;
+  font-weight: 600;
+}
+
+.btn.secondary {
+  background: white;
+  color: #4f46e5;
+  border: 2px solid #4f46e5;
+  border-radius: 10px;
+  padding: 12px 0;
+  font-size: 14px;
+  text-align: center;
+  display: inline-block;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn.secondary:hover {
+  background: #4f46e5;
+  color: rgb(13, 47, 107);
+}
+
+/* MOBILE */
+@media (max-width: 480px) {
+  .auth-card {
+    padding: 30px 20px;
+  }
+}
+
+/* BEFORE-AFTER SECTION */
+.before-after {
+  padding: 60px 8%;
+  display: flex;
+  justify-content: center; /* centers the inner content horizontally */
+}
+
+.comparison-inner {
+  display: flex;
+  justify-content: center;
+  gap: 60px; /* space between before & after boxes */
+  max-width: 1000px; /* optional, keeps it from stretching too much */
+  width: 100%;
+}
+
+.before, .after {
+  padding: 30px 25px;
+  border-radius: 15px;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.05);
+  flex: 1; /* ensures equal width for both sides */
+  min-width: 280px; /* prevents them from getting too narrow on small screens */
+}
+
+.comparison-title {
+  margin-bottom: 15px;
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
+}
+
+
+.before ul, .after ul {
+  list-style: none;
+  padding-left: 0;
+  font-size: 14px;
+}
+
+.before li, .after li {
+  margin-bottom: 8px;
+}

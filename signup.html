@@ -1,24 +1,136 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>Sign Up – BookSuite</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="styles.css">
+<meta charset="utf-8">
+<title>Sign Up – BookSuite</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="styles.css">
+
 </head>
 
 <body>
 
 <main class="auth-page">
-  <div class="auth-box glow-box">
-    <h2 class="glow-text">Sign Up</h2>
+  <div class="auth-card">
 
-    <input placeholder="Email">
-    <input type="password" placeholder="Password">
+    <h2 class="auth-title">Create Your Account</h2>
+    <p class="auth-subtext">Start managing bookings the smart way.</p>
 
-    <a href="login.html" class="btn primary glow-box">Continue</a>
+    <form id="signup-form">
+
+      <div class="input-group">
+        <label>Full Name</label>
+        <input type="text" id="name" required>
+      </div>
+
+      <div class="input-group">
+        <label>Email</label>
+        <input type="email" id="email" required>
+      </div>
+
+      <div class="input-group">
+        <label>Password</label>
+        <div class="password-wrapper">
+          <input type="password" id="password" required>
+          <span class="toggle-password" data-target="password">Show</span>
+        </div>
+        <div id="strength-text"></div>
+      </div>
+
+      <div class="input-group">
+        <label>Confirm Password</label>
+        <div class="password-wrapper">
+          <input type="password" id="confirmPassword" required>
+          <span class="toggle-password" data-target="confirmPassword">Show</span>
+        </div>
+      </div>
+
+      <button type="submit" class="btn primary full-width" id="submitBtn">
+        Create Account
+      </button>
+
+    </form>
+
+    <div class="success-message" id="success-message">
+      Account created successfully 🎉
+    </div>
+
+    <div class="auth-footer">
+  <p>Already have an account?</p>
+  <a href="login.html" class="btn secondary full-width" style="margin-top:10px; display:block; text-align:center;">
+    Log In
+  </a>
+</div>
+
   </div>
 </main>
+
+<script>
+
+/* PASSWORD STRENGTH */
+
+const passwordInput = document.getElementById("password");
+const confirmPassword = document.getElementById("confirmPassword");
+const strengthText = document.getElementById("strength-text");
+
+passwordInput.addEventListener("input", () => {
+  const value = passwordInput.value;
+
+  if (value.length < 6) {
+    strengthText.textContent = "Weak password";
+    strengthText.style.color = "red";
+  } 
+  else if (value.match(/[A-Z]/) && value.match(/[0-9]/) && value.length >= 8) {
+    strengthText.textContent = "Strong password";
+    strengthText.style.color = "green";
+  } 
+  else {
+    strengthText.textContent = "Medium strength";
+    strengthText.style.color = "orange";
+  }
+});
+
+/* SHOW / HIDE PASSWORD */
+
+document.querySelectorAll(".toggle-password").forEach(toggle => {
+  toggle.addEventListener("click", () => {
+    const target = document.getElementById(toggle.dataset.target);
+
+    if (target.type === "password") {
+      target.type = "text";
+      toggle.textContent = "Hide";
+    } else {
+      target.type = "password";
+      toggle.textContent = "Show";
+    }
+  });
+});
+
+/* FORM SUBMIT (FRONT-END ONLY) */
+
+const form = document.getElementById("signup-form");
+const submitBtn = document.getElementById("submitBtn");
+const successMessage = document.getElementById("success-message");
+
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  if (passwordInput.value !== confirmPassword.value) {
+    alert("Passwords do not match");
+    return;
+  }
+
+  submitBtn.textContent = "Creating...";
+  submitBtn.disabled = true;
+
+  setTimeout(() => {
+    form.style.display = "none";
+    successMessage.style.display = "block";
+  }, 1500);
+});
+
+</script>
 
 </body>
 </html>
