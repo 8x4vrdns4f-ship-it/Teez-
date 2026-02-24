@@ -16,20 +16,56 @@
       <div class="auth-card">
         <h2>Login to your portal</h2>
 
-        <form onsubmit="event.preventDefault(); window.location.href='portal.html';">
+        <form id="login-form">
           <label>Email</label>
-          <input type="email" placeholder="you@company.com" />
+          <input type="email" id="email" placeholder="you@company.com" required />
 
           <label>Password</label>
-          <input type="password" placeholder="••••••••" />
+          <input type="password" id="password" placeholder="••••••••" required />
 
           <label>Business Code</label>
           <input type="text" placeholder="BS-XXXXXX" />
 
-          <button class="btn primary auth-btn">Login to portal</button>
+          <button class="btn primary auth-btn" type="submit">
+            Login to portal
+          </button>
         </form>
       </div>
     </main>
+
+    <!-- FIREBASE AUTH -->
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+      import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyBT_QHFaROmtmQQy4984zjJ7Xmust7TOho",
+        authDomain: "booksuite-dtb.firebaseapp.com",
+        projectId: "booksuite-dtb",
+        storageBucket: "booksuite-dtb.firebasestorage.app",
+        messagingSenderId: "587821555081",
+        appId: "1:587821555081:web:e588609eedd6c924cdd558"
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+
+      const form = document.getElementById("login-form");
+
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+
+        signInWithEmailAndPassword(auth, email, password)
+          .then(() => {
+            window.location.href = "portal.html";
+          })
+          .catch((error) => {
+            alert("Login failed: " + error.message);
+          });
+      });
+    </script>
   </body>
 </html>
-
