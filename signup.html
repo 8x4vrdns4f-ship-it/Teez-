@@ -68,6 +68,7 @@
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBT_QHFaROmtmQQy4984zjJ7Xmust7TOho",
@@ -80,50 +81,29 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db = getFirestore(app);
 
-/* PASSWORD STRENGTH */
-
-const passwordInput = document.getElementById("password");
-const confirmPassword = document.getElementById("confirmPassword");
-const strengthText = document.getElementById("strength-text");
-
-passwordInput.addEventListener("input", () => {
-  const value = passwordInput.value;
-
-  if (value.length < 6) {
-    strengthText.textContent = "Weak password";
-    strengthText.style.color = "red";
-  } 
-  else if (value.match(/[A-Z]/) && value.match(/[0-9]/) && value.length >= 8) {
-    strengthText.textContent = "Strong password";
-    strengthText.style.color = "green";
-  } 
-  else {
-    strengthText.textContent = "Medium strength";
-    strengthText.style.color = "orange";
+function generateCompanyCode() {
+  const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  let result = "BS-";
+  for (let i = 0; i < 6; i++) {
+    result += characters.charAt(Math.floor(Math.random() * characters.length));
   }
-});
-
-/* SHOW / HIDE PASSWORD */
-
-document.querySelectorAll(".toggle-password").forEach(toggle => {
-  toggle.addEventListener("click", () => {
-    const target = document.getElementById(toggle.dataset.target);
-    target.type = target.type === "password" ? "text" : "password";
-    toggle.textContent = target.type === "password" ? "Show" : "Hide";
-  });
-});
-
-/* REAL FIREBASE SIGNUP */
+  return result;
+}
 
 const form = document.getElementById("signup-form");
 const submitBtn = document.getElementById("submitBtn");
-const successMessage = document.getElementById("success-message");
 
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  if (passwordInput.value !== confirmPassword.value) {
+  const name = document.getElementById("name").value;
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+  const confirmPassword = document.getElementById("confirmPassword").value;
+
+  if (password !== confirmPassword) {
     alert("Passwords do not match");
     return;
   }
@@ -132,21 +112,31 @@ form.addEventListener("submit", async (e) => {
   submitBtn.disabled = true;
 
   try {
-    await createUserWithEmailAndPassword(
-      auth,
-      document.getElementById("email").value,
-      passwordInput.value
-    );
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
 
-    form.style.display = "none";
-    successMessage.style.display = "block";
+    const companyId = crypto.randomUUID();
+    const companyCode = generateCompanyCode();
 
-    setTimeout(() => {
-      window.location.href = "portal.html";
-    }, 1500);
+    await setDoc(doc(db, "companies", companyId), {
+      ownerId: user.uid,
+      companyCode: companyCode,
+      createdAt: new Date()
+    });
+
+    await setDoc(doc(db, "users", user.uid), {
+      name: name,
+      email: email,
+      companyId: companyId,
+      role: "owner"
+    });
+
+    alert("Your company code is: " + companyCode);
+
+    window.location.href = "portal.html";
 
   } catch (error) {
-    alert("Signup failed: " + error.message);
+    alert(error.message);
     submitBtn.textContent = "Create Account";
     submitBtn.disabled = false;
   }
