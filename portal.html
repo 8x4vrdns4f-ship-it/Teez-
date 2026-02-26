@@ -17,7 +17,7 @@
         <span class="user-company">Acme Barbers</span>
       </div>
 
-      <a href="index.html" class="logout-btn">logout</a>
+      <a href="#" class="logout-btn">logout</a>
     </header>
 
     <!-- DASHBOARD -->
@@ -99,6 +99,37 @@
         sections.forEach(section => section.style.display = "none");
         document.getElementById("dashboard").style.display = "grid";
       }
+    </script>
+
+    <!-- FIREBASE PROTECTION -->
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+      import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyBT_QHFaROmtmQQy4984zjJ7Xmust7TOho",
+        authDomain: "booksuite-dtb.firebaseapp.com",
+        projectId: "booksuite-dtb",
+        storageBucket: "booksuite-dtb.firebasestorage.app",
+        messagingSenderId: "587821555081",
+        appId: "1:587821555081:web:e588609eedd6c924cdd558"
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+
+      onAuthStateChanged(auth, (user) => {
+        if (!user) {
+          window.location.href = "login.html";
+        }
+      });
+
+      document.querySelector(".logout-btn").addEventListener("click", function(e){
+        e.preventDefault();
+        signOut(auth).then(() => {
+          window.location.href = "login.html";
+        });
+      });
     </script>
 
   </body>

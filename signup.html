@@ -4,9 +4,7 @@
 <meta charset="utf-8">
 <title>Sign Up – BookSuite</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <link rel="stylesheet" href="styles.css">
-
 </head>
 
 <body>
@@ -57,66 +55,55 @@
     </div>
 
     <div class="auth-footer">
-  <p>Already have an account?</p>
-  <a href="login.html" class="btn secondary full-width" style="margin-top:10px; display:block; text-align:center;">
-    Log In
-  </a>
-</div>
+      <p>Already have an account?</p>
+      <a href="login.html" class="btn secondary full-width" style="margin-top:10px; display:block; text-align:center;">
+        Log In
+      </a>
+    </div>
 
   </div>
 </main>
 
-<script>
+<script type="module">
 
-/* PASSWORD STRENGTH */
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-const passwordInput = document.getElementById("password");
-const confirmPassword = document.getElementById("confirmPassword");
-const strengthText = document.getElementById("strength-text");
+const firebaseConfig = {
+  apiKey: "AIzaSyBT_QHFaROmtmQQy4984zjJ7Xmust7TOho",
+  authDomain: "booksuite-dtb.firebaseapp.com",
+  projectId: "booksuite-dtb",
+  storageBucket: "booksuite-dtb.firebasestorage.app",
+  messagingSenderId: "587821555081",
+  appId: "1:587821555081:web:e588609eedd6c924cdd558"
+};
 
-passwordInput.addEventListener("input", () => {
-  const value = passwordInput.value;
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
 
-  if (value.length < 6) {
-    strengthText.textContent = "Weak password";
-    strengthText.style.color = "red";
-  } 
-  else if (value.match(/[A-Z]/) && value.match(/[0-9]/) && value.length >= 8) {
-    strengthText.textContent = "Strong password";
-    strengthText.style.color = "green";
-  } 
-  else {
-    strengthText.textContent = "Medium strength";
-    strengthText.style.color = "orange";
+function generateCompanyCode() {
+  const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  let result = "BS-";
+  for (let i = 0; i < 6; i++) {
+    result += characters.charAt(Math.floor(Math.random() * characters.length));
   }
-});
-
-/* SHOW / HIDE PASSWORD */
-
-document.querySelectorAll(".toggle-password").forEach(toggle => {
-  toggle.addEventListener("click", () => {
-    const target = document.getElementById(toggle.dataset.target);
-
-    if (target.type === "password") {
-      target.type = "text";
-      toggle.textContent = "Hide";
-    } else {
-      target.type = "password";
-      toggle.textContent = "Show";
-    }
-  });
-});
-
-/* FORM SUBMIT (FRONT-END ONLY) */
+  return result;
+}
 
 const form = document.getElementById("signup-form");
 const submitBtn = document.getElementById("submitBtn");
-const successMessage = document.getElementById("success-message");
 
-form.addEventListener("submit", (e) => {
+form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  if (passwordInput.value !== confirmPassword.value) {
+  const name = document.getElementById("name").value;
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+  const confirmPassword = document.getElementById("confirmPassword").value;
+
+  if (password !== confirmPassword) {
     alert("Passwords do not match");
     return;
   }
@@ -124,10 +111,35 @@ form.addEventListener("submit", (e) => {
   submitBtn.textContent = "Creating...";
   submitBtn.disabled = true;
 
-  setTimeout(() => {
-    form.style.display = "none";
-    successMessage.style.display = "block";
-  }, 1500);
+  try {
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
+
+    const companyId = crypto.randomUUID();
+    const companyCode = generateCompanyCode();
+
+    await setDoc(doc(db, "companies", companyId), {
+      ownerId: user.uid,
+      companyCode: companyCode,
+      createdAt: new Date()
+    });
+
+    await setDoc(doc(db, "users", user.uid), {
+      name: name,
+      email: email,
+      companyId: companyId,
+      role: "owner"
+    });
+
+    alert("Your company code is: " + companyCode);
+
+    window.location.href = "portal.html";
+
+  } catch (error) {
+    alert(error.message);
+    submitBtn.textContent = "Create Account";
+    submitBtn.disabled = false;
+  }
 });
 
 </script>
