@@ -8,103 +8,35 @@
   </head>
 
   <body>
-    <!-- TOP BAR -->
     <header class="portal-top-bar">
       <img src="assets/booksuite-logo.PNG" alt="BookSuite logo" class="logo small" />
 
       <div class="portal-user">
-        <span class="user-name">John Smith</span>
-        <span class="user-company">Acme Barbers</span>
+        <span class="user-name" id="userName">Loading...</span>
+        <span class="user-company" id="companyCode">Loading...</span>
       </div>
 
       <a href="#" class="logout-btn">logout</a>
     </header>
 
-    <!-- DASHBOARD -->
     <main class="portal">
-
-      <!-- Dashboard Grid -->
       <div class="portal-grid" id="dashboard">
         <div class="portal-card" onclick="openSection('bookings')">📥 Bookings</div>
         <div class="portal-card" onclick="openSection('calendar')">📅 Calendar</div>
         <div class="portal-card" onclick="openSection('schedule')">🗓 Schedule</div>
-
         <div class="portal-card" onclick="openSection('staff')">👥 Staff</div>
         <div class="portal-card" onclick="openSection('clients')">👤 Clients</div>
         <div class="portal-card" onclick="openSection('services')">✂️ Services</div>
-
         <div class="portal-card" onclick="openSection('payments')">💳 Payments</div>
         <div class="portal-card" onclick="openSection('reports')">📊 Reports</div>
         <div class="portal-card" onclick="openSection('settings')">⚙️ Settings</div>
       </div>
-
-      <!-- Hidden Sections -->
-      <div class="portal-section" id="bookings">
-        <button class="back-btn" onclick="goBack()">← Back to Dashboard</button>
-        <h2>Bookings</h2>
-      </div>
-
-      <div class="portal-section" id="calendar">
-        <button class="back-btn" onclick="goBack()">← Back to Dashboard</button>
-        <h2>Calendar</h2>
-      </div>
-
-      <div class="portal-section" id="schedule">
-        <button class="back-btn" onclick="goBack()">← Back to Dashboard</button>
-        <h2>Schedule</h2>
-      </div>
-
-      <div class="portal-section" id="staff">
-        <button class="back-btn" onclick="goBack()">← Back to Dashboard</button>
-        <h2>Staff</h2>
-      </div>
-
-      <div class="portal-section" id="clients">
-        <button class="back-btn" onclick="goBack()">← Back to Dashboard</button>
-        <h2>Clients</h2>
-      </div>
-
-      <div class="portal-section" id="services">
-        <button class="back-btn" onclick="goBack()">← Back to Dashboard</button>
-        <h2>Services</h2>
-      </div>
-
-      <div class="portal-section" id="payments">
-        <button class="back-btn" onclick="goBack()">← Back to Dashboard</button>
-        <h2>Payments</h2>
-      </div>
-
-      <div class="portal-section" id="reports">
-        <button class="back-btn" onclick="goBack()">← Back to Dashboard</button>
-        <h2>Reports</h2>
-      </div>
-
-      <div class="portal-section" id="settings">
-        <button class="back-btn" onclick="goBack()">← Back to Dashboard</button>
-        <h2>Settings</h2>
-      </div>
-
     </main>
 
-    <script>
-      function openSection(id) {
-        document.getElementById("dashboard").style.display = "none";
-        const sections = document.querySelectorAll(".portal-section");
-        sections.forEach(section => section.style.display = "none");
-        document.getElementById(id).style.display = "block";
-      }
-
-      function goBack() {
-        const sections = document.querySelectorAll(".portal-section");
-        sections.forEach(section => section.style.display = "none");
-        document.getElementById("dashboard").style.display = "grid";
-      }
-    </script>
-
-    <!-- FIREBASE PROTECTION -->
     <script type="module">
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
       import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+      import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
       const firebaseConfig = {
         apiKey: "AIzaSyBT_QHFaROmtmQQy4984zjJ7Xmust7TOho",
@@ -117,10 +49,28 @@
 
       const app = initializeApp(firebaseConfig);
       const auth = getAuth(app);
+      const db = getFirestore(app);
 
-      onAuthStateChanged(auth, (user) => {
+      onAuthStateChanged(auth, async (user) => {
         if (!user) {
           window.location.href = "login.html";
+          return;
+        }
+
+        const userDoc = await getDoc(doc(db, "users", user.uid));
+
+        if (userDoc.exists()) {
+          const userData = userDoc.data();
+
+          document.getElementById("userName").textContent = userData.name;
+
+          const companyDoc = await getDoc(doc(db, "companies", userData.companyId));
+
+          if (companyDoc.exists()) {
+            const companyData = companyDoc.data();
+            document.getElementById("companyCode").textContent =
+              "Company Code: " + companyData.companyCode;
+          }
         }
       });
 
@@ -131,6 +81,5 @@
         });
       });
     </script>
-
   </body>
 </html>
