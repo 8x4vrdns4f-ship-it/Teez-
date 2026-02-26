@@ -49,7 +49,6 @@
         min-height: 18px;
       }
 
-      /* Shake animation */
       @keyframes shake {
         0% { transform: translateX(0); }
         25% { transform: translateX(-6px); }
@@ -62,7 +61,6 @@
         animation: shake 0.3s ease;
       }
 
-      /* Success animation */
       @keyframes successGlow {
         0% { box-shadow: 0 0 0px rgba(34,197,94,0); }
         50% { box-shadow: 0 0 18px rgba(34,197,94,0.6); }
@@ -73,7 +71,6 @@
         animation: successGlow 0.8s ease;
       }
 
-      /* Show password toggle */
       .password-wrap {
         position: relative;
       }
@@ -86,26 +83,6 @@
         font-size: 12px;
         cursor: pointer;
         color: #555;
-      }
-
-      /* Format popup */
-      .format-popup {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        background: #111827;
-        color: white;
-        padding: 14px 18px;
-        border-radius: 10px;
-        font-size: 13px;
-        opacity: 0;
-        transform: translateY(20px);
-        transition: 0.3s ease;
-      }
-
-      .format-popup.show {
-        opacity: 1;
-        transform: translateY(0);
       }
     </style>
   </head>
@@ -129,15 +106,12 @@
             <span class="toggle-password" id="togglePassword">Show</span>
           </div>
 
-          <label>Business Code</label>
-          <input type="text" id="businessCode" placeholder="BS-XXXXXXXX" maxlength="11" required />
-
           <div class="remember-wrap">
             <input type="checkbox" id="rememberMe" />
             <label for="rememberMe">Remember me</label>
           </div>
 
-          <button class="btn primary auth-btn" id="loginBtn" disabled>
+          <button class="btn primary auth-btn" id="loginBtn">
             <div class="spinner" id="spinner"></div>
             <span id="btnText">Login to portal</span>
           </button>
@@ -147,106 +121,65 @@
       </div>
     </main>
 
-    <div class="format-popup" id="formatPopup">
-      Password: 6+ characters & 1 capital letter.<br>
-      Code: BS-XXXXXXXX (8 numbers).
-    </div>
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+      import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
-    <script>
+      const firebaseConfig = {
+        apiKey: "AIzaSyBT_QHFaROmtmQQy4984zjJ7Xmust7TOho",
+        authDomain: "booksuite-dtb.firebaseapp.com",
+        projectId: "booksuite-dtb",
+        storageBucket: "booksuite-dtb.firebasestorage.app",
+        messagingSenderId: "587821555081",
+        appId: "1:587821555081:web:e588609eedd6c924cdd558"
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+
       const form = document.getElementById("loginForm");
-      const passwordInput = document.getElementById("password");
-      const codeInput = document.getElementById("businessCode");
       const loginBtn = document.getElementById("loginBtn");
       const spinner = document.getElementById("spinner");
       const btnText = document.getElementById("btnText");
       const errorMessage = document.getElementById("errorMessage");
       const authCard = document.getElementById("authCard");
-      const togglePassword = document.getElementById("togglePassword");
-      const formatPopup = document.getElementById("formatPopup");
 
-      const passwordRegex = /^(?=.*[A-Z]).{6,}$/;
-      const codeRegex = /^BS-\d{8}$/;
-
-      function validateForm() {
-        loginBtn.disabled = !(
-          passwordRegex.test(passwordInput.value) &&
-          codeRegex.test(codeInput.value)
-        );
-      }
-
-      passwordInput.addEventListener("focus", showPopup);
-      codeInput.addEventListener("focus", showPopup);
-
-      function showPopup() {
-        formatPopup.classList.add("show");
-        setTimeout(() => {
-          formatPopup.classList.remove("show");
-        }, 4000);
-      }
-
-      passwordInput.addEventListener("input", validateForm);
-
-      codeInput.addEventListener("input", () => {
-        let value = codeInput.value.toUpperCase().replace(/[^A-Z0-9]/g, "");
-
-        if (!value.startsWith("BS")) {
-          value = "BS" + value.replace(/^BS/, "");
-        }
-
-        if (value.length > 2) {
-          value = value.slice(0, 2) + "-" + value.slice(2);
-        }
-
-        codeInput.value = value.slice(0, 11);
-
-        validateForm();
+      document.getElementById("togglePassword").addEventListener("click", () => {
+        const passwordInput = document.getElementById("password");
+        passwordInput.type = passwordInput.type === "password" ? "text" : "password";
       });
 
-      togglePassword.addEventListener("click", () => {
-        if (passwordInput.type === "password") {
-          passwordInput.type = "text";
-          togglePassword.textContent = "Hide";
-        } else {
-          passwordInput.type = "password";
-          togglePassword.textContent = "Show";
-        }
-      });
-
-      form.addEventListener("submit", function (e) {
+      form.addEventListener("submit", async (e) => {
         e.preventDefault();
 
-        if (
-          !passwordRegex.test(passwordInput.value) ||
-          !codeRegex.test(codeInput.value)
-        ) {
-          authCard.classList.add("shake");
-          setTimeout(() => authCard.classList.remove("shake"), 300);
-          errorMessage.style.color = "red";
-          errorMessage.textContent = "Invalid format. Please check requirements.";
-          return;
-        }
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
 
         loginBtn.disabled = true;
         spinner.style.display = "block";
         btnText.textContent = "Logging in...";
 
-        setTimeout(() => {
+        try {
+          await signInWithEmailAndPassword(auth, email, password);
+
+          authCard.classList.add("success");
+
+          setTimeout(() => {
+            window.location.href = "portal.html";
+          }, 800);
+
+        } catch (error) {
           spinner.style.display = "none";
           btnText.textContent = "Login to portal";
           loginBtn.disabled = false;
 
-          authCard.classList.add("success");
-          setTimeout(() => authCard.classList.remove("success"), 800);
+          authCard.classList.add("shake");
+          setTimeout(() => authCard.classList.remove("shake"), 300);
 
-          errorMessage.style.color = "green";
-          errorMessage.textContent = "Login successful (demo mode).";
-
-          setTimeout(() => {
-            window.location.href = "portal.html";
-          }, 900);
-        }, 1200);
+          errorMessage.style.color = "red";
+          errorMessage.textContent = "Invalid email or password.";
+        }
       });
     </script>
   </body>
 </html>
-
