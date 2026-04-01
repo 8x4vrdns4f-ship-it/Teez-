@@ -32,12 +32,6 @@ header.top-bar {
   object-fit: contain;
 }
 
-.login-link {
-  color: #5ec2ff;
-  text-decoration: none;
-  font-weight: 500;
-}
-
 h1 { font-size: 3rem; text-align: center; margin-bottom: 10px; }
 .subtitle { text-align: center; color: #aac6f0; margin-bottom: 60px; }
 
@@ -63,11 +57,22 @@ h1 { font-size: 3rem; text-align: center; margin-bottom: 10px; }
 .features { list-style: none; padding: 0; margin-bottom: 10px; }
 .features li { margin-bottom: 12px; color: #b0c9e6; }
 
+/* SMOOTH EXPAND */
 .extra-features {
-  display: none;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
 }
 
+.extra-features.open {
+  max-height: 500px; /* enough to fit content */
+}
+
+/* TOGGLE BUTTON */
 .expand-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   margin-bottom: 20px;
   font-size: 14px;
   color: #5ec2ff;
@@ -80,12 +85,21 @@ h1 { font-size: 3rem; text-align: center; margin-bottom: 10px; }
   color: #ffffff;
 }
 
+/* ARROW ICON */
+.arrow {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.arrow.rotate {
+  transform: rotate(180deg);
+}
+
 button {
   width: 100%; padding: 12px; border: none; border-radius: 8px;
   font-weight: 600; cursor: pointer; transition: background 0.3s;
 }
 
-/* Tier Buttons */
 .silver-btn { background: #1b3050; color: #eaf2ff; }
 .silver-btn:hover { background: #30567a; }
 
@@ -103,57 +117,28 @@ button {
   padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 600;
 }
 
-/* Testimonials */
 .testimonials {
-  background: #1a2a42; color: #eaf2ff;
-  padding: 60px 20px; border-radius: 15px;
-  margin-top: 60px; max-width: 900px; width: 100%; text-align: center;
-  opacity: 0; transform: translateY(50px); transition: opacity 0.6s ease, transform 0.6s ease;
+  background: #1a2a42;
+  padding: 60px 20px;
+  border-radius: 15px;
+  margin-top: 60px;
+  max-width: 900px;
+  width: 100%;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
 }
 
-.testimonials h3 { font-size: 2rem; margin-bottom: 20px; }
-
-.testimonial-carousel { position: relative; overflow: hidden; margin-top: 30px; }
-.testimonial { 
-  display: none; 
-  flex-direction: row;
-  align-items: flex-start; 
-  gap: 20px; 
-  text-align: left; 
-}
+.testimonial { display: none; flex-direction: row; gap: 20px; }
 .testimonial.active { display: flex; }
 
-.testimonial img {
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid #eaf2ff;
-  flex-shrink: 0;
-}
-
-.testimonial p { font-size: 1rem; max-width: 600px; color: #c3d4eb; margin: 0; }
-.testimonial h4 { font-weight: 600; color: #aac6f0; margin: 0; }
-
-/* FAQ */
 .faq { max-width: 900px; width: 100%; margin-top: 60px; text-align: center; }
-.faq h3 { font-size: 2rem; margin-bottom: 20px; }
-.faq p { color: #b0c9e6; margin-bottom: 10px; }
 
 .animate { opacity: 1 !important; transform: translateY(0px) !important; }
-
-::-webkit-scrollbar { width: 13px; }
-::-webkit-scrollbar-track { background: #79858f; }
-::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #3082b5, #020a10);
-  box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
-  transition: 0.3s ease;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, #193c50, #021928);
-}
 </style>
 </head>
+
 <body>
 
 <header class="top-bar">
@@ -168,7 +153,8 @@ button {
   <!-- Silver -->
   <div class="pricing-card">
     <h2>Silver</h2>
-    <div class="price">$450<span style="font-size:16px;">/month</span></div>
+    <div class="price">$450/month</div>
+
     <ul class="features">
       <li>Unlimited client bookings</li>
       <li>Monthly progress reports</li>
@@ -180,7 +166,11 @@ button {
         <li>More details here</li>
       </div>
     </ul>
-    <div class="expand-toggle" onclick="toggleFeatures(this)">▼ Show more</div>
+
+    <div class="expand-toggle" onclick="toggleFeatures(this)">
+      <span class="arrow">▼</span> <span>Show more</span>
+    </div>
+
     <button class="silver-btn" onclick="selectPlan('silver')">Choose Silver</button>
   </div>
 
@@ -188,7 +178,8 @@ button {
   <div class="pricing-card gold-card">
     <div class="most-popular">Most Popular</div>
     <h2>Gold</h2>
-    <div class="price">$750<span style="font-size:16px;">/month</span></div>
+    <div class="price">$750/month</div>
+
     <ul class="features">
       <li>Everything included in silver tier</li>
       <li>Client follow-ups</li>
@@ -200,14 +191,19 @@ button {
         <li>More details here</li>
       </div>
     </ul>
-    <div class="expand-toggle" onclick="toggleFeatures(this)">▼ Show more</div>
+
+    <div class="expand-toggle" onclick="toggleFeatures(this)">
+      <span class="arrow">▼</span> <span>Show more</span>
+    </div>
+
     <button class="gold-btn" onclick="selectPlan('gold')">Choose Gold</button>
   </div>
 
   <!-- Platinum -->
   <div class="pricing-card">
     <h2>Platinum</h2>
-    <div class="price">$1200<span style="font-size:16px;">/month</span></div>
+    <div class="price">$1200/month</div>
+
     <ul class="features">
       <li>Everything included in silver+gold tier</li>
       <li>Priority chat (usually reply within 1 hour)</li>
@@ -219,43 +215,14 @@ button {
         <li>More details here</li>
       </div>
     </ul>
-    <div class="expand-toggle" onclick="toggleFeatures(this)">▼ Show more</div>
+
+    <div class="expand-toggle" onclick="toggleFeatures(this)">
+      <span class="arrow">▼</span> <span>Show more</span>
+    </div>
+
     <button class="platinum-btn" onclick="selectPlan('platinum')">Choose Platinum</button>
   </div>
 
-</div>
-
-<div class="testimonials">
-  <h3>What Our Clients Say</h3>
-  <div class="testimonial-carousel">
-    <div class="testimonial active">
-      <img src="https://i.postimg.cc/4d6kzF9G/client1.jpg" alt="Client 1">
-      <div>
-        <p>"They booked 20 meetings for us in a month! Absolutely amazing service."</p>
-        <h4>— John Doe, CEO</h4>
-      </div>
-    </div>
-    <div class="testimonial">
-      <img src="https://i.postimg.cc/3xYv5LtM/client2.jpg" alt="Client 2">
-      <div>
-        <p>"Gold plan transformed our lead generation process. Highly recommend."</p>
-        <h4>— Sarah Smith, Marketing Manager</h4>
-      </div>
-    </div>
-    <div class="testimonial">
-      <img src="https://i.postimg.cc/mgpjhwv0/client3.jpg" alt="Client 3">
-      <div>
-        <p>"Platinum plan gave us priority access and incredible results."</p>
-        <h4>— Mike Lee, Sales Director</h4>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="faq">
-  <h3>Frequently Asked Questions</h3>
-  <p>Q: Can I switch plans later? <br> A: Yes, you can upgrade or downgrade at any time.</p>
-  <p>Q: What happens if a meeting is missed? <br> A: We handle rescheduling and provide full support.</p>
 </div>
 
 <script>
@@ -267,45 +234,19 @@ function selectPlan(plan){
 
 function toggleFeatures(el){
   const extra = el.previousElementSibling.querySelector('.extra-features');
-  
-  if(extra.style.display === "block"){
-    extra.style.display = "none";
-    el.innerHTML = "▼ Show more";
+  const arrow = el.querySelector('.arrow');
+  const text = el.querySelector('span:last-child');
+
+  if(extra.classList.contains("open")){
+    extra.classList.remove("open");
+    arrow.classList.remove("rotate");
+    text.innerText = "Show more";
   } else {
-    extra.style.display = "block";
-    el.innerHTML = "▲ Show less";
+    extra.classList.add("open");
+    arrow.classList.add("rotate");
+    text.innerText = "Show less";
   }
 }
-
-let currentTestimonial=0;
-const testimonials=document.querySelectorAll('.testimonial');
-function showTestimonial(index){
-  testimonials.forEach((t,i)=>t.classList.remove('active'));
-  testimonials[index].classList.add('active');
-}
-function nextTestimonial(){ 
-  currentTestimonial=(currentTestimonial+1)%testimonials.length; 
-  showTestimonial(currentTestimonial); 
-}
-setInterval(nextTestimonial,5000);
-
-const cards=document.querySelectorAll('.pricing-card');
-const testimonialsSection=document.querySelector('.testimonials');
-const observer=new IntersectionObserver(entries=>{
-  entries.forEach(entry=>{
-    if(entry.isIntersecting){
-      if(entry.target===testimonialsSection){
-        entry.target.classList.add('animate');
-      } else {
-        cards.forEach((card,i)=>{
-          setTimeout(()=>{ card.classList.add('animate'); }, i*200);
-        });
-      }
-      observer.unobserve(entry.target);
-    }
-  });
-},{threshold:0.2});
-[...cards,testimonialsSection].forEach(el=>observer.observe(el));
 </script>
 
 </body>
