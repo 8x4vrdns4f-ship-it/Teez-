@@ -24,18 +24,14 @@ header.top-bar {
   justify-content: flex-start;
   align-items: center;
   padding: 20px 40px;
-  box-sizing: border-box;
 }
 
-.logo {
-  height: 180px; 
-  object-fit: contain;
-}
+.logo { height: 180px; }
 
 h1 { font-size: 3rem; text-align: center; margin-bottom: 10px; }
 .subtitle { text-align: center; color: #aac6f0; margin-bottom: 60px; }
 
-.pricing-wrapper { display: flex; flex-wrap: wrap; gap: 30px; justify-content: center; }
+.pricing-wrapper { display: flex; gap: 30px; flex-wrap: wrap; justify-content: center; }
 
 .pricing-card {
   background: #122344;
@@ -43,51 +39,43 @@ h1 { font-size: 3rem; text-align: center; margin-bottom: 10px; }
   width: 300px;
   padding: 40px 30px;
   border: 1px solid #1b3050;
-  position: relative;
-  opacity: 0;
-  transform: translateY(50px);
-  transition: transform 0.6s ease, opacity 0.6s ease, border-color 0.3s;
+  transition: 0.3s;
 }
 
-.pricing-card:hover { transform: translateY(-10px); border-color: #3082b5; }
+.pricing-card:hover { transform: translateY(-10px); }
 
-.pricing-card h2 { font-size: 1.8rem; margin-bottom: 10px; }
-.price { font-size: 2.2rem; font-weight: 600; margin: 20px 0; }
+.price { font-size: 2.2rem; margin: 20px 0; }
 
 .features { list-style: none; padding: 0; margin-bottom: 10px; }
 .features li { margin-bottom: 12px; color: #b0c9e6; }
 
-/* SMOOTH EXPAND */
+/* FIXED EXPAND */
 .extra-features {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.4s ease;
+  display: none;
 }
 
-.extra-features.open {
-  max-height: 500px; /* enough to fit content */
+.extra-features.show {
+  display: block;
+  animation: fadeSlide 0.3s ease;
 }
 
-/* TOGGLE BUTTON */
+@keyframes fadeSlide {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* TOGGLE */
 .expand-toggle {
+  cursor: pointer;
+  font-size: 14px;
+  color: #5ec2ff;
   display: flex;
   align-items: center;
   gap: 8px;
   margin-bottom: 20px;
-  font-size: 14px;
-  color: #5ec2ff;
-  cursor: pointer;
-  user-select: none;
-  transition: 0.3s;
 }
 
-.expand-toggle:hover {
-  color: #ffffff;
-}
-
-/* ARROW ICON */
 .arrow {
-  display: inline-block;
   transition: transform 0.3s ease;
 }
 
@@ -95,47 +83,30 @@ h1 { font-size: 3rem; text-align: center; margin-bottom: 10px; }
   transform: rotate(180deg);
 }
 
+/* Buttons */
 button {
-  width: 100%; padding: 12px; border: none; border-radius: 8px;
-  font-weight: 600; cursor: pointer; transition: background 0.3s;
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
 }
 
-.silver-btn { background: #1b3050; color: #eaf2ff; }
-.silver-btn:hover { background: #30567a; }
-
-.gold-card { background: #3082b5; transform: scale(1.05); }
-.gold-card h2, .gold-card .price, .gold-card li { color: #eaf2ff; }
-.gold-btn { background: #eaf2ff; color: #3082b5; }
-.gold-btn:hover { background: #d1e4f8; }
-
-.platinum-btn { background: #0a1828; border: 1px solid #7f99b0; color: #eaf2ff; }
-.platinum-btn:hover { background: #0f2a4a; }
+.silver-btn { background: #1b3050; color: white; }
+.gold-card { background: #3082b5; }
+.gold-btn { background: white; color: #3082b5; }
+.platinum-btn { background: #0a1828; color: white; }
 
 .most-popular {
-  position: absolute; top: -12px; right: 20px;
-  background: #eaf2ff; color: #3082b5;
-  padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 600;
+  position: absolute;
+  top: -12px;
+  right: 20px;
+  background: white;
+  color: #3082b5;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 12px;
 }
-
-.testimonials {
-  background: #1a2a42;
-  padding: 60px 20px;
-  border-radius: 15px;
-  margin-top: 60px;
-  max-width: 900px;
-  width: 100%;
-  text-align: center;
-  opacity: 0;
-  transform: translateY(50px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-
-.testimonial { display: none; flex-direction: row; gap: 20px; }
-.testimonial.active { display: flex; }
-
-.faq { max-width: 900px; width: 100%; margin-top: 60px; text-align: center; }
-
-.animate { opacity: 1 !important; transform: translateY(0px) !important; }
 </style>
 </head>
 
@@ -150,102 +121,92 @@ button {
 
 <div class="pricing-wrapper">
 
-  <!-- Silver -->
-  <div class="pricing-card">
-    <h2>Silver</h2>
-    <div class="price">$450/month</div>
+<!-- SILVER -->
+<div class="pricing-card">
+<h2>Silver</h2>
+<div class="price">$450/month</div>
 
-    <ul class="features">
-      <li>Unlimited client bookings</li>
-      <li>Monthly progress reports</li>
-      <li>Fully accessible hub to manage your bookings system</li>
-      <li>15% fee per successful booking</li>
+<ul class="features">
+<li>Unlimited client bookings</li>
+<li>Monthly progress reports</li>
+<li>Fully accessible hub to manage your bookings system</li>
+<li>15% fee per successful booking</li>
+</ul>
 
-      <div class="extra-features">
-        <li>Additional feature placeholder</li>
-        <li>More details here</li>
-      </div>
-    </ul>
+<ul class="extra-features">
+<li>Additional feature placeholder</li>
+<li>More details here</li>
+</ul>
 
-    <div class="expand-toggle" onclick="toggleFeatures(this)">
-      <span class="arrow">▼</span> <span>Show more</span>
-    </div>
+<div class="expand-toggle" onclick="toggleFeatures(this)">
+<span class="arrow">▼</span> <span>Show more</span>
+</div>
 
-    <button class="silver-btn" onclick="selectPlan('silver')">Choose Silver</button>
-  </div>
+<button class="silver-btn">Choose Silver</button>
+</div>
 
-  <!-- Gold -->
-  <div class="pricing-card gold-card">
-    <div class="most-popular">Most Popular</div>
-    <h2>Gold</h2>
-    <div class="price">$750/month</div>
+<!-- GOLD -->
+<div class="pricing-card gold-card">
+<div class="most-popular">Most Popular</div>
+<h2>Gold</h2>
+<div class="price">$750/month</div>
 
-    <ul class="features">
-      <li>Everything included in silver tier</li>
-      <li>Client follow-ups</li>
-      <li>Weekly outreach to previous clients</li>
-      <li>8% fee per successful booking</li>
+<ul class="features">
+<li>Everything included in silver tier</li>
+<li>Client follow-ups</li>
+<li>Weekly outreach to previous clients</li>
+<li>8% fee per successful booking</li>
+</ul>
 
-      <div class="extra-features">
-        <li>Additional feature placeholder</li>
-        <li>More details here</li>
-      </div>
-    </ul>
+<ul class="extra-features">
+<li>Additional feature placeholder</li>
+<li>More details here</li>
+</ul>
 
-    <div class="expand-toggle" onclick="toggleFeatures(this)">
-      <span class="arrow">▼</span> <span>Show more</span>
-    </div>
+<div class="expand-toggle" onclick="toggleFeatures(this)">
+<span class="arrow">▼</span> <span>Show more</span>
+</div>
 
-    <button class="gold-btn" onclick="selectPlan('gold')">Choose Gold</button>
-  </div>
+<button class="gold-btn">Choose Gold</button>
+</div>
 
-  <!-- Platinum -->
-  <div class="pricing-card">
-    <h2>Platinum</h2>
-    <div class="price">$1200/month</div>
+<!-- PLATINUM -->
+<div class="pricing-card">
+<h2>Platinum</h2>
+<div class="price">$1200/month</div>
 
-    <ul class="features">
-      <li>Everything included in silver+gold tier</li>
-      <li>Priority chat (usually reply within 1 hour)</li>
-      <li>Custom calendar design integration</li>
-      <li>2.5% fee per successful booking</li>
+<ul class="features">
+<li>Everything included in silver+gold tier</li>
+<li>Priority chat (usually reply within 1 hour)</li>
+<li>Custom calendar design integration</li>
+<li>2.5% fee per successful booking</li>
+</ul>
 
-      <div class="extra-features">
-        <li>Additional feature placeholder</li>
-        <li>More details here</li>
-      </div>
-    </ul>
+<ul class="extra-features">
+<li>Additional feature placeholder</li>
+<li>More details here</li>
+</ul>
 
-    <div class="expand-toggle" onclick="toggleFeatures(this)">
-      <span class="arrow">▼</span> <span>Show more</span>
-    </div>
+<div class="expand-toggle" onclick="toggleFeatures(this)">
+<span class="arrow">▼</span> <span>Show more</span>
+</div>
 
-    <button class="platinum-btn" onclick="selectPlan('platinum')">Choose Platinum</button>
-  </div>
+<button class="platinum-btn">Choose Platinum</button>
+</div>
 
 </div>
 
 <script>
-function selectPlan(plan){
-  if(plan==="silver") window.location.href="https://your-stripe-link-for-silver";
-  if(plan==="gold") window.location.href="https://your-stripe-link-for-gold";
-  if(plan==="platinum") window.location.href="https://your-stripe-link-for-platinum";
-}
-
 function toggleFeatures(el){
-  const extra = el.previousElementSibling.querySelector('.extra-features');
+  const card = el.parentElement;
+  const extra = card.querySelector('.extra-features');
   const arrow = el.querySelector('.arrow');
   const text = el.querySelector('span:last-child');
 
-  if(extra.classList.contains("open")){
-    extra.classList.remove("open");
-    arrow.classList.remove("rotate");
-    text.innerText = "Show more";
-  } else {
-    extra.classList.add("open");
-    arrow.classList.add("rotate");
-    text.innerText = "Show less";
-  }
+  extra.classList.toggle("show");
+  arrow.classList.toggle("rotate");
+
+  text.innerText = extra.classList.contains("show") ? "Show less" : "Show more";
 }
 </script>
 
