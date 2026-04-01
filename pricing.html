@@ -60,43 +60,8 @@ h1 { font-size: 3rem; text-align: center; margin-bottom: 10px; }
 .pricing-card h2 { font-size: 1.8rem; margin-bottom: 10px; }
 .price { font-size: 2.2rem; font-weight: 600; margin: 20px 0; }
 
-.features { list-style: none; padding: 0; margin-bottom: 10px; }
+.features { list-style: none; padding: 0; margin-bottom: 30px; }
 .features li { margin-bottom: 12px; color: #b0c9e6; }
-
-/* ✅ NEW EXPAND FEATURE */
-.extra-features {
-  display: none;
-}
-
-.extra-features.show {
-  display: block;
-  animation: fadeSlide 0.3s ease;
-}
-
-@keyframes fadeSlide {
-  from { opacity: 0; transform: translateY(-5px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.expand-toggle {
-  margin-bottom: 20px;
-  font-size: 14px;
-  color: #5ec2ff;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.expand-toggle:hover { color: #ffffff; }
-
-.arrow {
-  transition: transform 0.3s ease;
-}
-
-.arrow.rotate {
-  transform: rotate(180deg);
-}
 
 button {
   width: 100%; padding: 12px; border: none; border-radius: 8px;
@@ -164,10 +129,14 @@ button {
 ::-webkit-scrollbar-track { background: #79858f; }
 ::-webkit-scrollbar-thumb {
   background: linear-gradient(180deg, #3082b5, #020a10);
+  box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+  transition: 0.3s ease;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #193c50, #021928);
 }
 </style>
 </head>
-
 <body>
 
 <header class="top-bar">
@@ -178,83 +147,76 @@ button {
 <p class="subtitle">Monthly appointment setting packages designed to scale your business.</p>
 
 <div class="pricing-wrapper">
+  <div class="pricing-card">
+    <h2>Silver</h2>
+    <div class="price">$450<span style="font-size:16px;">/month</span></div>
+    <ul class="features">
+      <li>Unlimited client bookings</li>
+      <li>Monthly progress reports</li>
+      <li>Fully accessible hub to manage your bookings system</li>
+      <li>15% fee per successful booking</li>
+    </ul>
+    <button class="silver-btn" onclick="selectPlan('silver')">Choose Silver</button>
+  </div>
 
-<!-- SILVER -->
-<div class="pricing-card">
-<h2>Silver</h2>
-<div class="price">$450<span style="font-size:16px;">/month</span></div>
+  <div class="pricing-card gold-card">
+    <div class="most-popular">Most Popular</div>
+    <h2>Gold</h2>
+    <div class="price">$750<span style="font-size:16px;">/month</span></div>
+    <ul class="features">
+      <li>Everything included in silver tier</li>
+      <li>Client follow-ups</li>
+      <li>Weekly outreach to previous clients</li>
+      <li>8% fee per successful booking</li>
+    </ul>
+    <button class="gold-btn" onclick="selectPlan('gold')">Choose Gold</button>
+  </div>
 
-<ul class="features">
-<li>Unlimited client bookings</li>
-<li>Monthly progress reports</li>
-<li>Fully accessible hub to manage your bookings system</li>
-<li>15% fee per successful booking</li>
-</ul>
-
-<ul class="extra-features">
-<li>Extra feature 1</li>
-<li>Extra feature 2</li>
-</ul>
-
-<div class="expand-toggle" onclick="toggleFeatures(this)">
-<span class="arrow">▼</span><span>Show more</span>
+  <div class="pricing-card">
+    <h2>Platinum</h2>
+    <div class="price">$1200<span style="font-size:16px;">/month</span></div>
+    <ul class="features">
+      <li>Everything included in silver+gold tier</li>
+      <li>Priority chat (usually reply within 1 hour)</li>
+      <li>Custom calendar design integration</li>
+      <li>2.5% fee per successful booking</li>
+    </ul>
+    <button class="platinum-btn" onclick="selectPlan('platinum')">Choose Platinum</button>
+  </div>
 </div>
 
-<button class="silver-btn" onclick="selectPlan('silver')">Choose Silver</button>
+<div class="testimonials">
+  <h3>What Our Clients Say</h3>
+  <div class="testimonial-carousel">
+    <div class="testimonial active">
+      <img src="https://i.postimg.cc/4d6kzF9G/client1.jpg" alt="Client 1">
+      <div>
+        <p>"They booked 20 meetings for us in a month! Absolutely amazing service."</p>
+        <h4>— John Doe, CEO</h4>
+      </div>
+    </div>
+    <div class="testimonial">
+      <img src="https://i.postimg.cc/3xYv5LtM/client2.jpg" alt="Client 2">
+      <div>
+        <p>"Gold plan transformed our lead generation process. Highly recommend."</p>
+        <h4>— Sarah Smith, Marketing Manager</h4>
+      </div>
+    </div>
+    <div class="testimonial">
+      <img src="https://i.postimg.cc/mgpjhwv0/client3.jpg" alt="Client 3">
+      <div>
+        <p>"Platinum plan gave us priority access and incredible results."</p>
+        <h4>— Mike Lee, Sales Director</h4>
+      </div>
+    </div>
+  </div>
 </div>
 
-<!-- GOLD -->
-<div class="pricing-card gold-card">
-<div class="most-popular">Most Popular</div>
-<h2>Gold</h2>
-<div class="price">$750<span style="font-size:16px;">/month</span></div>
-
-<ul class="features">
-<li>Everything included in silver tier</li>
-<li>Client follow-ups</li>
-<li>Weekly outreach to previous clients</li>
-<li>8% fee per successful booking</li>
-</ul>
-
-<ul class="extra-features">
-<li>Extra feature 1</li>
-<li>Extra feature 2</li>
-</ul>
-
-<div class="expand-toggle" onclick="toggleFeatures(this)">
-<span class="arrow">▼</span><span>Show more</span>
+<div class="faq">
+  <h3>Frequently Asked Questions</h3>
+  <p>Q: Can I switch plans later? <br> A: Yes, you can upgrade or downgrade at any time.</p>
+  <p>Q: What happens if a meeting is missed? <br> A: We handle rescheduling and provide full support.</p>
 </div>
-
-<button class="gold-btn" onclick="selectPlan('gold')">Choose Gold</button>
-</div>
-
-<!-- PLATINUM -->
-<div class="pricing-card">
-<h2>Platinum</h2>
-<div class="price">$1200<span style="font-size:16px;">/month</span></div>
-
-<ul class="features">
-<li>Everything included in silver+gold tier</li>
-<li>Priority chat (usually reply within 1 hour)</li>
-<li>Custom calendar design integration</li>
-<li>2.5% fee per successful booking</li>
-</ul>
-
-<ul class="extra-features">
-<li>Extra feature 1</li>
-<li>Extra feature 2</li>
-</ul>
-
-<div class="expand-toggle" onclick="toggleFeatures(this)">
-<span class="arrow">▼</span><span>Show more</span>
-</div>
-
-<button class="platinum-btn" onclick="selectPlan('platinum')">Choose Platinum</button>
-</div>
-
-</div>
-
-<!-- ✅ YOUR ORIGINAL TESTIMONIALS + FAQ FULLY PRESERVED -->
 
 <script>
 function selectPlan(plan){
@@ -263,16 +225,35 @@ function selectPlan(plan){
   if(plan==="platinum") window.location.href="https://your-stripe-link-for-platinum";
 }
 
-function toggleFeatures(el){
-  const card = el.parentElement;
-  const extra = card.querySelector('.extra-features');
-  const arrow = el.querySelector('.arrow');
-  const text = el.querySelector('span:last-child');
-
-  extra.classList.toggle("show");
-  arrow.classList.toggle("rotate");
-  text.innerText = extra.classList.contains("show") ? "Show less" : "Show more";
+let currentTestimonial=0;
+const testimonials=document.querySelectorAll('.testimonial');
+function showTestimonial(index){
+  testimonials.forEach((t,i)=>t.classList.remove('active'));
+  testimonials[index].classList.add('active');
 }
+function nextTestimonial(){ 
+  currentTestimonial=(currentTestimonial+1)%testimonials.length; 
+  showTestimonial(currentTestimonial); 
+}
+setInterval(nextTestimonial,5000);
+
+const cards=document.querySelectorAll('.pricing-card');
+const testimonialsSection=document.querySelector('.testimonials');
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      if(entry.target===testimonialsSection){
+        entry.target.classList.add('animate');
+      } else {
+        cards.forEach((card,i)=>{
+          setTimeout(()=>{ card.classList.add('animate'); }, i*200);
+        });
+      }
+      observer.unobserve(entry.target);
+    }
+  });
+},{threshold:0.2});
+[...cards,testimonialsSection].forEach(el=>observer.observe(el));
 </script>
 
 </body>
