@@ -168,6 +168,145 @@ button {
   <!-- Silver -->
   <div class="pricing-card">
     <h2>Silver</h2>
-    <div class="price">$199<span style="font-size:16px;">/month</span></div>
+    <div class="price">$450<span style="font-size:16px;">/month</span></div>
+    <ul class="features">
+      <li>Unlimited client bookings</li>
+      <li>Monthly progress reports</li>
+      <li>Fully accessible hub to manage your bookings system</li>
+      <li>15% fee per successful booking</li>
 
-    <!-- (REST OF YOUR FILE CONTINUES 100% IDENTICAL) -->
+      <div class="extra-features">
+        <li>Additional feature placeholder</li>
+        <li>More details here</li>
+      </div>
+    </ul>
+    <div class="expand-toggle" onclick="toggleFeatures(this)">▼ Show more</div>
+    <button class="silver-btn" onclick="selectPlan('silver')">Choose Silver</button>
+  </div>
+
+  <!-- Gold -->
+  <div class="pricing-card gold-card">
+    <div class="most-popular">Most Popular</div>
+    <h2>Gold</h2>
+    <div class="price">$750<span style="font-size:16px;">/month</span></div>
+    <ul class="features">
+      <li>Everything included in silver tier</li>
+      <li>Client follow-ups</li>
+      <li>Weekly outreach to previous clients</li>
+      <li>8% fee per successful booking</li>
+
+      <div class="extra-features">
+        <li>Additional feature placeholder</li>
+        <li>More details here</li>
+      </div>
+    </ul>
+    <div class="expand-toggle" onclick="toggleFeatures(this)">▼ Show more</div>
+    <button class="gold-btn" onclick="selectPlan('gold')">Choose Gold</button>
+  </div>
+
+  <!-- Platinum -->
+  <div class="pricing-card">
+    <h2>Platinum</h2>
+    <div class="price">$1200<span style="font-size:16px;">/month</span></div>
+    <ul class="features">
+      <li>Everything included in silver+gold tier</li>
+      <li>Priority chat (usually reply within 1 hour)</li>
+      <li>Custom calendar design integration</li>
+      <li>2.5% fee per successful booking</li>
+
+      <div class="extra-features">
+        <li>Additional feature placeholder</li>
+        <li>More details here</li>
+      </div>
+    </ul>
+    <div class="expand-toggle" onclick="toggleFeatures(this)">▼ Show more</div>
+    <button class="platinum-btn" onclick="selectPlan('platinum')">Choose Platinum</button>
+  </div>
+
+</div>
+
+<div class="testimonials">
+  <h3>What Our Clients Say</h3>
+  <div class="testimonial-carousel">
+    <div class="testimonial active">
+      <img src="https://i.postimg.cc/4d6kzF9G/client1.jpg" alt="Client 1">
+      <div>
+        <p>"They booked 20 meetings for us in a month! Absolutely amazing service."</p>
+        <h4>— John Doe, CEO</h4>
+      </div>
+    </div>
+    <div class="testimonial">
+      <img src="https://i.postimg.cc/3xYv5LtM/client2.jpg" alt="Client 2">
+      <div>
+        <p>"Gold plan transformed our lead generation process. Highly recommend."</p>
+        <h4>— Sarah Smith, Marketing Manager</h4>
+      </div>
+    </div>
+    <div class="testimonial">
+      <img src="https://i.postimg.cc/mgpjhwv0/client3.jpg" alt="Client 3">
+      <div>
+        <p>"Platinum plan gave us priority access and incredible results."</p>
+        <h4>— Mike Lee, Sales Director</h4>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="faq">
+  <h3>Frequently Asked Questions</h3>
+  <p>Q: Can I switch plans later? <br> A: Yes, you can upgrade or downgrade at any time.</p>
+  <p>Q: What happens if a meeting is missed? <br> A: We handle rescheduling and provide full support.</p>
+</div>
+
+<script>
+function selectPlan(plan){
+  if(plan==="silver") window.location.href="https://your-stripe-link-for-silver";
+  if(plan==="gold") window.location.href="https://your-stripe-link-for-gold";
+  if(plan==="platinum") window.location.href="https://your-stripe-link-for-platinum";
+}
+
+function toggleFeatures(el){
+  const extra = el.previousElementSibling.querySelector('.extra-features');
+  
+  if(extra.style.display === "block"){
+    extra.style.display = "none";
+    el.innerHTML = "▼ Show more";
+  } else {
+    extra.style.display = "block";
+    el.innerHTML = "▲ Show less";
+  }
+}
+
+let currentTestimonial=0;
+const testimonials=document.querySelectorAll('.testimonial');
+function showTestimonial(index){
+  testimonials.forEach((t,i)=>t.classList.remove('active'));
+  testimonials[index].classList.add('active');
+}
+function nextTestimonial(){ 
+  currentTestimonial=(currentTestimonial+1)%testimonials.length; 
+  showTestimonial(currentTestimonial); 
+}
+setInterval(nextTestimonial,5000);
+
+const cards=document.querySelectorAll('.pricing-card');
+const testimonialsSection=document.querySelector('.testimonials');
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      if(entry.target===testimonialsSection){
+        entry.target.classList.add('animate');
+      } else {
+        cards.forEach((card,i)=>{
+          setTimeout(()=>{ card.classList.add('animate'); }, i*200);
+        });
+      }
+      observer.unobserve(entry.target);
+    }
+  });
+},{threshold:0.2});
+[...cards,testimonialsSection].forEach(el=>observer.observe(el));
+</script>
+
+</body>
+</html>
