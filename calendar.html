@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BookSuite – Calendar</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .page-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 32px; flex-wrap: wrap; gap: 12px; }
+    .page-header h2 { font-size: 28px; }
+    .section-body { max-width: 1100px; margin: 0 auto; padding: 40px 48px; }
+    .today-btn { background: var(--bs-accent); color: var(--bs-bg); border: none; padding: 8px 18px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; }
+    .today-btn:hover { background: var(--bs-accent-hover); }
+    .cal-nav { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
+    .cal-nav button { background: transparent; border: 1px solid var(--bs-accent); color: var(--bs-accent); padding: 8px 16px; border-radius: 8px; cursor: pointer; font-size: 14px; transition: background 0.2s; }
+    .cal-nav button:hover { background: var(--bs-accent-glow); }
+    .cal-nav h3 { font-size: 20px; color: var(--bs-text); }
+    .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; }
+    .cal-day-label { text-align: center; font-size: 12px; font-weight: 600; color: var(--bs-accent); padding: 10px 0; text-transform: uppercase; letter-spacing: 0.5px; }
+    .cal-cell { min-height: 90px; background: var(--bs-card-hover); border: 1px solid var(--bs-border); border-radius: 8px; padding: 8px; font-size: 13px; cursor: pointer; transition: background 0.2s, border-color 0.2s; position: relative; }
+    .cal-cell:hover { background: var(--bs-accent-glow); }
+    .cal-cell .day-num { font-weight: 600; color: var(--bs-text); margin-bottom: 4px; font-size: 14px; }
+    .cal-cell.today { border-color: var(--bs-accent); background: var(--bs-accent-glow); }
+    .cal-cell.today .day-num { color: var(--bs-accent); }
+    .cal-cell.other-month { opacity: 0.3; }
+    .cal-cell.selected { border-color: var(--bs-accent); background: var(--bs-accent-glow); }
+    .cal-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; margin-right: 2px; }
+    .cal-dot.pending { background: #ffc107; }
+    .cal-dot.confirmed { background: #22c55e; }
+    .cal-dot.completed { background: var(--bs-accent); }
+    .cal-dot.cancelled { background: #ef4444; }
+    .cal-booking-count { font-size: 11px; color: var(--bs-text-secondary); margin-top: 2px; }
+    .cal-booking-preview { font-size: 11px; color: var(--bs-text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 1px; }
+
+    /* Day detail panel */
+    .day-panel { background: var(--bs-surface); border: 1px solid var(--bs-border); border-radius: 14px; padding: 24px; margin-top: 24px; display: none; }
+    .day-panel.active { display: block; }
+    .day-panel h3 { font-size: 18px; margin-bottom: 16px; color: var(--bs-text); }
+    .day-panel-booking { display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; background: var(--bs-card-hover); border: 1px solid var(--bs-border); border-radius: 10px; margin-bottom: 8px; }
+    .day-panel-booking .dpb-info { flex: 1; }
+    .day-panel-booking .dpb-client { font-weight: 600; font-size: 14px; }
+    .day-panel-booking .dpb-service { font-size: 12px; color: var(--bs-text-secondary); }
+    .day-panel-booking .dpb-time { font-size: 13px; color: var(--bs-accent); font-weight: 500; }
+    .badge { padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+    .badge.pending { background: rgba(255,193,7,0.15); color: #ffc107; }
+    .badge.confirmed { background: rgba(34,197,94,0.15); color: #22c55e; }
+    .badge.completed { background: rgba(94,194,255,0.15); color: var(--bs-accent); }
+    .badge.cancelled { background: rgba(239,68,68,0.15); color: #ef4444; }
+    .day-panel-empty { text-align: center; padding: 24px; color: var(--bs-muted); font-size: 14px; }
+    @media (max-width: 768px) {
+      .section-body { padding: 20px 12px; }
+      .cal-cell { min-height: 60px; padding: 4px; }
+      .cal-booking-preview { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="portal-top-bar">
+    <a href="portal.html"><img src="assets/booksuite-logo.PNG" alt="BookSuite logo" class="logo small" /></a>
+    <div class="portal-user">
+      <span class="user-name" id="userName">Loading...</span>
+      <span class="user-company" id="companyCode">Loading...</span>
+    </div>
+    <a href="portal.html" class="logout-btn">← Portal</a>
+  </header>
+
+  <div class="section-body">
+    <div class="page-header">
+      <h2>📅 Calendar</h2>
+      <button class="today-btn" id="todayBtn">Today</button>
+    </div>
+
+    <div class="cal-nav">
+      <button id="prevMonth">← Prev</button>
+      <h3 id="monthLabel"></h3>
+      <button id="nextMonth">Next →</button>
+    </div>
+
+    <div class="cal-grid" id="calGrid">
+      <div class="cal-day-label">Sun</div>
+      <div class="cal-day-label">Mon</div>
+      <div class="cal-day-label">Tue</div>
+      <div class="cal-day-label">Wed</div>
+      <div class="cal-day-label">Thu</div>
+      <div class="cal-day-label">Fri</div>
+      <div class="cal-day-label">Sat</div>
+    </div>
+
+    <div class="day-panel" id="dayPanel">
+      <h3 id="dayPanelTitle">—</h3>
+      <div id="dayPanelBody"></div>
+    </div>
+  </div>
+
+  <script src="theme.js"></script>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    import { getFirestore, doc, getDoc, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBT_QHFaROmtmQQy4984zjJ7Xmust7TOho",
+      authDomain: "booksuite-dtb.firebaseapp.com",
+      projectId: "booksuite-dtb",
+      storageBucket: "booksuite-dtb.firebasestorage.app",
+      messagingSenderId: "587821555081",
+      appId: "1:587821555081:web:e588609eedd6c924cdd558"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+    let companyId = null;
+    let allBookings = [];
+
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) { window.location.href = "login.html"; return; }
+      try {
+        const userDoc = await getDoc(doc(db, "users", user.uid));
+        if (userDoc.exists()) {
+          const d = userDoc.data();
+          companyId = d.companyId;
+          document.getElementById("userName").textContent = d.name;
+          const companyDoc = await getDoc(doc(db, "companies", d.companyId));
+          if (companyDoc.exists()) document.getElementById("companyCode").textContent = "Company Code: " + companyDoc.data().companyCode;
+          // Load bookings
+          const snap = await getDocs(query(collection(db, "bookings"), where("companyId", "==", companyId)));
+          snap.forEach(d => allBookings.push({ id: d.id, ...d.data() }));
+          renderCalendar();
+        } else {
+          document.getElementById("userName").textContent = user.email;
+          renderCalendar();
+        }
+      } catch(e) {
+        console.error(e);
+        document.getElementById("userName").textContent = user.email;
+        renderCalendar();
+      }
+    });
+
+    let currentDate = new Date();
+    let selectedDate = null;
+    const grid = document.getElementById("calGrid");
+    const label = document.getElementById("monthLabel");
+    const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+
+    function getBookingsForDate(dateStr) {
+      return allBookings.filter(b => b.date === dateStr);
+    }
+
+    function pad(n) { return n < 10 ? "0" + n : "" + n; }
+
+    function renderCalendar() {
+      grid.querySelectorAll(".cal-cell").forEach(c => c.remove());
+      const year = currentDate.getFullYear();
+      const month = currentDate.getMonth();
+      label.textContent = months[month] + " " + year;
+      const firstDay = new Date(year, month, 1).getDay();
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+      const daysInPrev = new Date(year, month, 0).getDate();
+      const today = new Date();
+
+      for (let i = firstDay - 1; i >= 0; i--) {
+        const cell = document.createElement("div");
+        cell.className = "cal-cell other-month";
+        cell.innerHTML = `<div class="day-num">${daysInPrev - i}</div>`;
+        grid.appendChild(cell);
+      }
+
+      for (let d = 1; d <= daysInMonth; d++) {
+        const cell = document.createElement("div");
+        const dateStr = year + "-" + pad(month + 1) + "-" + pad(d);
+        cell.className = "cal-cell";
+        if (d === today.getDate() && month === today.getMonth() && year === today.getFullYear()) cell.classList.add("today");
+        if (selectedDate === dateStr) cell.classList.add("selected");
+
+        const dayBookings = getBookingsForDate(dateStr);
+        let dotsHtml = "";
+        let previewHtml = "";
+        if (dayBookings.length > 0) {
+          dotsHtml = '<div>' + dayBookings.slice(0, 4).map(b => `<span class="cal-dot ${(b.status || 'pending').toLowerCase()}"></span>`).join("") + '</div>';
+          previewHtml = `<div class="cal-booking-count">${dayBookings.length} booking${dayBookings.length > 1 ? "s" : ""}</div>`;
+          if (dayBookings.length <= 2) {
+            previewHtml += dayBookings.map(b => `<div class="cal-booking-preview">${b.time || ""} ${b.clientName || ""}</div>`).join("");
+          }
+        }
+        cell.innerHTML = `<div class="day-num">${d}</div>${dotsHtml}${previewHtml}`;
+        cell.addEventListener("click", () => { selectedDate = dateStr; renderCalendar(); showDayPanel(dateStr); });
+        grid.appendChild(cell);
+      }
+
+      const totalCells = firstDay + daysInMonth;
+      const remaining = (7 - (totalCells % 7)) % 7;
+      for (let i = 1; i <= remaining; i++) {
+        const cell = document.createElement("div");
+        cell.className = "cal-cell other-month";
+        cell.innerHTML = `<div class="day-num">${i}</div>`;
+        grid.appendChild(cell);
+      }
+    }
+
+    function showDayPanel(dateStr) {
+      const panel = document.getElementById("dayPanel");
+      const body = document.getElementById("dayPanelBody");
+      const [y, m, d] = dateStr.split("-");
+      document.getElementById("dayPanelTitle").textContent = months[parseInt(m) - 1] + " " + parseInt(d) + ", " + y;
+      const dayBookings = getBookingsForDate(dateStr);
+      body.innerHTML = "";
+      if (dayBookings.length === 0) {
+        body.innerHTML = '<div class="day-panel-empty">No bookings on this day</div>';
+      } else {
+        dayBookings.sort((a, b) => (a.time || "").localeCompare(b.time || ""));
+        dayBookings.forEach(b => {
+          const status = b.status || "Pending";
+          let timeDisplay = b.time || "—";
+          if (b.time && b.time.includes(":")) {
+            const [h, m] = b.time.split(":");
+            const hr = parseInt(h);
+            timeDisplay = (hr > 12 ? hr - 12 : hr || 12) + ":" + m + " " + (hr >= 12 ? "PM" : "AM");
+          }
+          const div = document.createElement("div");
+          div.className = "day-panel-booking";
+          div.innerHTML = `
+            <div class="dpb-info">
+              <div class="dpb-client">${b.clientName || "—"}</div>
+              <div class="dpb-service">${b.service || "—"}</div>
+            </div>
+            <div class="dpb-time">${timeDisplay}</div>
+            <span class="badge ${status.toLowerCase()}" style="margin-left:10px">${status}</span>`;
+          body.appendChild(div);
+        });
+      }
+      panel.classList.add("active");
+    }
+
+    document.getElementById("prevMonth").addEventListener("click", () => { currentDate.setMonth(currentDate.getMonth() - 1); renderCalendar(); });
+    document.getElementById("nextMonth").addEventListener("click", () => { currentDate.setMonth(currentDate.getMonth() + 1); renderCalendar(); });
+    document.getElementById("todayBtn").addEventListener("click", () => { currentDate = new Date(); selectedDate = null; renderCalendar(); document.getElementById("dayPanel").classList.remove("active"); });
+
+    renderCalendar();
+  </script>
+</body>
+</html>

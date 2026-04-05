@@ -5,6 +5,165 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BookSuite</title>
     <link rel="stylesheet" href="styles.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <style>
+      body { background: radial-gradient(ellipse at top left, #0d1f3a 0%, #020814 60%); }
+
+      /* Hero refinements */
+      .hero { min-height: 85vh; padding: 60px 8% 80px; }
+      .hero-badge {
+        display: inline-block;
+        padding: 6px 16px;
+        background: rgba(94,194,255,0.08);
+        border: 1px solid rgba(94,194,255,0.2);
+        border-radius: 20px;
+        font-size: 13px;
+        color: #5ec2ff;
+        margin-bottom: 20px;
+        font-weight: 500;
+      }
+      .hero-title { color: #eaf2ff; }
+      .hero-desc { max-width: 460px; }
+
+      /* Trusted bar */
+      .trusted-bar {
+        text-align: center;
+        padding: 40px 20px;
+        border-top: 1px solid rgba(255,255,255,0.04);
+        border-bottom: 1px solid rgba(255,255,255,0.04);
+      }
+      .trusted-bar p {
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: #5a6a80;
+        margin-bottom: 14px;
+      }
+      .trusted-logos {
+        display: flex;
+        justify-content: center;
+        gap: 40px;
+        flex-wrap: wrap;
+        opacity: 0.4;
+        font-size: 14px;
+        color: #6b7f96;
+      }
+
+      /* Feature cards */
+      .info-cards { padding: 80px 8% 60px; }
+      .info-cards .card {
+        position: relative;
+        overflow: hidden;
+      }
+      .card-num {
+        position: absolute;
+        top: 16px;
+        right: 20px;
+        font-size: 48px;
+        font-weight: 800;
+        color: rgba(94,194,255,0.06);
+        line-height: 1;
+      }
+      .card-icon-top {
+        font-size: 28px;
+        margin-bottom: 14px;
+        display: block;
+      }
+
+      /* Section headings shared */
+      .section-heading {
+        text-align: center;
+        margin-bottom: 40px;
+      }
+      .section-heading h2 {
+        font-size: 32px;
+        font-weight: 700;
+        color: #eaf2ff;
+        margin-bottom: 10px;
+      }
+      .section-heading p {
+        color: #6b7f96;
+        font-size: 15px;
+        max-width: 480px;
+        margin: 0 auto;
+      }
+
+      /* How it works */
+      .system-flow { padding: 60px 20px 40px; gap: 28px; }
+      .flow-icon {
+        width: 60px; height: 60px;
+        font-size: 26px;
+      }
+      .flow-step-num {
+        font-size: 11px;
+        color: #5ec2ff;
+        font-weight: 700;
+        letter-spacing: 1px;
+        margin-bottom: 6px;
+      }
+      .flow-item span { font-size: 13px; }
+
+      /* Carousel */
+      .carousel-section { padding: 60px 20px; }
+      .carousel {
+        background: rgba(255,255,255,0.02);
+        border: 1px solid rgba(255,255,255,0.05);
+        border-radius: 16px;
+        padding: 0;
+      }
+      .review {
+        border: none;
+        background: transparent;
+        padding: 40px 28px;
+      }
+      .review p { font-size: 16px; max-width: 520px; margin: 0 auto; }
+
+      /* Comparison */
+      #before-after { padding: 60px 8% 50px; }
+      .before ul, .after ul { line-height: 2.2; }
+
+      /* Final CTA */
+      .cta-section {
+        text-align: center;
+        padding: 80px 20px;
+        background: rgba(94,194,255,0.03);
+        border-top: 1px solid rgba(255,255,255,0.04);
+      }
+      .cta-section h2 {
+        font-size: 30px;
+        font-weight: 700;
+        margin-bottom: 12px;
+        color: #eaf2ff;
+      }
+      .cta-section p {
+        color: #6b7f96;
+        font-size: 15px;
+        max-width: 400px;
+        margin: 0 auto 24px;
+      }
+
+      /* Footer */
+      .site-footer {
+        text-align: center;
+        padding: 36px 20px;
+        border-top: 1px solid rgba(255,255,255,0.05);
+        font-size: 13px;
+        color: #4a5568;
+      }
+      .site-footer a {
+        color: #5ec2ff;
+        text-decoration: none;
+      }
+
+      /* Mobile */
+      @media (max-width: 768px) {
+        .hero { min-height: auto; padding: 40px 20px 50px; }
+        .trusted-logos { gap: 20px; }
+        #before-after { padding: 40px 20px; }
+        .cta-section { padding: 50px 20px; }
+        .section-heading h2 { font-size: 24px; }
+      }
+    </style>
   </head>
 
   <body>
@@ -12,138 +171,181 @@
       <div class="logo-wrap">
         <img src="assets/booksuite-logo.PNG" alt="BookSuite logo" class="logo" />
       </div>
-      <a href="login.html" class="login-link">login</a>
+      <a href="login.html" class="login-link">Login</a>
     </header>
 
+    <!-- HERO -->
     <main class="hero">
       <div class="hero-left">
+        <span class="hero-badge">Booking management, simplified</span>
         <h1 class="hero-title">
           <span class="brand-b">B</span>ook<span class="brand-s">S</span>uite
         </h1>
-
         <p class="hero-desc">
-          Bookings, Clients, and Staff schedules, all in one place
+          Bookings, clients, staff schedules, and payments &mdash; all managed from one clean dashboard.
         </p>
-
         <div class="hero-buttons">
-          <a href="signup.html"><button class="btn primary">try now</button>  </a>
-           <a href="pricing.html"><button class="btn outline">explore Pricing</button> </a>
+          <a href="signup.html" class="btn primary">Get Started Free</a>
+          <a href="pricing.html" class="btn outline">View Pricing</a>
         </div>
       </div>
-
       <div class="hero-right">
-<div class="video-wrapper">
-<iframe 
-    width="560" 
-    height="315" 
-    src="https://www.youtube.com/embed/J5RZOU6vK4Q" 
-    title="YouTube video player" 
-    frameborder="0" 
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-    allowfullscreen>
-</iframe>
-</div>
+        <div class="video-wrapper">
+          <iframe
+            src="https://www.youtube.com/embed/J5RZOU6vK4Q?autoplay=1&mute=1&loop=1&playlist=J5RZOU6vK4Q"
+            title="BookSuite Demo"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen>
+          </iframe>
+        </div>
       </div>
     </main>
 
+    <!-- TRUSTED -->
+    <section class="trusted-bar">
+      <p>Built for small businesses</p>
+      <div class="trusted-logos">
+        <span>Salons</span>
+        <span>Barbershops</span>
+        <span>Spas</span>
+        <span>Studios</span>
+        <span>Clinics</span>
+      </div>
+    </section>
+
+    <!-- FEATURES -->
+    <div class="section-heading" style="margin-top: 60px;">
+      <h2>Everything you need</h2>
+      <p>Replace spreadsheets and sticky notes with one professional system.</p>
+    </div>
     <section class="info-cards">
       <div class="card">
-        <h3>for businesses</h3>
-        <p>accept bookings, deposits, and manage staff schedules easily.</p>
+        <span class="card-num">01</span>
+        <span class="card-icon-top">??</span>
+        <h3>Smart Bookings</h3>
+        <p>Accept bookings online, manage deposits, and send automatic confirmations to clients.</p>
       </div>
-
       <div class="card">
-        <h3>for staff</h3>
-        <p>view bookings, receive check-in alerts, and track job progress.</p>
+        <span class="card-num">02</span>
+        <span class="card-icon-top">??</span>
+        <h3>Staff Management</h3>
+        <p>Assign staff to bookings, manage schedules, and track availability across your team.</p>
       </div>
-
       <div class="card">
-        <h3>for clients</h3>
-        <p>get confirmations, receipts, qr codes, and reminders.</p>
+        <span class="card-num">03</span>
+        <span class="card-icon-top">??</span>
+        <h3>Reports & Insights</h3>
+        <p>View revenue, booking trends, and busiest hours at a glance from your dashboard.</p>
       </div>
     </section>
 
+    <!-- HOW IT WORKS -->
+    <div class="section-heading">
+      <h2>How it works</h2>
+      <p>From booking to completion in four steps.</p>
+    </div>
     <section class="system-flow">
-      <div class="flow-item"><div class="flow-icon">📅</div><span>Bookings</span></div>
+      <div class="flow-item">
+        <div class="flow-step-num">STEP 1</div>
+        <div class="flow-icon">??</div>
+        <span>Client Books</span>
+      </div>
       <div class="flow-line"></div>
-      <div class="flow-item"><div class="flow-icon">👤</div><span>Clients</span></div>
+      <div class="flow-item">
+        <div class="flow-step-num">STEP 2</div>
+        <div class="flow-icon">??</div>
+        <span>Staff Notified</span>
+      </div>
       <div class="flow-line"></div>
-      <div class="flow-item"><div class="flow-icon">🧑‍💼</div><span>Staff</span></div>
+      <div class="flow-item">
+        <div class="flow-step-num">STEP 3</div>
+        <div class="flow-icon">?</div>
+        <span>Service Done</span>
+      </div>
       <div class="flow-line"></div>
-      <div class="flow-item"><div class="flow-icon">⚙️</div><span>Automation</span></div>
-      <div class="flow-line"></div>
-      <div class="flow-item"><div class="flow-icon">📊</div><span>Control</span></div>
+      <div class="flow-item">
+        <div class="flow-step-num">STEP 4</div>
+        <div class="flow-icon">??</div>
+        <span>Payment Logged</span>
+      </div>
     </section>
 
+    <!-- REVIEWS -->
+    <div class="section-heading" style="margin-top: 30px;">
+      <h2>What people say</h2>
+    </div>
     <div class="carousel">
-<div class="slides" id="slides">
-<div class="review">
-<div class="stars">★★★★★</div>
-<p>"Great service, highly recommend!"</p>
-<div class="name">— Alex</div>
-</div>
-<div class="review">
-<div class="stars">★★★★★</div>
-<p>"Fast, professional, and friendly."</p>
-<div class="name">— Maya</div>
-</div>
-<div class="review">
-<div class="stars">★★★★☆</div>
-<p>"Really good experience overall."</p>
-<div class="name">— Chris</div>
-</div>
-</div>
-</div>
+      <div class="slides" id="slides">
+        <div class="review">
+          <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>&ldquo;Replaced our whole paper system. Clients love the booking confirmations.&rdquo;</p>
+          <div class="name">&mdash; Alex, Salon Owner</div>
+        </div>
+        <div class="review">
+          <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>&ldquo;Fast, professional, and the staff scheduling saved us hours every week.&rdquo;</p>
+          <div class="name">&mdash; Maya, Studio Manager</div>
+        </div>
+        <div class="review">
+          <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
+          <p>&ldquo;Really great experience. The reports dashboard is exactly what I needed.&rdquo;</p>
+          <div class="name">&mdash; Chris, Barbershop Owner</div>
+        </div>
+      </div>
+    </div>
 
-    <!-- COMPARISON -->
+    <!-- BEFORE / AFTER -->
+    <div class="section-heading" style="margin-top: 60px;">
+      <h2>The difference</h2>
+    </div>
     <section id="before-after">
       <div class="comparison-inner">
         <div class="before">
           <h3 class="comparison-title muted">Without BookSuite</h3>
           <div class="comparison-divider"></div>
           <ul>
-            <li>❌ Missed bookings</li>
-            <li>❌ Double-booked staff</li>
-            <li>❌ Manual follow-ups</li>
-            <li>❌ Admin chaos</li>
-            <li>❌ No clear overview</li>
+            <li>&#10060; Missed bookings</li>
+            <li>&#10060; Double-booked staff</li>
+            <li>&#10060; Manual follow-ups</li>
+            <li>&#10060; Admin chaos</li>
+            <li>&#10060; No clear overview</li>
           </ul>
         </div>
-
         <div class="after">
-          <h3 class="comparison-title positive">Using BookSuite</h3>
+          <h3 class="comparison-title positive">With BookSuite</h3>
           <div class="comparison-divider"></div>
           <ul>
-            <li>✅ Automated bookings</li>
-            <li>✅ Synced staff schedules</li>
-            <li>✅ Reminders sent</li>
-            <li>✅ Hours saved weekly</li>
-            <li>✅ Calm dashboard</li>
+            <li>&#9989; Automated bookings</li>
+            <li>&#9989; Synced staff schedules</li>
+            <li>&#9989; Reminders sent</li>
+            <li>&#9989; Hours saved weekly</li>
+            <li>&#9989; Calm dashboard</li>
           </ul>
         </div>
       </div>
     </section>
 
-    <section class="contact-section">
-      <h2>Need help or have a question?</h2>
-      <p>If you have any questions or enquiries, feel free to get in touch.</p>
-      <p class="contact-email">mngr.booksuite@outlook.com</p>
-      <div style="margin-top: 40px;">
-  <a href="mailto:mngr.booksuite@outlook.com" class="btn primary">email us</a>
-</div>
+    <!-- CTA -->
+    <section class="cta-section">
+      <h2>Ready to simplify your business?</h2>
+      <p>Start managing bookings, staff, and clients in minutes. No credit card required.</p>
+      <a href="signup.html" class="btn primary">Get Started Free</a>
     </section>
 
-<script>
-let index = 0;
-const slides = document.getElementById('slides');
-const total = document.querySelectorAll('.review').length;
+    <!-- FOOTER -->
+    <footer class="site-footer">
+      <p>&copy; 2025 BookSuite. <a href="mailto:mngr.booksuite@outlook.com">mngr.booksuite@outlook.com</a></p>
+    </footer>
 
-
-setInterval(() => {
-index = (index + 1) % total;
-slides.style.transform = `translateX(-${index * 100}%)`;
-}, 3000); // change review every 3 seconds
-</script>
-
+    <script>
+      let index = 0;
+      const slides = document.getElementById('slides');
+      const total = document.querySelectorAll('.review').length;
+      setInterval(() => {
+        index = (index + 1) % total;
+        slides.style.transform = `translateX(-${index * 100}%)`;
+      }, 4000);
+    </script>
   </body>
 </html>

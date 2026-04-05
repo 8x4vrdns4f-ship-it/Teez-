@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BookSuite – Reports</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .page-header { display: flex; align-items: center; gap: 16px; margin-bottom: 32px; }
+    .page-header h2 { font-size: 28px; }
+    .section-body { max-width: 1100px; margin: 0 auto; padding: 40px 48px; }
+    .stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 40px; }
+    .stat-card { background: var(--bs-surface); border: 1px solid var(--bs-border); border-radius: 12px; padding: 20px; }
+    .stat-label { font-size: 12px; color: var(--bs-text-secondary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+    .stat-value { font-size: 28px; font-weight: 700; color: var(--bs-accent); }
+    .report-section { margin-bottom: 40px; }
+    .report-section h3 { font-size: 18px; margin-bottom: 16px; color: var(--bs-text); }
+    .bar-chart { display: flex; align-items: flex-end; gap: 8px; height: 200px; padding: 20px 0; border-bottom: 1px solid var(--bs-input-border); }
+    .bar-col { display: flex; flex-direction: column; align-items: center; flex: 1; }
+    .bar { width: 100%; max-width: 40px; background: linear-gradient(180deg, var(--bs-accent), var(--bs-accent-hover)); border-radius: 4px 4px 0 0; transition: height 0.5s ease; min-height: 4px; }
+    .bar-label { font-size: 11px; color: var(--bs-text-secondary); margin-top: 8px; }
+    .bar-value { font-size: 11px; color: var(--bs-accent); margin-bottom: 4px; font-weight: 600; }
+    .report-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .report-card { background: var(--bs-surface); border: 1px solid var(--bs-border); border-radius: 12px; padding: 24px; }
+    .report-card h4 { font-size: 15px; color: var(--bs-accent); margin-bottom: 14px; }
+    .report-list { list-style: none; padding: 0; margin: 0; }
+    .report-list li { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--bs-border); font-size: 14px; }
+    .report-list li:last-child { border-bottom: none; }
+    .report-list .rl-name { color: var(--bs-text); }
+    .report-list .rl-val { color: var(--bs-accent); font-weight: 600; }
+    .empty-note { color: var(--bs-muted); font-size: 13px; padding: 12px 0; }
+    @media (max-width: 768px) { .section-body { padding: 20px 16px; } .report-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <header class="portal-top-bar">
+    <a href="portal.html"><img src="assets/booksuite-logo.PNG" alt="BookSuite logo" class="logo small" /></a>
+    <div class="portal-user">
+      <span class="user-name" id="userName">Loading...</span>
+      <span class="user-company" id="companyCode">Loading...</span>
+    </div>
+    <a href="portal.html" class="logout-btn">← Portal</a>
+  </header>
+
+  <div class="section-body">
+    <div class="page-header">
+      <h2>📊 Reports</h2>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-label">Total Bookings</div>
+        <div class="stat-value" id="totalBookings">0</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Total Clients</div>
+        <div class="stat-value" id="totalClients">0</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Total Revenue</div>
+        <div class="stat-value" id="totalRevenue">$0.00</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Staff Members</div>
+        <div class="stat-value" id="totalStaff">0</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Completion Rate</div>
+        <div class="stat-value" id="completionRate">0%</div>
+      </div>
+    </div>
+
+    <div class="report-section">
+      <h3>Bookings This Week</h3>
+      <div class="bar-chart" id="weekChart"></div>
+    </div>
+
+    <div class="report-grid">
+      <div class="report-card">
+        <h4>📈 Top Services</h4>
+        <ul class="report-list" id="topServices"><li class="empty-note">No bookings yet</li></ul>
+      </div>
+      <div class="report-card">
+        <h4>⏰ Busiest Hours</h4>
+        <ul class="report-list" id="busiestHours"><li class="empty-note">No bookings yet</li></ul>
+      </div>
+      <div class="report-card">
+        <h4>📅 Booking Status Breakdown</h4>
+        <ul class="report-list" id="statusBreakdown"><li class="empty-note">No bookings yet</li></ul>
+      </div>
+      <div class="report-card">
+        <h4>💰 Revenue by Month</h4>
+        <ul class="report-list" id="revenueByMonth"><li class="empty-note">No payments yet</li></ul>
+      </div>
+    </div>
+  </div>
+
+  <script src="theme.js"></script>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    import { getFirestore, doc, getDoc, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBT_QHFaROmtmQQy4984zjJ7Xmust7TOho",
+      authDomain: "booksuite-dtb.firebaseapp.com",
+      projectId: "booksuite-dtb",
+      storageBucket: "booksuite-dtb.firebasestorage.app",
+      messagingSenderId: "587821555081",
+      appId: "1:587821555081:web:e588609eedd6c924cdd558"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) { window.location.href = "login.html"; return; }
+      try {
+        const userDoc = await getDoc(doc(db, "users", user.uid));
+        if (!userDoc.exists()) { document.getElementById("userName").textContent = user.email; return; }
+        const d = userDoc.data();
+        const cid = d.companyId;
+        document.getElementById("userName").textContent = d.name;
+        const companyDoc = await getDoc(doc(db, "companies", cid));
+        if (companyDoc.exists()) document.getElementById("companyCode").textContent = "Company Code: " + companyDoc.data().companyCode;
+
+        const [bookingsSnap, clientsSnap, paymentsSnap, staffSnap] = await Promise.all([
+          getDocs(query(collection(db, "bookings"), where("companyId", "==", cid))),
+          getDocs(query(collection(db, "clients"), where("companyId", "==", cid))),
+          getDocs(query(collection(db, "payments"), where("companyId", "==", cid))),
+          getDocs(query(collection(db, "staff"), where("companyId", "==", cid)))
+        ]);
+
+        const bookings = [];
+        bookingsSnap.forEach(d => bookings.push(d.data()));
+        const payments = [];
+        paymentsSnap.forEach(d => payments.push(d.data()));
+
+        document.getElementById("totalBookings").textContent = bookings.length;
+        document.getElementById("totalClients").textContent = clientsSnap.size;
+        document.getElementById("totalStaff").textContent = staffSnap.size;
+
+        let rev = 0;
+        payments.forEach(p => { if ((p.status || "Paid") === "Paid") rev += parseFloat(p.amount || 0); });
+        document.getElementById("totalRevenue").textContent = "$" + rev.toFixed(2);
+
+        const completed = bookings.filter(b => (b.status || "").toLowerCase() === "completed").length;
+        document.getElementById("completionRate").textContent = bookings.length ? Math.round((completed / bookings.length) * 100) + "%" : "0%";
+
+        // Bar chart — bookings this week
+        const now = new Date();
+        const dayOfWeek = now.getDay();
+        const monday = new Date(now);
+        monday.setDate(now.getDate() - ((dayOfWeek + 6) % 7));
+        monday.setHours(0, 0, 0, 0);
+
+        const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+        const counts = [0, 0, 0, 0, 0, 0, 0];
+        bookings.forEach(b => {
+          if (!b.date) return;
+          const bd = new Date(b.date.seconds ? b.date.seconds * 1000 : b.date);
+          const diff = Math.floor((bd - monday) / (1000 * 60 * 60 * 24));
+          if (diff >= 0 && diff < 7) counts[diff]++;
+        });
+        const maxCount = Math.max(...counts, 1);
+        const chart = document.getElementById("weekChart");
+        chart.innerHTML = "";
+        days.forEach((day, i) => {
+          const col = document.createElement("div");
+          col.className = "bar-col";
+          const h = Math.max((counts[i] / maxCount) * 160, 4);
+          col.innerHTML = `<span class="bar-value">${counts[i]}</span><div class="bar" style="height:${h}px"></div><span class="bar-label">${day}</span>`;
+          chart.appendChild(col);
+        });
+
+        // Top services
+        if (bookings.length) {
+          const svcMap = {};
+          bookings.forEach(b => { if (b.service) svcMap[b.service] = (svcMap[b.service] || 0) + 1; });
+          const sorted = Object.entries(svcMap).sort((a, b) => b[1] - a[1]).slice(0, 5);
+          if (sorted.length) {
+            document.getElementById("topServices").innerHTML = sorted.map(([name, count]) =>
+              `<li><span class="rl-name">${name}</span><span class="rl-val">${count} bookings</span></li>`
+            ).join("");
+          }
+        }
+
+        // Busiest hours
+        if (bookings.length) {
+          const hourMap = {};
+          bookings.forEach(b => {
+            if (!b.time) return;
+            const hr = b.time.split(":")[0];
+            const h = parseInt(hr);
+            const label = h === 0 ? "12 AM" : h < 12 ? h + " AM" : h === 12 ? "12 PM" : (h - 12) + " PM";
+            hourMap[label] = (hourMap[label] || 0) + 1;
+          });
+          const sorted = Object.entries(hourMap).sort((a, b) => b[1] - a[1]).slice(0, 5);
+          if (sorted.length) {
+            document.getElementById("busiestHours").innerHTML = sorted.map(([hr, count]) =>
+              `<li><span class="rl-name">${hr}</span><span class="rl-val">${count} bookings</span></li>`
+            ).join("");
+          }
+        }
+
+        // Status breakdown
+        if (bookings.length) {
+          const statusMap = {};
+          bookings.forEach(b => { const s = b.status || "Pending"; statusMap[s] = (statusMap[s] || 0) + 1; });
+          document.getElementById("statusBreakdown").innerHTML = Object.entries(statusMap).map(([status, count]) =>
+            `<li><span class="rl-name">${status}</span><span class="rl-val">${count}</span></li>`
+          ).join("");
+        }
+
+        // Revenue by month
+        if (payments.length) {
+          const monthMap = {};
+          const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+          payments.forEach(p => {
+            if ((p.status || "Paid") !== "Paid") return;
+            const pd = p.date ? new Date(p.date.seconds ? p.date.seconds * 1000 : p.date) : null;
+            if (!pd) return;
+            const key = monthNames[pd.getMonth()] + " " + pd.getFullYear();
+            monthMap[key] = (monthMap[key] || 0) + parseFloat(p.amount || 0);
+          });
+          const sorted = Object.entries(monthMap).slice(-6);
+          if (sorted.length) {
+            document.getElementById("revenueByMonth").innerHTML = sorted.map(([month, total]) =>
+              `<li><span class="rl-name">${month}</span><span class="rl-val">$${total.toFixed(2)}</span></li>`
+            ).join("");
+          }
+        }
+
+      } catch(e) { console.error(e); document.getElementById("userName").textContent = user.email; }
+    });
+  </script>
+</body>
+</html>

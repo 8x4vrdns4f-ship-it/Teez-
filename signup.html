@@ -5,6 +5,61 @@
 <title>Sign Up – BookSuite</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="styles.css">
+<style>
+  .password-rules {
+    margin-top: 8px;
+    font-size: 12px;
+    line-height: 1.8;
+  }
+  .password-rules li {
+    list-style: none;
+    padding-left: 4px;
+    color: #ff6b6b;
+    transition: color 0.2s;
+  }
+  .password-rules li.met {
+    color: #22c55e;
+  }
+  .password-rules li::before {
+    content: '✕ ';
+  }
+  .password-rules li.met::before {
+    content: '✓ ';
+  }
+  .generate-btn {
+    display: inline-block;
+    margin-top: 6px;
+    padding: 6px 14px;
+    font-size: 12px;
+    border: 1px solid #5ec2ff;
+    background: transparent;
+    color: #5ec2ff;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.2s ease;
+  }
+  .generate-btn:hover {
+    background: #5ec2ff;
+    color: #020814;
+  }
+  .strength-bar-wrap {
+    height: 4px;
+    background: #1e293b;
+    border-radius: 4px;
+    margin-top: 8px;
+    overflow: hidden;
+  }
+  .strength-bar {
+    height: 100%;
+    width: 0%;
+    border-radius: 4px;
+    transition: width 0.3s, background 0.3s;
+  }
+  #strength-label {
+    font-size: 12px;
+    margin-top: 4px;
+  }
+</style>
 </head>
 
 <body>
@@ -32,10 +87,19 @@
       <div class="input-group">
         <label>Password</label>
         <div class="password-wrapper">
-          <input type="password" id="password" required>
+          <input type="password" id="password" required minlength="8">
           <span class="toggle-password" data-target="password">Show</span>
         </div>
-        <div id="strength-text"></div>
+        <div class="strength-bar-wrap"><div class="strength-bar" id="strengthBar"></div></div>
+        <div id="strength-label"></div>
+        <ul class="password-rules" id="passwordRules">
+          <li id="rule-length">At least 8 characters</li>
+          <li id="rule-upper">One uppercase letter</li>
+          <li id="rule-lower">One lowercase letter</li>
+          <li id="rule-number">One number</li>
+          <li id="rule-special">One special character (!@#$%...)</li>
+        </ul>
+        <button type="button" class="generate-btn" id="generateBtn">Generate a strong password for me</button>
       </div>
 
       <div class="input-group">
@@ -94,6 +158,83 @@ function generateCompanyCode() {
   return result;
 }
 
+document.querySelectorAll(".toggle-password").forEach(toggle => {
+  toggle.addEventListener("click", () => {
+    const input = document.getElementById(toggle.dataset.target);
+    const isHidden = input.type === "password";
+    input.type = isHidden ? "text" : "password";
+    toggle.textContent = isHidden ? "Hide" : "Show";
+  });
+});
+
+// Password rules & strength
+const passwordInput = document.getElementById("password");
+const confirmInput = document.getElementById("confirmPassword");
+const strengthBar = document.getElementById("strengthBar");
+const strengthLabel = document.getElementById("strength-label");
+
+const rules = {
+  length:  { el: document.getElementById("rule-length"),  test: v => v.length >= 8 },
+  upper:   { el: document.getElementById("rule-upper"),   test: v => /[A-Z]/.test(v) },
+  lower:   { el: document.getElementById("rule-lower"),   test: v => /[a-z]/.test(v) },
+  number:  { el: document.getElementById("rule-number"),  test: v => /[0-9]/.test(v) },
+  special: { el: document.getElementById("rule-special"), test: v => /[^A-Za-z0-9]/.test(v) },
+};
+
+function checkPassword(value) {
+  let score = 0;
+  for (const key in rules) {
+    const passed = rules[key].test(value);
+    rules[key].el.classList.toggle("met", passed);
+    if (passed) score++;
+  }
+  const pct = (score / 5) * 100;
+  strengthBar.style.width = pct + "%";
+  const colors = ["#ff4444", "#ff4444", "#ff9800", "#ffc107", "#8bc34a", "#22c55e"];
+  const labels = ["", "Very weak", "Weak", "Fair", "Good", "Strong"];
+  strengthBar.style.background = colors[score];
+  strengthLabel.textContent = value ? labels[score] : "";
+  strengthLabel.style.color = colors[score];
+  return score;
+}
+
+passwordInput.addEventListener("input", () => checkPassword(passwordInput.value));
+
+// Generate strong password
+function generateStrongPassword() {
+  const upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  const lower = "abcdefghijklmnopqrstuvwxyz";
+  const digits = "0123456789";
+  const specials = "!@#$%^&*()_+-=[]{}";
+  const all = upper + lower + digits + specials;
+  // Guarantee one of each
+  let pw = [
+    upper[Math.floor(Math.random() * upper.length)],
+    lower[Math.floor(Math.random() * lower.length)],
+    digits[Math.floor(Math.random() * digits.length)],
+    specials[Math.floor(Math.random() * specials.length)],
+  ];
+  for (let i = pw.length; i < 16; i++) {
+    pw.push(all[Math.floor(Math.random() * all.length)]);
+  }
+  // Shuffle
+  for (let i = pw.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [pw[i], pw[j]] = [pw[j], pw[i]];
+  }
+  return pw.join("");
+}
+
+document.getElementById("generateBtn").addEventListener("click", () => {
+  const generated = generateStrongPassword();
+  passwordInput.value = generated;
+  confirmInput.value = generated;
+  passwordInput.type = "text";
+  confirmInput.type = "text";
+  document.querySelectorAll('.toggle-password').forEach(t => t.textContent = 'Hide');
+  checkPassword(generated);
+});
+
 const form = document.getElementById("signup-form");
 const submitBtn = document.getElementById("submitBtn");
 
@@ -107,6 +248,13 @@ form.addEventListener("submit", async (e) => {
 
   if (password !== confirmPassword) {
     alert("Passwords do not match");
+    return;
+  }
+
+  if (checkPassword(password) < 5) {
+    alert("Please meet all password requirements before continuing.");
+    submitBtn.textContent = "Create Account";
+    submitBtn.disabled = false;
     return;
   }
 

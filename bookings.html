@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BookSuite – Bookings</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .page-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 32px; flex-wrap: wrap; gap: 12px; }
+    .page-header h2 { font-size: 28px; }
+    .section-body { max-width: 1100px; margin: 0 auto; padding: 40px 48px; }
+    .add-btn { background: var(--bs-accent); color: var(--bs-bg); border: none; padding: 10px 22px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; transition: 0.2s; }
+    .add-btn:hover { background: var(--bs-accent-hover); }
+    .filter-tabs { display: flex; gap: 6px; margin-bottom: 20px; flex-wrap: wrap; }
+    .filter-tab { padding: 6px 16px; border-radius: 20px; border: 1px solid var(--bs-accent); background: transparent; color: var(--bs-accent); cursor: pointer; font-size: 13px; transition: 0.2s; }
+    .filter-tab:hover, .filter-tab.active { background: var(--bs-accent); color: var(--bs-bg); }
+    .search-bar { width: 100%; padding: 12px 16px; border-radius: 10px; border: 1px solid var(--bs-input-border); background: var(--bs-surface); color: var(--bs-text); font-size: 14px; margin-bottom: 20px; box-sizing: border-box; }
+    .search-bar:focus { outline: none; border-color: var(--bs-accent); }
+    .search-bar::placeholder { color: var(--bs-muted); }
+    .empty-state { text-align: center; padding: 80px 20px; color: var(--bs-text-secondary); }
+    .empty-state .icon { font-size: 56px; margin-bottom: 16px; }
+    .empty-state p { font-size: 16px; margin-bottom: 24px; }
+    .data-table { width: 100%; border-collapse: collapse; margin-top: 8px; }
+    .data-table th, .data-table td { text-align: left; padding: 14px 16px; border-bottom: 1px solid var(--bs-border); font-size: 14px; }
+    .data-table th { color: var(--bs-accent); font-weight: 600; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .data-table tr:hover { background: var(--bs-card-hover); }
+    .badge { padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+    .badge.pending { background: rgba(255,193,7,0.15); color: #ffc107; }
+    .badge.confirmed { background: rgba(34,197,94,0.15); color: #22c55e; }
+    .badge.cancelled { background: rgba(239,68,68,0.15); color: #ef4444; }
+    .badge.completed { background: rgba(94,194,255,0.15); color: var(--bs-accent); }
+    .action-btns { display: flex; gap: 6px; }
+    .action-btns button { background: transparent; border: 1px solid var(--bs-input-border); color: var(--bs-text-secondary); padding: 5px 10px; border-radius: 6px; cursor: pointer; font-size: 12px; transition: 0.2s; }
+    .action-btns button:hover { border-color: var(--bs-accent); color: var(--bs-accent); }
+    .action-btns button.del:hover { border-color: #ef4444; color: #ef4444; }
+    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 100; align-items: center; justify-content: center; }
+    .modal-overlay.active { display: flex; }
+    .modal { background: var(--bs-modal-bg); border: 1px solid var(--bs-input-border); border-radius: 16px; padding: 32px; width: 90%; max-width: 460px; max-height: 90vh; overflow-y: auto; }
+    .modal h3 { margin-bottom: 20px; font-size: 20px; }
+    .modal label { display: block; font-size: 13px; color: var(--bs-text-secondary); margin-bottom: 6px; margin-top: 14px; }
+    .modal input, .modal select, .modal textarea { width: 100%; padding: 10px 12px; border-radius: 8px; border: 1px solid var(--bs-input-border); background: var(--bs-input-bg); color: var(--bs-text); font-size: 14px; font-family: inherit; box-sizing: border-box; }
+    .modal input:focus, .modal select:focus, .modal textarea:focus { outline: none; border-color: var(--bs-accent); }
+    .modal select option { background: var(--bs-modal-bg); color: var(--bs-text); }
+    .modal textarea { resize: vertical; min-height: 60px; }
+    .modal-actions { display: flex; gap: 10px; margin-top: 24px; }
+    .modal-actions button { flex: 1; padding: 10px; border-radius: 8px; font-size: 14px; cursor: pointer; border: none; font-weight: 600; }
+    .modal-actions .cancel-btn { background: transparent; border: 1px solid var(--bs-input-border); color: var(--bs-text-secondary); }
+    .modal-actions .save-btn { background: var(--bs-accent); color: var(--bs-bg); }
+    .modal-actions .save-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .toast { position: fixed; bottom: 30px; right: 30px; background: #16a34a; color: #fff; padding: 14px 24px; border-radius: 10px; font-size: 14px; z-index: 200; animation: slideIn 0.3s ease; }
+    .toast.error { background: #ef4444; }
+    @keyframes slideIn { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    .booking-count { font-size: 14px; color: var(--bs-text-secondary); margin-bottom: 16px; }
+    @media (max-width: 768px) {
+      .section-body { padding: 20px 16px; }
+      .data-table th:nth-child(4), .data-table td:nth-child(4) { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="portal-top-bar">
+    <a href="portal.html"><img src="assets/booksuite-logo.PNG" alt="BookSuite logo" class="logo small" /></a>
+    <div class="portal-user">
+      <span class="user-name" id="userName">Loading...</span>
+      <span class="user-company" id="companyCode">Loading...</span>
+    </div>
+    <a href="portal.html" class="logout-btn">← Portal</a>
+  </header>
+
+  <div class="section-body">
+    <div class="page-header">
+      <h2>📥 Bookings</h2>
+      <button class="add-btn" id="addBookingBtn">+ New Booking</button>
+    </div>
+
+    <input type="text" class="search-bar" id="searchBar" placeholder="Search by client name or service..." />
+
+    <div class="filter-tabs">
+      <button class="filter-tab active" data-filter="all">All</button>
+      <button class="filter-tab" data-filter="pending">Pending</button>
+      <button class="filter-tab" data-filter="confirmed">Confirmed</button>
+      <button class="filter-tab" data-filter="completed">Completed</button>
+      <button class="filter-tab" data-filter="cancelled">Cancelled</button>
+    </div>
+
+    <div class="booking-count" id="bookingCount"></div>
+
+    <div class="table-wrap" style="overflow-x:auto;-webkit-overflow-scrolling:touch;"><table class="data-table" id="bookingsTable" style="display:none;">
+      <thead>
+        <tr>
+          <th>Client</th>
+          <th>Service</th>
+          <th>Date</th>
+          <th>Time</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="bookingsBody"></tbody>
+    </table></div>
+
+    <div class="empty-state" id="emptyState">
+      <div class="icon">📥</div>
+      <p>No bookings yet. Create your first booking or share your booking link with clients.</p>
+    </div>
+  </div>
+
+  <!-- Add/Edit Booking Modal -->
+  <div class="modal-overlay" id="bookingModal">
+    <div class="modal">
+      <h3 id="modalTitle">New Booking</h3>
+      <input type="hidden" id="editBookingId" />
+      <label>Client</label>
+      <select id="bookingClient"><option value="">— Select or type below —</option></select>
+      <input type="text" id="bookingClientName" placeholder="Or enter client name" style="margin-top:6px;" />
+      <label>Service</label>
+      <select id="bookingService"><option value="">— Select a service —</option></select>
+      <label>Date</label>
+      <input type="date" id="bookingDate" />
+      <label>Time</label>
+      <input type="time" id="bookingTime" />
+      <label>Notes (optional)</label>
+      <textarea id="bookingNotes" placeholder="Any special requests..."></textarea>
+      <label>Status</label>
+      <select id="bookingStatus">
+        <option value="Pending">Pending</option>
+        <option value="Confirmed">Confirmed</option>
+        <option value="Completed">Completed</option>
+        <option value="Cancelled">Cancelled</option>
+      </select>
+      <div class="modal-actions">
+        <button class="cancel-btn" id="cancelBtn">Cancel</button>
+        <button class="save-btn" id="saveBtn">Save Booking</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="theme.js"></script>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    import { getFirestore, doc, getDoc, setDoc, deleteDoc, collection, query, where, getDocs, addDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBT_QHFaROmtmQQy4984zjJ7Xmust7TOho",
+      authDomain: "booksuite-dtb.firebaseapp.com",
+      projectId: "booksuite-dtb",
+      storageBucket: "booksuite-dtb.firebasestorage.app",
+      messagingSenderId: "587821555081",
+      appId: "1:587821555081:web:e588609eedd6c924cdd558"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+    let companyId = null;
+    let allBookings = [];
+    let currentFilter = "all";
+
+    function toast(msg, isError) {
+      const t = document.createElement("div");
+      t.className = "toast" + (isError ? " error" : "");
+      t.textContent = msg;
+      document.body.appendChild(t);
+      setTimeout(() => t.remove(), 3000);
+    }
+
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) { window.location.href = "login.html"; return; }
+      try {
+        const userDoc = await getDoc(doc(db, "users", user.uid));
+        if (userDoc.exists()) {
+          const d = userDoc.data();
+          companyId = d.companyId;
+          document.getElementById("userName").textContent = d.name;
+          const companyDoc = await getDoc(doc(db, "companies", d.companyId));
+          if (companyDoc.exists()) document.getElementById("companyCode").textContent = "Company Code: " + companyDoc.data().companyCode;
+          await Promise.all([loadBookings(), loadClientsDD(), loadServicesDD()]);
+        } else {
+          document.getElementById("userName").textContent = user.email;
+        }
+      } catch(e) {
+        console.error(e);
+        document.getElementById("userName").textContent = user.email;
+      }
+    });
+
+    async function loadBookings() {
+      allBookings = [];
+      const snap = await getDocs(query(collection(db, "bookings"), where("companyId", "==", companyId)));
+      snap.forEach(d => allBookings.push({ id: d.id, ...d.data() }));
+      allBookings.sort((a, b) => (b.date || "").localeCompare(a.date || ""));
+      renderBookings();
+    }
+
+    function renderBookings() {
+      const tbody = document.getElementById("bookingsBody");
+      tbody.innerHTML = "";
+      const q = document.getElementById("searchBar").value.toLowerCase();
+      let filtered = allBookings;
+      if (currentFilter !== "all") filtered = filtered.filter(b => (b.status || "Pending").toLowerCase() === currentFilter);
+      if (q) filtered = filtered.filter(b => (b.clientName || "").toLowerCase().includes(q) || (b.service || "").toLowerCase().includes(q));
+      document.getElementById("bookingCount").textContent = filtered.length + " booking" + (filtered.length !== 1 ? "s" : "");
+      if (filtered.length === 0) {
+        document.getElementById("bookingsTable").style.display = "none";
+        document.getElementById("emptyState").style.display = "block";
+      } else {
+        document.getElementById("bookingsTable").style.display = "table";
+        document.getElementById("emptyState").style.display = "none";
+        filtered.forEach(b => {
+          const tr = document.createElement("tr");
+          const status = b.status || "Pending";
+          let timeDisplay = b.time || "—";
+          if (b.time && b.time.includes(":")) {
+            const [h, m] = b.time.split(":");
+            const hr = parseInt(h);
+            timeDisplay = (hr > 12 ? hr - 12 : hr || 12) + ":" + m + " " + (hr >= 12 ? "PM" : "AM");
+          }
+          let dateDisplay = b.date || "—";
+          if (b.date && b.date.includes("-")) {
+            const [y, mon, day] = b.date.split("-");
+            dateDisplay = mon + "/" + day + "/" + y;
+          }
+          tr.innerHTML = `
+            <td><strong>${b.clientName || "—"}</strong></td>
+            <td>${b.service || "—"}</td>
+            <td>${dateDisplay}</td>
+            <td>${timeDisplay}</td>
+            <td><span class="badge ${status.toLowerCase()}">${status}</span></td>
+            <td><div class="action-btns">
+              <button onclick="window._editB('${b.id}')">Edit</button>
+              <button class="del" onclick="window._delB('${b.id}')">Delete</button>
+            </div></td>`;
+          tbody.appendChild(tr);
+        });
+      }
+    }
+
+    async function loadClientsDD() {
+      const sel = document.getElementById("bookingClient");
+      try {
+        const snap = await getDocs(query(collection(db, "clients"), where("companyId", "==", companyId)));
+        snap.forEach(d => { const c = d.data(); const o = document.createElement("option"); o.value = c.name; o.textContent = c.name + (c.phone ? " (" + c.phone + ")" : ""); sel.appendChild(o); });
+      } catch(e) { console.error(e); }
+    }
+
+    async function loadServicesDD() {
+      const sel = document.getElementById("bookingService");
+      try {
+        const snap = await getDocs(query(collection(db, "services"), where("companyId", "==", companyId)));
+        snap.forEach(d => { const s = d.data(); const o = document.createElement("option"); o.value = s.name; o.textContent = s.name + (s.price ? " ($" + parseFloat(s.price).toFixed(2) + ")" : ""); sel.appendChild(o); });
+      } catch(e) { console.error(e); }
+    }
+
+    // Filter tabs
+    document.querySelectorAll(".filter-tab").forEach(tab => {
+      tab.addEventListener("click", () => {
+        document.querySelectorAll(".filter-tab").forEach(t => t.classList.remove("active"));
+        tab.classList.add("active");
+        currentFilter = tab.dataset.filter;
+        renderBookings();
+      });
+    });
+
+    document.getElementById("searchBar").addEventListener("input", () => renderBookings());
+
+    document.getElementById("bookingClient").addEventListener("change", (e) => {
+      if (e.target.value) document.getElementById("bookingClientName").value = e.target.value;
+    });
+
+    // Modal
+    const modal = document.getElementById("bookingModal");
+    function openModal(edit) {
+      document.getElementById("modalTitle").textContent = edit ? "Edit Booking" : "New Booking";
+      document.getElementById("saveBtn").textContent = edit ? "Update" : "Save Booking";
+      modal.classList.add("active");
+    }
+    function closeModal() {
+      modal.classList.remove("active");
+      document.getElementById("editBookingId").value = "";
+      document.getElementById("bookingClient").value = "";
+      document.getElementById("bookingClientName").value = "";
+      document.getElementById("bookingService").value = "";
+      document.getElementById("bookingDate").value = "";
+      document.getElementById("bookingTime").value = "";
+      document.getElementById("bookingNotes").value = "";
+      document.getElementById("bookingStatus").value = "Pending";
+    }
+    document.getElementById("addBookingBtn").addEventListener("click", () => openModal(false));
+    document.getElementById("cancelBtn").addEventListener("click", closeModal);
+    modal.addEventListener("click", (e) => { if (e.target === modal) closeModal(); });
+
+    document.getElementById("saveBtn").addEventListener("click", async () => {
+      const clientName = document.getElementById("bookingClientName").value.trim() || document.getElementById("bookingClient").value;
+      const service = document.getElementById("bookingService").value;
+      const date = document.getElementById("bookingDate").value;
+      const time = document.getElementById("bookingTime").value;
+      const notes = document.getElementById("bookingNotes").value.trim();
+      const status = document.getElementById("bookingStatus").value;
+      const editId = document.getElementById("editBookingId").value;
+      if (!clientName) { toast("Please enter a client name", true); return; }
+      if (!service) { toast("Please select a service", true); return; }
+      if (!date) { toast("Please select a date", true); return; }
+      const btn = document.getElementById("saveBtn");
+      btn.disabled = true;
+      try {
+        const data = { clientName, service, date, time, notes, status, companyId, updatedAt: new Date() };
+        if (editId) {
+          await setDoc(doc(db, "bookings", editId), data, { merge: true });
+          toast("Booking updated");
+        } else {
+          data.createdAt = new Date();
+          await addDoc(collection(db, "bookings"), data);
+          toast("Booking created");
+        }
+        closeModal();
+        await loadBookings();
+      } catch(e) { toast("Error: " + e.message, true); }
+      btn.disabled = false;
+    });
+
+    window._editB = function(id) {
+      const b = allBookings.find(x => x.id === id);
+      if (!b) return;
+      document.getElementById("editBookingId").value = id;
+      document.getElementById("bookingClient").value = b.clientName || "";
+      document.getElementById("bookingClientName").value = b.clientName || "";
+      document.getElementById("bookingService").value = b.service || "";
+      document.getElementById("bookingDate").value = b.date || "";
+      document.getElementById("bookingTime").value = b.time || "";
+      document.getElementById("bookingNotes").value = b.notes || "";
+      document.getElementById("bookingStatus").value = b.status || "Pending";
+      openModal(true);
+    };
+
+    window._delB = async function(id) {
+      if (!confirm("Delete this booking?")) return;
+      try { await deleteDoc(doc(db, "bookings", id)); toast("Booking deleted"); await loadBookings(); }
+      catch(e) { toast("Error: " + e.message, true); }
+    };
+  </script>
+</body>
+</html>

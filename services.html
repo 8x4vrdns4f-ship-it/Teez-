@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BookSuite – Services</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .page-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 32px; flex-wrap: wrap; gap: 12px; }
+    .page-header h2 { font-size: 28px; }
+    .section-body { max-width: 1100px; margin: 0 auto; padding: 40px 48px; }
+    .header-right { display: flex; align-items: center; gap: 12px; }
+    .svc-count { font-size: 14px; color: var(--bs-text-secondary); }
+    .services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+    .service-card { background: var(--bs-surface); border: 1px solid var(--bs-border); border-radius: 14px; padding: 24px; transition: transform 0.2s, box-shadow 0.2s; position: relative; }
+    .service-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px var(--bs-accent-glow); }
+    .service-name { font-size: 18px; font-weight: 600; margin-bottom: 8px; }
+    .service-meta { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 8px; }
+    .service-tag { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; color: var(--bs-text-secondary); background: var(--bs-surface); padding: 3px 10px; border-radius: 12px; }
+    .service-desc { font-size: 13px; color: var(--bs-muted); margin-bottom: 12px; min-height: 18px; }
+    .service-price { font-size: 22px; font-weight: 700; color: var(--bs-accent); }
+    .card-actions { display: flex; gap: 6px; margin-top: 14px; }
+    .card-actions button { background: transparent; border: 1px solid var(--bs-input-border); color: var(--bs-text-secondary); padding: 5px 12px; border-radius: 6px; cursor: pointer; font-size: 12px; transition: 0.2s; }
+    .card-actions button:hover { border-color: var(--bs-accent); color: var(--bs-accent); }
+    .card-actions button.del:hover { border-color: #ef4444; color: #ef4444; }
+    .add-btn { background: var(--bs-accent); color: var(--bs-bg); border: none; padding: 10px 22px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; transition: 0.2s; }
+    .add-btn:hover { background: var(--bs-accent-hover); }
+    .empty-state { text-align: center; padding: 80px 20px; color: var(--bs-text-secondary); }
+    .empty-state .icon { font-size: 56px; margin-bottom: 16px; }
+    .empty-state p { font-size: 16px; }
+    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 100; align-items: center; justify-content: center; }
+    .modal-overlay.active { display: flex; }
+    .modal { background: var(--bs-modal-bg); border: 1px solid var(--bs-input-border); border-radius: 16px; padding: 32px; width: 90%; max-width: 420px; }
+    .modal h3 { margin-bottom: 20px; font-size: 20px; }
+    .modal label { display: block; font-size: 13px; color: var(--bs-text-secondary); margin-bottom: 6px; margin-top: 14px; }
+    .modal input, .modal textarea, .modal select { width: 100%; padding: 10px 12px; border-radius: 8px; border: 1px solid var(--bs-input-border); background: var(--bs-input-bg); color: var(--bs-text); font-size: 14px; font-family: inherit; box-sizing: border-box; }
+    .modal input:focus, .modal textarea:focus, .modal select:focus { outline: none; border-color: var(--bs-accent); }
+    .modal select option { background: var(--bs-modal-bg); }
+    .modal textarea { resize: vertical; min-height: 60px; }
+    .input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .modal-actions { display: flex; gap: 10px; margin-top: 24px; }
+    .modal-actions button { flex: 1; padding: 10px; border-radius: 8px; font-size: 14px; cursor: pointer; border: none; font-weight: 600; }
+    .modal-actions .cancel-btn { background: transparent; border: 1px solid var(--bs-input-border); color: var(--bs-text-secondary); }
+    .modal-actions .save-btn { background: var(--bs-accent); color: var(--bs-bg); }
+    .toast { position: fixed; bottom: 30px; right: 30px; background: #16a34a; color: #fff; padding: 14px 24px; border-radius: 10px; font-size: 14px; z-index: 200; animation: slideIn 0.3s ease; }
+    .toast.error { background: #ef4444; }
+    @keyframes slideIn { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    .search-bar { width: 100%; padding: 12px 16px; border-radius: 10px; border: 1px solid var(--bs-input-border); background: var(--bs-surface); color: var(--bs-text); font-size: 14px; margin-bottom: 20px; box-sizing: border-box; }
+    .search-bar:focus { outline: none; border-color: var(--bs-accent); }
+    .search-bar::placeholder { color: var(--bs-muted); }
+    @media (max-width: 768px) { .section-body { padding: 20px 16px; } .input-row { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <header class="portal-top-bar">
+    <a href="portal.html"><img src="assets/booksuite-logo.PNG" alt="BookSuite logo" class="logo small" /></a>
+    <div class="portal-user">
+      <span class="user-name" id="userName">Loading...</span>
+      <span class="user-company" id="companyCode">Loading...</span>
+    </div>
+    <a href="portal.html" class="logout-btn">← Portal</a>
+  </header>
+
+  <div class="section-body">
+    <div class="page-header">
+      <h2>✂️ Services</h2>
+      <div class="header-right">
+        <span class="svc-count" id="svcCount"></span>
+        <button class="add-btn" id="addServiceBtn">+ Add Service</button>
+      </div>
+    </div>
+
+    <input type="text" class="search-bar" id="searchBar" placeholder="Search services..." />
+
+    <div class="services-grid" id="servicesGrid"></div>
+
+    <div class="empty-state" id="emptyState">
+      <div class="icon">✂️</div>
+      <p>No services yet. Add the services you offer so clients can book them.</p>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="modal">
+    <div class="modal">
+      <h3 id="modalTitle">Add Service</h3>
+      <input type="hidden" id="editId" />
+      <label>Service Name *</label>
+      <input type="text" id="serviceName" placeholder="e.g. Haircut, Fade, Braids" />
+      <div class="input-row">
+        <div>
+          <label>Duration (minutes)</label>
+          <input type="number" id="serviceDuration" placeholder="30" min="5" max="480" />
+        </div>
+        <div>
+          <label>Price</label>
+          <input type="number" id="servicePrice" placeholder="25.00" min="0" step="0.01" />
+        </div>
+      </div>
+      <label>Category</label>
+      <select id="serviceCategory">
+        <option value="">None</option>
+        <option value="Hair">Hair</option>
+        <option value="Nails">Nails</option>
+        <option value="Skin">Skin</option>
+        <option value="Massage">Massage</option>
+        <option value="Consultation">Consultation</option>
+        <option value="Other">Other</option>
+      </select>
+      <label>Description (optional)</label>
+      <textarea id="serviceDesc" placeholder="Brief description..."></textarea>
+      <div class="modal-actions">
+        <button class="cancel-btn" id="cancelBtn">Cancel</button>
+        <button class="save-btn" id="saveBtn">Add</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="theme.js"></script>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    import { getFirestore, doc, getDoc, setDoc, deleteDoc, collection, query, where, getDocs, addDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBT_QHFaROmtmQQy4984zjJ7Xmust7TOho",
+      authDomain: "booksuite-dtb.firebaseapp.com",
+      projectId: "booksuite-dtb",
+      storageBucket: "booksuite-dtb.firebasestorage.app",
+      messagingSenderId: "587821555081",
+      appId: "1:587821555081:web:e588609eedd6c924cdd558"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+    let companyId = null;
+    let allServices = [];
+
+    function toast(msg, isError) {
+      const t = document.createElement("div");
+      t.className = "toast" + (isError ? " error" : "");
+      t.textContent = msg;
+      document.body.appendChild(t);
+      setTimeout(() => t.remove(), 3000);
+    }
+
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) { window.location.href = "login.html"; return; }
+      try {
+        const userDoc = await getDoc(doc(db, "users", user.uid));
+        if (userDoc.exists()) {
+          const d = userDoc.data();
+          companyId = d.companyId;
+          document.getElementById("userName").textContent = d.name;
+          const companyDoc = await getDoc(doc(db, "companies", d.companyId));
+          if (companyDoc.exists()) document.getElementById("companyCode").textContent = "Company Code: " + companyDoc.data().companyCode;
+          loadServices();
+        } else { document.getElementById("userName").textContent = user.email; }
+      } catch(e) { console.error(e); document.getElementById("userName").textContent = user.email; }
+    });
+
+    async function loadServices() {
+      allServices = [];
+      const snap = await getDocs(query(collection(db, "services"), where("companyId", "==", companyId)));
+      snap.forEach(d => allServices.push({ id: d.id, ...d.data() }));
+      allServices.sort((a, b) => (a.name || "").localeCompare(b.name || ""));
+      renderServices();
+    }
+
+    function renderServices() {
+      const grid = document.getElementById("servicesGrid");
+      grid.innerHTML = "";
+      const q = document.getElementById("searchBar").value.toLowerCase();
+      let filtered = allServices;
+      if (q) filtered = filtered.filter(s => (s.name || "").toLowerCase().includes(q) || (s.category || "").toLowerCase().includes(q));
+      document.getElementById("svcCount").textContent = filtered.length + " service" + (filtered.length !== 1 ? "s" : "");
+      if (filtered.length === 0) {
+        document.getElementById("emptyState").style.display = "block";
+      } else {
+        document.getElementById("emptyState").style.display = "none";
+        filtered.forEach(s => {
+          const card = document.createElement("div");
+          card.className = "service-card";
+          card.innerHTML = `
+            <div class="service-name">${s.name}</div>
+            <div class="service-meta">
+              ${s.duration ? '<span class="service-tag">⏱ ' + s.duration + ' min</span>' : ''}
+              ${s.category ? '<span class="service-tag">📁 ' + s.category + '</span>' : ''}
+            </div>
+            <div class="service-desc">${s.description || ""}</div>
+            <div class="service-price">$${parseFloat(s.price || 0).toFixed(2)}</div>
+            <div class="card-actions">
+              <button onclick="window._editSvc('${s.id}')">Edit</button>
+              <button class="del" onclick="window._delSvc('${s.id}')">Delete</button>
+            </div>`;
+          grid.appendChild(card);
+        });
+      }
+    }
+
+    document.getElementById("searchBar").addEventListener("input", () => renderServices());
+
+    const modal = document.getElementById("modal");
+    function openModal(edit) {
+      document.getElementById("modalTitle").textContent = edit ? "Edit Service" : "Add Service";
+      document.getElementById("saveBtn").textContent = edit ? "Update" : "Add";
+      modal.classList.add("active");
+    }
+    function closeModal() {
+      modal.classList.remove("active");
+      document.getElementById("editId").value = "";
+      document.getElementById("serviceName").value = "";
+      document.getElementById("serviceDuration").value = "";
+      document.getElementById("servicePrice").value = "";
+      document.getElementById("serviceCategory").value = "";
+      document.getElementById("serviceDesc").value = "";
+    }
+    document.getElementById("addServiceBtn").addEventListener("click", () => openModal(false));
+    document.getElementById("cancelBtn").addEventListener("click", closeModal);
+    modal.addEventListener("click", (e) => { if (e.target === modal) closeModal(); });
+
+    document.getElementById("saveBtn").addEventListener("click", async () => {
+      const name = document.getElementById("serviceName").value.trim();
+      const duration = document.getElementById("serviceDuration").value.trim();
+      const price = document.getElementById("servicePrice").value.trim();
+      const category = document.getElementById("serviceCategory").value;
+      const description = document.getElementById("serviceDesc").value.trim();
+      const editId = document.getElementById("editId").value;
+      if (!name) { toast("Please enter a service name", true); return; }
+      if (duration && (parseInt(duration) < 5 || parseInt(duration) > 480)) { toast("Duration must be 5–480 minutes", true); return; }
+      if (price && parseFloat(price) < 0) { toast("Price can't be negative", true); return; }
+      try {
+        const data = { name, duration, price, category, description, companyId };
+        if (editId) {
+          await setDoc(doc(db, "services", editId), data, { merge: true });
+          toast("Service updated");
+        } else {
+          data.createdAt = new Date();
+          await addDoc(collection(db, "services"), data);
+          toast("Service added");
+        }
+        closeModal();
+        await loadServices();
+      } catch(e) { toast("Error: " + e.message, true); }
+    });
+
+    window._editSvc = function(id) {
+      const s = allServices.find(x => x.id === id);
+      if (!s) return;
+      document.getElementById("editId").value = id;
+      document.getElementById("serviceName").value = s.name || "";
+      document.getElementById("serviceDuration").value = s.duration || "";
+      document.getElementById("servicePrice").value = s.price || "";
+      document.getElementById("serviceCategory").value = s.category || "";
+      document.getElementById("serviceDesc").value = s.description || "";
+      openModal(true);
+    };
+
+    window._delSvc = async function(id) {
+      if (!confirm("Delete this service?")) return;
+      try { await deleteDoc(doc(db, "services", id)); toast("Service deleted"); await loadServices(); }
+      catch(e) { toast("Error: " + e.message, true); }
+    };
+  </script>
+</body>
+</html>

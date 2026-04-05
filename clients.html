@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BookSuite – Clients</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .page-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 32px; flex-wrap: wrap; gap: 12px; }
+    .page-header h2 { font-size: 28px; }
+    .section-body { max-width: 1100px; margin: 0 auto; padding: 40px 48px; }
+    .header-right { display: flex; align-items: center; gap: 12px; }
+    .client-count { font-size: 14px; color: var(--bs-text-secondary); }
+    .data-table { width: 100%; border-collapse: collapse; margin-top: 8px; }
+    .data-table th, .data-table td { text-align: left; padding: 14px 16px; border-bottom: 1px solid var(--bs-border); font-size: 14px; }
+    .data-table th { color: var(--bs-accent); font-weight: 600; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .data-table tr:hover { background: var(--bs-card-hover); }
+    .search-bar { width: 100%; padding: 12px 16px; border-radius: 10px; border: 1px solid var(--bs-input-border); background: var(--bs-surface); color: var(--bs-text); font-size: 14px; margin-bottom: 20px; box-sizing: border-box; }
+    .search-bar:focus { outline: none; border-color: var(--bs-accent); }
+    .search-bar::placeholder { color: var(--bs-muted); }
+    .add-btn { background: var(--bs-accent); color: var(--bs-bg); border: none; padding: 10px 22px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; transition: 0.2s; }
+    .add-btn:hover { background: var(--bs-accent-hover); }
+    .empty-state { text-align: center; padding: 80px 20px; color: var(--bs-text-secondary); }
+    .empty-state .icon { font-size: 56px; margin-bottom: 16px; }
+    .empty-state p { font-size: 16px; }
+    .action-btns { display: flex; gap: 6px; }
+    .action-btns button { background: transparent; border: 1px solid var(--bs-input-border); color: var(--bs-text-secondary); padding: 5px 10px; border-radius: 6px; cursor: pointer; font-size: 12px; transition: 0.2s; }
+    .action-btns button:hover { border-color: var(--bs-accent); color: var(--bs-accent); }
+    .action-btns button.del:hover { border-color: #ef4444; color: #ef4444; }
+    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 100; align-items: center; justify-content: center; }
+    .modal-overlay.active { display: flex; }
+    .modal { background: var(--bs-modal-bg); border: 1px solid var(--bs-input-border); border-radius: 16px; padding: 32px; width: 90%; max-width: 420px; }
+    .modal h3 { margin-bottom: 20px; font-size: 20px; }
+    .modal label { display: block; font-size: 13px; color: var(--bs-text-secondary); margin-bottom: 6px; margin-top: 14px; }
+    .modal input, .modal textarea { width: 100%; padding: 10px 12px; border-radius: 8px; border: 1px solid var(--bs-input-border); background: var(--bs-input-bg); color: var(--bs-text); font-size: 14px; box-sizing: border-box; font-family: inherit; }
+    .modal input:focus, .modal textarea:focus { outline: none; border-color: var(--bs-accent); }
+    .modal textarea { resize: vertical; min-height: 60px; }
+    .modal-actions { display: flex; gap: 10px; margin-top: 24px; }
+    .modal-actions button { flex: 1; padding: 10px; border-radius: 8px; font-size: 14px; cursor: pointer; border: none; font-weight: 600; }
+    .modal-actions .cancel-btn { background: transparent; border: 1px solid var(--bs-input-border); color: var(--bs-text-secondary); }
+    .modal-actions .save-btn { background: var(--bs-accent); color: var(--bs-bg); }
+    .toast { position: fixed; bottom: 30px; right: 30px; background: #16a34a; color: #fff; padding: 14px 24px; border-radius: 10px; font-size: 14px; z-index: 200; animation: slideIn 0.3s ease; }
+    .toast.error { background: #ef4444; }
+    @keyframes slideIn { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    @media (max-width: 768px) {
+      .section-body { padding: 20px 16px; }
+      .data-table th:nth-child(3), .data-table td:nth-child(3) { display: none; }
+      .data-table th:nth-child(5), .data-table td:nth-child(5) { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="portal-top-bar">
+    <a href="portal.html"><img src="assets/booksuite-logo.PNG" alt="BookSuite logo" class="logo small" /></a>
+    <div class="portal-user">
+      <span class="user-name" id="userName">Loading...</span>
+      <span class="user-company" id="companyCode">Loading...</span>
+    </div>
+    <a href="portal.html" class="logout-btn">← Portal</a>
+  </header>
+
+  <div class="section-body">
+    <div class="page-header">
+      <h2>👤 Clients</h2>
+      <div class="header-right">
+        <span class="client-count" id="clientCount"></span>
+        <button class="add-btn" id="addClientBtn">+ Add Client</button>
+      </div>
+    </div>
+
+    <input type="text" class="search-bar" id="searchBar" placeholder="Search clients by name, email, or phone..." />
+
+    <div class="table-wrap" style="overflow-x:auto;-webkit-overflow-scrolling:touch;"><table class="data-table" id="clientsTable" style="display:none;">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Added</th>
+          <th>Notes</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="clientsBody"></tbody>
+    </table></div>
+
+    <div class="empty-state" id="emptyState">
+      <div class="icon">👤</div>
+      <p>No clients yet. Add your first client or they'll appear here when they book.</p>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="modal">
+    <div class="modal">
+      <h3 id="modalTitle">Add Client</h3>
+      <input type="hidden" id="editId" />
+      <label>Name *</label>
+      <input type="text" id="clientName" placeholder="Full name" />
+      <label>Email</label>
+      <input type="email" id="clientEmail" placeholder="client@email.com" />
+      <label>Phone</label>
+      <input type="tel" id="clientPhone" placeholder="+1 234 567 8900" />
+      <label>Notes (optional)</label>
+      <textarea id="clientNotes" placeholder="VIP client, prefers morning slots..."></textarea>
+      <div class="modal-actions">
+        <button class="cancel-btn" id="cancelBtn">Cancel</button>
+        <button class="save-btn" id="saveBtn">Add</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="theme.js"></script>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    import { getFirestore, doc, getDoc, setDoc, deleteDoc, collection, query, where, getDocs, addDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBT_QHFaROmtmQQy4984zjJ7Xmust7TOho",
+      authDomain: "booksuite-dtb.firebaseapp.com",
+      projectId: "booksuite-dtb",
+      storageBucket: "booksuite-dtb.firebasestorage.app",
+      messagingSenderId: "587821555081",
+      appId: "1:587821555081:web:e588609eedd6c924cdd558"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+    let companyId = null;
+    let allClients = [];
+
+    function toast(msg, isError) {
+      const t = document.createElement("div");
+      t.className = "toast" + (isError ? " error" : "");
+      t.textContent = msg;
+      document.body.appendChild(t);
+      setTimeout(() => t.remove(), 3000);
+    }
+
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) { window.location.href = "login.html"; return; }
+      try {
+        const userDoc = await getDoc(doc(db, "users", user.uid));
+        if (userDoc.exists()) {
+          const d = userDoc.data();
+          companyId = d.companyId;
+          document.getElementById("userName").textContent = d.name;
+          const companyDoc = await getDoc(doc(db, "companies", d.companyId));
+          if (companyDoc.exists()) document.getElementById("companyCode").textContent = "Company Code: " + companyDoc.data().companyCode;
+          loadClients();
+        } else { document.getElementById("userName").textContent = user.email; }
+      } catch(e) { console.error(e); document.getElementById("userName").textContent = user.email; }
+    });
+
+    async function loadClients() {
+      allClients = [];
+      const snap = await getDocs(query(collection(db, "clients"), where("companyId", "==", companyId)));
+      snap.forEach(d => allClients.push({ id: d.id, ...d.data() }));
+      allClients.sort((a, b) => (a.name || "").localeCompare(b.name || ""));
+      renderClients();
+    }
+
+    function renderClients() {
+      const tbody = document.getElementById("clientsBody");
+      tbody.innerHTML = "";
+      const q = document.getElementById("searchBar").value.toLowerCase();
+      let filtered = allClients;
+      if (q) filtered = filtered.filter(c => (c.name || "").toLowerCase().includes(q) || (c.email || "").toLowerCase().includes(q) || (c.phone || "").toLowerCase().includes(q));
+      document.getElementById("clientCount").textContent = filtered.length + " client" + (filtered.length !== 1 ? "s" : "");
+      if (filtered.length === 0) {
+        document.getElementById("emptyState").style.display = "block";
+        document.getElementById("clientsTable").style.display = "none";
+      } else {
+        document.getElementById("emptyState").style.display = "none";
+        document.getElementById("clientsTable").style.display = "table";
+        filtered.forEach(c => {
+          const tr = document.createElement("tr");
+          const added = c.addedAt ? new Date(c.addedAt.seconds ? c.addedAt.seconds * 1000 : c.addedAt).toLocaleDateString() : "—";
+          tr.innerHTML = `
+            <td><strong>${c.name || "—"}</strong></td>
+            <td>${c.email || "—"}</td>
+            <td>${c.phone || "—"}</td>
+            <td>${added}</td>
+            <td style="max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#b9c7da;font-size:12px">${c.notes || "—"}</td>
+            <td><div class="action-btns">
+              <button onclick="window._editC('${c.id}')">Edit</button>
+              <button class="del" onclick="window._delC('${c.id}')">Delete</button>
+            </div></td>`;
+          tbody.appendChild(tr);
+        });
+      }
+    }
+
+    document.getElementById("searchBar").addEventListener("input", () => renderClients());
+
+    const modal = document.getElementById("modal");
+    function openModal(edit) {
+      document.getElementById("modalTitle").textContent = edit ? "Edit Client" : "Add Client";
+      document.getElementById("saveBtn").textContent = edit ? "Update" : "Add";
+      modal.classList.add("active");
+    }
+    function closeModal() {
+      modal.classList.remove("active");
+      document.getElementById("editId").value = "";
+      document.getElementById("clientName").value = "";
+      document.getElementById("clientEmail").value = "";
+      document.getElementById("clientPhone").value = "";
+      document.getElementById("clientNotes").value = "";
+    }
+    document.getElementById("addClientBtn").addEventListener("click", () => openModal(false));
+    document.getElementById("cancelBtn").addEventListener("click", closeModal);
+    modal.addEventListener("click", (e) => { if (e.target === modal) closeModal(); });
+
+    document.getElementById("saveBtn").addEventListener("click", async () => {
+      const name = document.getElementById("clientName").value.trim();
+      const email = document.getElementById("clientEmail").value.trim();
+      const phone = document.getElementById("clientPhone").value.trim();
+      const notes = document.getElementById("clientNotes").value.trim();
+      const editId = document.getElementById("editId").value;
+      if (!name) { toast("Please enter a name", true); return; }
+      try {
+        const data = { name, email, phone, notes, companyId };
+        if (editId) {
+          await setDoc(doc(db, "clients", editId), data, { merge: true });
+          toast("Client updated");
+        } else {
+          data.addedAt = new Date();
+          await addDoc(collection(db, "clients"), data);
+          toast("Client added");
+        }
+        closeModal();
+        await loadClients();
+      } catch(e) { toast("Error: " + e.message, true); }
+    });
+
+    window._editC = function(id) {
+      const c = allClients.find(x => x.id === id);
+      if (!c) return;
+      document.getElementById("editId").value = id;
+      document.getElementById("clientName").value = c.name || "";
+      document.getElementById("clientEmail").value = c.email || "";
+      document.getElementById("clientPhone").value = c.phone || "";
+      document.getElementById("clientNotes").value = c.notes || "";
+      openModal(true);
+    };
+
+    window._delC = async function(id) {
+      if (!confirm("Remove this client?")) return;
+      try { await deleteDoc(doc(db, "clients", id)); toast("Client removed"); await loadClients(); }
+      catch(e) { toast("Error: " + e.message, true); }
+    };
+  </script>
+</body>
+</html>

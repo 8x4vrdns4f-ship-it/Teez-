@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BookSuite – Settings</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .page-header { display: flex; align-items: center; gap: 16px; margin-bottom: 32px; }
+    .page-header h2 { font-size: 28px; }
+    .section-body { max-width: 800px; margin: 0 auto; padding: 40px 48px; }
+
+    .settings-group { background: var(--bs-surface); border: 1px solid var(--bs-border); border-radius: 14px; padding: 28px; margin-bottom: 20px; }
+    .settings-group h3 { font-size: 17px; margin-bottom: 20px; color: var(--bs-accent); }
+
+    .setting-row { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; border-bottom: 1px solid var(--bs-border); gap: 20px; }
+    .setting-row:last-child { border-bottom: none; }
+    .setting-info { flex: 1; }
+    .setting-label { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+    .setting-desc { font-size: 12px; color: var(--bs-text-secondary); }
+
+    .setting-input { width: 240px; padding: 10px 12px; border-radius: 8px; border: 1px solid var(--bs-input-border); background: var(--bs-input-bg); color: var(--bs-text); font-size: 14px; }
+    .setting-input:focus { outline: none; border-color: var(--bs-accent); }
+    .setting-select { width: 240px; padding: 10px 12px; border-radius: 8px; border: 1px solid var(--bs-input-border); background: var(--bs-input-bg); color: var(--bs-text); font-size: 14px; appearance: none; cursor: pointer; }
+    .setting-select:focus { outline: none; border-color: var(--bs-accent); }
+    .setting-select option { background: var(--bs-modal-bg); color: var(--bs-text); }
+    .setting-textarea { width: 240px; padding: 10px 12px; border-radius: 8px; border: 1px solid var(--bs-input-border); background: var(--bs-input-bg); color: var(--bs-text); font-size: 14px; font-family: inherit; resize: vertical; min-height: 60px; }
+    .setting-textarea:focus { outline: none; border-color: var(--bs-accent); }
+
+    .toggle-switch { position: relative; width: 48px; height: 26px; flex-shrink: 0; }
+    .toggle-switch input { opacity: 0; width: 0; height: 0; }
+    .toggle-slider { position: absolute; inset: 0; background: var(--bs-input-border); border-radius: 26px; cursor: pointer; transition: 0.3s; }
+    .toggle-slider::before { content: ""; position: absolute; width: 20px; height: 20px; left: 3px; bottom: 3px; background: #eaf2ff; border-radius: 50%; transition: 0.3s; }
+    .toggle-switch input:checked + .toggle-slider { background: var(--bs-accent); }
+    .toggle-switch input:checked + .toggle-slider::before { transform: translateX(22px); }
+
+    .save-btn { background: var(--bs-accent); color: var(--bs-bg); border: none; padding: 12px 32px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; transition: 0.2s; margin-top: 24px; position: relative; }
+    .save-btn:hover { background: var(--bs-accent-hover); }
+    .save-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    .toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(80px); background: #1a2d44; border: 1px solid var(--bs-accent); color: var(--bs-text); padding: 14px 28px; border-radius: 10px; font-size: 14px; font-weight: 500; z-index: 200; transition: transform 0.3s ease, opacity 0.3s ease; opacity: 0; pointer-events: none; }
+    .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+    .toast.success { border-color: #22c55e; }
+    .toast.error { border-color: #ef4444; }
+
+    .danger-zone { border-color: rgba(239,68,68,0.3); }
+    .danger-zone h3 { color: #ef4444; }
+    .danger-btn { background: transparent; border: 1px solid #ef4444; color: #ef4444; padding: 10px 22px; border-radius: 8px; font-size: 14px; cursor: pointer; transition: 0.2s; flex-shrink: 0; }
+    .danger-btn:hover { background: rgba(239,68,68,0.1); }
+
+    .company-code-display { font-size: 20px; font-weight: 700; color: var(--bs-accent); letter-spacing: 2px; background: var(--bs-accent-glow); padding: 12px 20px; border-radius: 8px; display: inline-block; user-select: all; cursor: pointer; transition: background 0.2s; }
+    .company-code-display:hover { background: rgba(94,194,255,0.15); }
+    .copy-hint { font-size: 12px; color: var(--bs-text-secondary); margin-top: 6px; }
+
+    .profile-avatar { width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg, var(--bs-accent), var(--bs-accent-hover)); display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 700; color: var(--bs-bg); flex-shrink: 0; }
+
+    .working-hours-grid { display: grid; gap: 8px; width: 240px; }
+    .hours-row { display: flex; align-items: center; gap: 8px; font-size: 13px; }
+    .hours-row .day-name { width: 40px; font-weight: 600; color: var(--bs-text-secondary); }
+    .hours-row input[type="time"] { flex: 1; padding: 6px 8px; border-radius: 6px; border: 1px solid var(--bs-input-border); background: var(--bs-input-bg); color: var(--bs-text); font-size: 12px; }
+    .hours-row input[type="time"]:focus { outline: none; border-color: var(--bs-accent); }
+    .hours-row .day-closed { font-size: 12px; color: var(--bs-text-secondary); cursor: pointer; }
+    .hours-row input[type="checkbox"] { accent-color: var(--bs-accent); }
+
+    @media (max-width: 600px) {
+      .setting-row { flex-direction: column; align-items: flex-start; }
+      .setting-input, .setting-select, .setting-textarea, .working-hours-grid { width: 100%; }
+      .section-body { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="portal-top-bar">
+    <a href="portal.html"><img src="assets/booksuite-logo.PNG" alt="BookSuite logo" class="logo small" /></a>
+    <div class="portal-user">
+      <span class="user-name" id="userName">Loading...</span>
+      <span class="user-company" id="companyCode">Loading...</span>
+    </div>
+    <a href="portal.html" class="logout-btn">← Portal</a>
+  </header>
+
+  <div class="section-body">
+    <div class="page-header">
+      <h2>⚙️ Settings</h2>
+    </div>
+
+    <!-- PROFILE -->
+    <div class="settings-group">
+      <h3>Your Profile</h3>
+      <div class="setting-row">
+        <div style="display:flex; align-items:center; gap:16px; flex:1;">
+          <div class="profile-avatar" id="profileAvatar">--</div>
+          <div>
+            <div class="setting-label" id="profileName">Loading...</div>
+            <div class="setting-desc" id="profileEmail">Loading...</div>
+          </div>
+        </div>
+      </div>
+      <div class="setting-row">
+        <div class="setting-info">
+          <div class="setting-label">Display Name</div>
+          <div class="setting-desc">Your name shown across BookSuite.</div>
+        </div>
+        <input type="text" class="setting-input" id="displayName" placeholder="Your name" />
+      </div>
+    </div>
+
+    <!-- COMPANY INFO -->
+    <div class="settings-group">
+      <h3>Company Info</h3>
+      <div class="setting-row">
+        <div class="setting-info">
+          <div class="setting-label">Company Code</div>
+          <div class="setting-desc">Share this code with staff so they can join your company.</div>
+        </div>
+        <div>
+          <div class="company-code-display" id="codeDisplay" title="Click to copy">---</div>
+          <div class="copy-hint" id="copyHint">Click to copy</div>
+        </div>
+      </div>
+      <div class="setting-row">
+        <div class="setting-info">
+          <div class="setting-label">Business Name</div>
+          <div class="setting-desc">Displayed on your booking page.</div>
+        </div>
+        <input type="text" class="setting-input" id="businessName" placeholder="Your Business Name" />
+      </div>
+      <div class="setting-row">
+        <div class="setting-info">
+          <div class="setting-label">Business Phone</div>
+          <div class="setting-desc">Contact number for clients.</div>
+        </div>
+        <input type="tel" class="setting-input" id="businessPhone" placeholder="+1 234 567 8900" />
+      </div>
+      <div class="setting-row">
+        <div class="setting-info">
+          <div class="setting-label">Business Email</div>
+          <div class="setting-desc">Public email clients can reach you at.</div>
+        </div>
+        <input type="email" class="setting-input" id="businessEmail" placeholder="hello@yourbiz.com" />
+      </div>
+      <div class="setting-row">
+        <div class="setting-info">
+          <div class="setting-label">Business Address</div>
+          <div class="setting-desc">Your location shown to clients.</div>
+        </div>
+        <textarea class="setting-textarea" id="businessAddress" placeholder="123 Main St, City, Country"></textarea>
+      </div>
+      <div class="setting-row">
+        <div class="setting-info">
+          <div class="setting-label">Business Category</div>
+          <div class="setting-desc">What type of business you run.</div>
+        </div>
+        <select class="setting-select" id="businessCategory">
+          <option value="">Select category...</option>
+          <option value="barbershop">Barbershop</option>
+          <option value="salon">Hair Salon</option>
+          <option value="spa">Spa & Wellness</option>
+          <option value="nails">Nail Studio</option>
+          <option value="beauty">Beauty Studio</option>
+          <option value="fitness">Fitness / Personal Training</option>
+          <option value="medical">Medical / Dental</option>
+          <option value="consulting">Consulting</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div class="setting-row">
+        <div class="setting-info">
+          <div class="setting-label">Currency</div>
+          <div class="setting-desc">Currency shown on invoices and payments.</div>
+        </div>
+        <select class="setting-select" id="currency">
+          <option value="USD">USD – US Dollar ($)</option>
+          <option value="GBP">GBP – British Pound (£)</option>
+          <option value="EUR">EUR – Euro (€)</option>
+          <option value="ZAR">ZAR – South African Rand (R)</option>
+          <option value="CAD">CAD – Canadian Dollar (C$)</option>
+          <option value="AUD">AUD – Australian Dollar (A$)</option>
+        </select>
+      </div>
+      <div class="setting-row">
+        <div class="setting-info">
+          <div class="setting-label">Timezone</div>
+          <div class="setting-desc">Used for booking times and notifications.</div>
+        </div>
+        <select class="setting-select" id="timezone">
+          <option value="America/New_York">Eastern Time (ET)</option>
+          <option value="America/Chicago">Central Time (CT)</option>
+          <option value="America/Denver">Mountain Time (MT)</option>
+          <option value="America/Los_Angeles">Pacific Time (PT)</option>
+          <option value="Europe/London">London (GMT)</option>
+          <option value="Europe/Paris">Paris (CET)</option>
+          <option value="Africa/Johannesburg">South Africa (SAST)</option>
+          <option value="Asia/Dubai">Dubai (GST)</option>
+          <option value="Australia/Sydney">Sydney (AEST)</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- WORKING HOURS -->
+    <div class="settings-group">
+      <h3>Working Hours</h3>
+      <div class="setting-row" style="flex-direction:column; align-items:flex-start;">
+        <div class="setting-info" style="margin-bottom:14px;">
+          <div class="setting-label">Set your business hours</div>
+          <div class="setting-desc">Clients can only book during open hours. Uncheck a day to mark it as closed.</div>
+        </div>
+        <div class="working-hours-grid" id="hoursGrid" style="width:100%; max-width:460px;"></div>
+      </div>
+    </div>
+
+    <!-- BOOKING PREFERENCES -->
+    <div class="settings-group">
+      <h3>Booking Preferences</h3>
+      <div class="setting-row">
+        <div class="setting-info">
+          <div class="setting-label">Auto-confirm Bookings</div>
+          <div class="setting-desc">Automatically confirm new bookings without manual approval.</div>
+        </div>
+        <label class="toggle-switch">
+          <input type="checkbox" id="autoConfirm" />
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+      <div class="setting-row">
+        <div class="setting-info">
+          <div class="setting-label">Allow Same-day Booking</div>
+          <div class="setting-desc">Let clients book appointments for today.</div>
+        </div>
+        <label class="toggle-switch">
+          <input type="checkbox" id="sameDayBooking" checked />
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+      <div class="setting-row">
+        <div class="setting-info">
+          <div class="setting-label">Booking Buffer (minutes)</div>
+          <div class="setting-desc">Gap between back-to-back appointments.</div>
+        </div>
+        <select class="setting-select" id="bookingBuffer" style="width:120px;">
+          <option value="0">None</option>
+          <option value="5">5 min</option>
+          <option value="10">10 min</option>
+          <option value="15" selected>15 min</option>
+          <option value="30">30 min</option>
+          <option value="60">60 min</option>
+        </select>
+      </div>
+      <div class="setting-row">
+        <div class="setting-info">
+          <div class="setting-label">Max Advance Booking (days)</div>
+          <div class="setting-desc">How far in advance clients can book.</div>
+        </div>
+        <select class="setting-select" id="maxAdvance" style="width:120px;">
+          <option value="7">7 days</option>
+          <option value="14">14 days</option>
+          <option value="30" selected>30 days</option>
+          <option value="60">60 days</option>
+          <option value="90">90 days</option>
+        </select>
+      </div>
+      <div class="setting-row">
+        <div class="setting-info">
+          <div class="setting-label">Cancellation Policy</div>
+          <div class="setting-desc">Minimum notice required to cancel without penalty.</div>
+        </div>
+        <select class="setting-select" id="cancellationPolicy" style="width:160px;">
+          <option value="0">Anytime</option>
+          <option value="1">1 hour before</option>
+          <option value="2">2 hours before</option>
+          <option value="6">6 hours before</option>
+          <option value="12">12 hours before</option>
+          <option value="24" selected>24 hours before</option>
+          <option value="48">48 hours before</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- NOTIFICATIONS -->
+    <div class="settings-group">
+      <h3>Notifications</h3>
+      <div class="setting-row">
+        <div class="setting-info">
+          <div class="setting-label">Email Notifications</div>
+          <div class="setting-desc">Get an email when a new booking is made.</div>
+        </div>
+        <label class="toggle-switch">
+          <input type="checkbox" id="emailNotif" checked />
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+      <div class="setting-row">
+        <div class="setting-info">
+          <div class="setting-label">Daily Summary Email</div>
+          <div class="setting-desc">Receive a daily recap of tomorrow's appointments.</div>
+        </div>
+        <label class="toggle-switch">
+          <input type="checkbox" id="dailySummary" />
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+      <div class="setting-row">
+        <div class="setting-info">
+          <div class="setting-label">Client Booking Confirmation</div>
+          <div class="setting-desc">Send clients an email confirming their booking.</div>
+        </div>
+        <label class="toggle-switch">
+          <input type="checkbox" id="clientConfirmEmail" checked />
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+      <div class="setting-row">
+        <div class="setting-info">
+          <div class="setting-label">Reminder Before Appointment</div>
+          <div class="setting-desc">Send clients a reminder before their appointment.</div>
+        </div>
+        <select class="setting-select" id="reminderTime" style="width:160px;">
+          <option value="0">Don't send</option>
+          <option value="30">30 minutes before</option>
+          <option value="60">1 hour before</option>
+          <option value="120">2 hours before</option>
+          <option value="1440" selected>1 day before</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- BOOKING PAGE CUSTOMIZATION -->
+    <div class="settings-group">
+      <h3>Booking Page</h3>
+      <div class="setting-row">
+        <div class="setting-info">
+          <div class="setting-label">Welcome Message</div>
+          <div class="setting-desc">Shown at the top of your public booking page.</div>
+        </div>
+        <textarea class="setting-textarea" id="welcomeMessage" placeholder="Welcome! Book your appointment below."></textarea>
+      </div>
+      <div class="setting-row">
+        <div class="setting-info">
+          <div class="setting-label">Accent Color</div>
+          <div class="setting-desc">Primary color for your booking page.</div>
+        </div>
+        <input type="color" id="accentColor" value="#5ec2ff" style="width:48px; height:36px; border:none; border-radius:8px; cursor:pointer; background:transparent;" />
+      </div>
+    </div>
+
+    <!-- LANGUAGE & THEME -->
+    <div class="settings-group">
+      <h3>Language & Theme</h3>
+      <div class="setting-row">
+        <div class="setting-info">
+          <div class="setting-label">Language</div>
+          <div class="setting-desc">Choose your preferred display language.</div>
+        </div>
+        <select class="setting-select" id="language">
+          <option value="en">English</option>
+          <option value="es">Español</option>
+          <option value="fr">Français</option>
+          <option value="pt">Português</option>
+          <option value="zu">isiZulu</option>
+          <option value="af">Afrikaans</option>
+        </select>
+      </div>
+      <div class="setting-row">
+        <div class="setting-info">
+          <div class="setting-label">Theme</div>
+          <div class="setting-desc">Switch between dark and light mode.</div>
+        </div>
+        <select class="setting-select" id="theme" style="width:160px;">
+          <option value="dark">Dark (Default)</option>
+          <option value="light">Light</option>
+          <option value="midnight">Midnight Blue</option>
+          <option value="emerald">Emerald</option>
+          <option value="sunset">Sunset</option>
+          <option value="rose">Rose</option>
+        </select>
+      </div>
+    </div>
+
+    <button class="save-btn" id="saveBtn">Save All Changes</button>
+
+    <!-- DANGER ZONE -->
+    <div class="settings-group danger-zone" style="margin-top: 40px;">
+      <h3>Danger Zone</h3>
+      <div class="setting-row">
+        <div class="setting-info">
+          <div class="setting-label">Reset Password</div>
+          <div class="setting-desc">Send a password reset email to your account.</div>
+        </div>
+        <button class="danger-btn" id="resetPwBtn">Reset Password</button>
+      </div>
+      <div class="setting-row">
+        <div class="setting-info">
+          <div class="setting-label">Log Out</div>
+          <div class="setting-desc">Sign out of your account on this device.</div>
+        </div>
+        <button class="danger-btn" id="logoutBtn">Log Out</button>
+      </div>
+      <div class="setting-row">
+        <div class="setting-info">
+          <div class="setting-label">Delete Account</div>
+          <div class="setting-desc">Permanently delete your account and all data. This cannot be undone.</div>
+        </div>
+        <button class="danger-btn" id="deleteBtn">Delete Account</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut, sendPasswordResetEmail, deleteUser } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    import { getFirestore, doc, getDoc, setDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBT_QHFaROmtmQQy4984zjJ7Xmust7TOho",
+      authDomain: "booksuite-dtb.firebaseapp.com",
+      projectId: "booksuite-dtb",
+      storageBucket: "booksuite-dtb.firebasestorage.app",
+      messagingSenderId: "587821555081",
+      appId: "1:587821555081:web:e588609eedd6c924cdd558"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+    let companyId = null;
+    let currentUser = null;
+
+    // Toast notifications
+    function showToast(message, type = "success") {
+      const toast = document.getElementById("toast");
+      toast.textContent = message;
+      toast.className = "toast " + type + " show";
+      setTimeout(() => toast.classList.remove("show"), 3000);
+    }
+
+    // Theme system — use definitions from theme.js
+    function applyTheme(name) {
+      if (window.__bsApplyTheme) {
+        window.__bsApplyTheme(name);
+      }
+    }
+    // Apply saved theme on load
+    const savedTheme = localStorage.getItem("bs-theme");
+    if (savedTheme) applyTheme(savedTheme);
+
+    // Live theme preview
+    document.getElementById("theme").addEventListener("change", (e) => applyTheme(e.target.value));
+
+    // Working hours grid
+    const daysShort = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
+    const hoursGrid = document.getElementById("hoursGrid");
+    const defaultHours = {
+      Mon: { open: true, start: "09:00", end: "17:00" },
+      Tue: { open: true, start: "09:00", end: "17:00" },
+      Wed: { open: true, start: "09:00", end: "17:00" },
+      Thu: { open: true, start: "09:00", end: "17:00" },
+      Fri: { open: true, start: "09:00", end: "17:00" },
+      Sat: { open: true, start: "10:00", end: "15:00" },
+      Sun: { open: false, start: "10:00", end: "15:00" },
+    };
+
+    daysShort.forEach(day => {
+      const row = document.createElement("div");
+      row.className = "hours-row";
+      const dh = defaultHours[day];
+      row.innerHTML = `
+        <input type="checkbox" id="day-${day}" ${dh.open ? "checked" : ""} />
+        <span class="day-name">${day}</span>
+        <input type="time" id="start-${day}" value="${dh.start}" />
+        <span style="color:#b9c7da;">–</span>
+        <input type="time" id="end-${day}" value="${dh.end}" />
+      `;
+      hoursGrid.appendChild(row);
+
+      // Toggle time inputs when day is unchecked
+      const cb = row.querySelector(`#day-${day}`);
+      const startInput = row.querySelector(`#start-${day}`);
+      const endInput = row.querySelector(`#end-${day}`);
+      function toggleDay() {
+        startInput.disabled = !cb.checked;
+        endInput.disabled = !cb.checked;
+        startInput.style.opacity = cb.checked ? 1 : 0.3;
+        endInput.style.opacity = cb.checked ? 1 : 0.3;
+      }
+      cb.addEventListener("change", toggleDay);
+      toggleDay();
+    });
+
+    // Copy company code
+    document.getElementById("codeDisplay").addEventListener("click", async () => {
+      const code = document.getElementById("codeDisplay").textContent;
+      if (code === "---") return;
+      try {
+        await navigator.clipboard.writeText(code);
+        document.getElementById("copyHint").textContent = "Copied!";
+        setTimeout(() => document.getElementById("copyHint").textContent = "Click to copy", 2000);
+      } catch(e) {
+        // fallback select
+        const range = document.createRange();
+        range.selectNodeContents(document.getElementById("codeDisplay"));
+        window.getSelection().removeAllRanges();
+        window.getSelection().addRange(range);
+      }
+    });
+
+    // Load user & settings
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) { window.location.href = "login.html"; return; }
+      currentUser = user;
+      try {
+        const userDoc = await getDoc(doc(db, "users", user.uid));
+        if (userDoc.exists()) {
+          const d = userDoc.data();
+          companyId = d.companyId;
+          document.getElementById("userName").textContent = d.name;
+          document.getElementById("profileName").textContent = d.name;
+          document.getElementById("profileEmail").textContent = d.email || user.email;
+          document.getElementById("displayName").value = d.name || "";
+          const initials = (d.name || "?").split(" ").map(w => w[0]).join("").toUpperCase().slice(0,2);
+          document.getElementById("profileAvatar").textContent = initials;
+
+          const companyDoc = await getDoc(doc(db, "companies", d.companyId));
+          if (companyDoc.exists()) {
+            const cd = companyDoc.data();
+            document.getElementById("companyCode").textContent = "Company Code: " + cd.companyCode;
+            document.getElementById("codeDisplay").textContent = cd.companyCode;
+
+            // Populate all fields from saved data
+            if (cd.businessName) document.getElementById("businessName").value = cd.businessName;
+            if (cd.businessPhone) document.getElementById("businessPhone").value = cd.businessPhone;
+            if (cd.businessEmail) document.getElementById("businessEmail").value = cd.businessEmail;
+            if (cd.businessAddress) document.getElementById("businessAddress").value = cd.businessAddress;
+            if (cd.businessCategory) document.getElementById("businessCategory").value = cd.businessCategory;
+            if (cd.currency) document.getElementById("currency").value = cd.currency;
+            if (cd.timezone) document.getElementById("timezone").value = cd.timezone;
+            if (cd.emailNotif !== undefined) document.getElementById("emailNotif").checked = cd.emailNotif;
+            if (cd.autoConfirm !== undefined) document.getElementById("autoConfirm").checked = cd.autoConfirm;
+            if (cd.sameDayBooking !== undefined) document.getElementById("sameDayBooking").checked = cd.sameDayBooking;
+            if (cd.bookingBuffer) document.getElementById("bookingBuffer").value = cd.bookingBuffer;
+            if (cd.maxAdvance) document.getElementById("maxAdvance").value = cd.maxAdvance;
+            if (cd.cancellationPolicy) document.getElementById("cancellationPolicy").value = cd.cancellationPolicy;
+            if (cd.dailySummary !== undefined) document.getElementById("dailySummary").checked = cd.dailySummary;
+            if (cd.clientConfirmEmail !== undefined) document.getElementById("clientConfirmEmail").checked = cd.clientConfirmEmail;
+            if (cd.reminderTime) document.getElementById("reminderTime").value = cd.reminderTime;
+            if (cd.welcomeMessage) document.getElementById("welcomeMessage").value = cd.welcomeMessage;
+            if (cd.accentColor) document.getElementById("accentColor").value = cd.accentColor;
+            if (cd.language) document.getElementById("language").value = cd.language;
+            if (cd.theme) { document.getElementById("theme").value = cd.theme; applyTheme(cd.theme); localStorage.setItem("bs-theme", cd.theme); }
+            if (cd.language) localStorage.setItem("bs-lang", cd.language);
+
+            // Load working hours
+            if (cd.workingHours) {
+              daysShort.forEach(day => {
+                const h = cd.workingHours[day];
+                if (h) {
+                  document.getElementById("day-" + day).checked = h.open;
+                  document.getElementById("start-" + day).value = h.start || "09:00";
+                  document.getElementById("end-" + day).value = h.end || "17:00";
+                  // Re-trigger toggle
+                  document.getElementById("day-" + day).dispatchEvent(new Event("change"));
+                }
+              });
+            }
+          }
+        } else {
+          // User doc doesn't exist — create one with a new company
+          companyId = crypto.randomUUID();
+          const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+          let code = "BS-";
+          for (let i = 0; i < 6; i++) code += chars.charAt(Math.floor(Math.random() * chars.length));
+
+          await setDoc(doc(db, "users", user.uid), {
+            name: user.email.split("@")[0],
+            email: user.email,
+            companyId: companyId,
+            role: "owner"
+          });
+          await setDoc(doc(db, "companies", companyId), {
+            ownerId: user.uid,
+            companyCode: code,
+            createdAt: new Date()
+          });
+
+          document.getElementById("userName").textContent = user.email.split("@")[0];
+          document.getElementById("profileName").textContent = user.email.split("@")[0];
+          document.getElementById("profileEmail").textContent = user.email;
+          document.getElementById("displayName").value = user.email.split("@")[0];
+          document.getElementById("codeDisplay").textContent = code;
+          document.getElementById("companyCode").textContent = "Company Code: " + code;
+          showToast("Company created! Your code: " + code, "success");
+        }
+      } catch(e) {
+        console.error("Settings load error:", e);
+        // Even if read fails, set up a companyId so save can work
+        if (!companyId) {
+          companyId = crypto.randomUUID();
+          const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+          let code = "BS-";
+          for (let i = 0; i < 6; i++) code += chars.charAt(Math.floor(Math.random() * chars.length));
+
+          try {
+            await setDoc(doc(db, "users", user.uid), {
+              name: user.email.split("@")[0],
+              email: user.email,
+              companyId: companyId,
+              role: "owner"
+            });
+            await setDoc(doc(db, "companies", companyId), {
+              ownerId: user.uid,
+              companyCode: code,
+              createdAt: new Date()
+            });
+            document.getElementById("codeDisplay").textContent = code;
+            document.getElementById("companyCode").textContent = "Company Code: " + code;
+            showToast("Company created! Your code: " + code, "success");
+          } catch(e2) {
+            console.error("Setup error:", e2);
+            showToast("Error: " + e2.message + " — Check Firestore rules.", "error");
+          }
+        }
+        document.getElementById("userName").textContent = user.email;
+        document.getElementById("profileName").textContent = user.email;
+        document.getElementById("profileEmail").textContent = user.email;
+      }
+    });
+
+    // SAVE
+    document.getElementById("saveBtn").addEventListener("click", async () => {
+      if (!companyId) {
+        showToast("No company linked. Reload the page to set one up.", "error");
+        return;
+      }
+
+      const btn = document.getElementById("saveBtn");
+      btn.textContent = "Saving...";
+      btn.disabled = true;
+
+      // Build working hours object
+      const workingHours = {};
+      daysShort.forEach(day => {
+        workingHours[day] = {
+          open: document.getElementById("day-" + day).checked,
+          start: document.getElementById("start-" + day).value,
+          end: document.getElementById("end-" + day).value,
+        };
+      });
+
+      try {
+        // Save company doc (merge so it creates if missing)
+        await setDoc(doc(db, "companies", companyId), {
+          businessName: document.getElementById("businessName").value.trim(),
+          businessPhone: document.getElementById("businessPhone").value.trim(),
+          businessEmail: document.getElementById("businessEmail").value.trim(),
+          businessAddress: document.getElementById("businessAddress").value.trim(),
+          businessCategory: document.getElementById("businessCategory").value,
+          currency: document.getElementById("currency").value,
+          timezone: document.getElementById("timezone").value,
+          emailNotif: document.getElementById("emailNotif").checked,
+          autoConfirm: document.getElementById("autoConfirm").checked,
+          sameDayBooking: document.getElementById("sameDayBooking").checked,
+          bookingBuffer: document.getElementById("bookingBuffer").value,
+          maxAdvance: document.getElementById("maxAdvance").value,
+          cancellationPolicy: document.getElementById("cancellationPolicy").value,
+          dailySummary: document.getElementById("dailySummary").checked,
+          clientConfirmEmail: document.getElementById("clientConfirmEmail").checked,
+          reminderTime: document.getElementById("reminderTime").value,
+          welcomeMessage: document.getElementById("welcomeMessage").value.trim(),
+          accentColor: document.getElementById("accentColor").value,
+          language: document.getElementById("language").value,
+          theme: document.getElementById("theme").value,
+          workingHours: workingHours,
+          updatedAt: new Date(),
+        }, { merge: true });
+
+        // Update user display name if changed
+        const newName = document.getElementById("displayName").value.trim();
+        if (newName && currentUser) {
+          await setDoc(doc(db, "users", currentUser.uid), { name: newName }, { merge: true });
+          document.getElementById("userName").textContent = newName;
+          document.getElementById("profileName").textContent = newName;
+          const initials = newName.split(" ").map(w => w[0]).join("").toUpperCase().slice(0,2);
+          document.getElementById("profileAvatar").textContent = initials;
+        }
+
+        showToast("Settings saved successfully!", "success");
+        // Apply theme & language locally
+        localStorage.setItem("bs-theme", document.getElementById("theme").value);
+        localStorage.setItem("bs-lang", document.getElementById("language").value);
+        applyTheme(document.getElementById("theme").value);
+      } catch(e) {
+        console.error("Save error:", e);
+        showToast("Error saving: " + e.message, "error");
+      }
+
+      btn.textContent = "Save All Changes";
+      btn.disabled = false;
+    });
+
+    // RESET PASSWORD
+    document.getElementById("resetPwBtn").addEventListener("click", async () => {
+      if (!currentUser) return;
+      if (!confirm("Send a password reset email to " + currentUser.email + "?")) return;
+      try {
+        await sendPasswordResetEmail(auth, currentUser.email);
+        showToast("Password reset email sent!", "success");
+      } catch(e) {
+        showToast("Error: " + e.message, "error");
+      }
+    });
+
+    // LOGOUT
+    document.getElementById("logoutBtn").addEventListener("click", () => {
+      signOut(auth).then(() => window.location.href = "login.html");
+    });
+
+    // DELETE ACCOUNT
+    document.getElementById("deleteBtn").addEventListener("click", async () => {
+      if (!currentUser) return;
+      const confirmed = prompt("This will permanently delete your account and data. Type DELETE to confirm:");
+      if (confirmed !== "DELETE") return;
+      try {
+        // Delete user doc
+        await deleteDoc(doc(db, "users", currentUser.uid));
+        // Delete auth account
+        await deleteUser(currentUser);
+        showToast("Account deleted.", "success");
+        setTimeout(() => window.location.href = "index.html", 1500);
+      } catch(e) {
+        showToast("Error: " + e.message + ". You may need to re-login first.", "error");
+      }
+    });
+  </script>
+  <script src="theme.js"></script>
+</body>
+</html>

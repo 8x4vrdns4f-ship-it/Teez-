@@ -5,6 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BookSuite – Portal</title>
     <link rel="stylesheet" href="styles.css" />
+    <style>
+      .portal-welcome { text-align: center; padding: 40px 20px 10px; }
+      .portal-welcome h1 { font-size: 32px; font-weight: 700; margin-bottom: 8px; color: var(--bs-text); }
+      .portal-welcome h1 span { color: var(--bs-accent); }
+      .portal-welcome p { color: var(--bs-text-secondary); font-size: 15px; }
+
+      .quick-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 14px; max-width: 900px; margin: 28px auto 36px; padding: 0 20px; }
+      .qs-card { background: var(--bs-surface); border: 1px solid var(--bs-border); border-radius: 12px; padding: 16px; text-align: center; }
+      .qs-val { font-size: 28px; font-weight: 700; color: var(--bs-accent); }
+      .qs-label { font-size: 11px; color: var(--bs-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 4px; }
+
+      .portal-grid-new { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; max-width: 900px; margin: 0 auto; padding: 0 20px 60px; }
+      .portal-card-new { display: flex; align-items: center; gap: 16px; background: var(--bs-surface); border: 1px solid var(--bs-border); border-radius: 14px; padding: 22px 24px; text-decoration: none; color: var(--bs-text); transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s; }
+      .portal-card-new:hover { transform: translateY(-4px); box-shadow: 0 8px 28px var(--bs-accent-glow); border-color: var(--bs-accent); }
+      .card-icon { font-size: 32px; width: 52px; height: 52px; display: flex; align-items: center; justify-content: center; border-radius: 12px; background: var(--bs-accent-glow); flex-shrink: 0; }
+      .card-info h3 { font-size: 16px; font-weight: 600; margin-bottom: 3px; color: var(--bs-text); }
+      .card-info p { font-size: 12px; color: var(--bs-muted); margin: 0; }
+
+      @media (max-width: 600px) {
+        .portal-welcome h1 { font-size: 24px; }
+        .portal-grid-new { grid-template-columns: 1fr; padding: 0 16px 40px; }
+        .portal-card-new { padding: 18px 16px; }
+      }
+    </style>
   </head>
 
   <body>
@@ -16,27 +40,64 @@
         <span class="user-company" id="companyCode">Loading...</span>
       </div>
 
-      <a href="#" class="logout-btn">logout</a>
+      <a href="#" class="logout-btn">Logout</a>
     </header>
 
-    <main class="portal">
-      <div class="portal-grid" id="dashboard">
-        <div class="portal-card" onclick="openSection('bookings')">📥 Bookings</div>
-        <div class="portal-card" onclick="openSection('calendar')">📅 Calendar</div>
-        <div class="portal-card" onclick="openSection('schedule')">🗓 Schedule</div>
-        <div class="portal-card" onclick="openSection('staff')">👥 Staff</div>
-        <div class="portal-card" onclick="openSection('clients')">👤 Clients</div>
-        <div class="portal-card" onclick="openSection('services')">✂️ Services</div>
-        <div class="portal-card" onclick="openSection('payments')">💳 Payments</div>
-        <div class="portal-card" onclick="openSection('reports')">📊 Reports</div>
-        <div class="portal-card" onclick="openSection('settings')">⚙️ Settings</div>
-      </div>
-    </main>
+    <div class="portal-welcome">
+      <h1>Welcome back, <span id="welcomeName">—</span></h1>
+      <p>Manage your business from one place</p>
+    </div>
+
+    <div class="quick-stats" id="quickStats">
+      <div class="qs-card"><div class="qs-val" id="qsBookings">—</div><div class="qs-label">Bookings</div></div>
+      <div class="qs-card"><div class="qs-val" id="qsClients">—</div><div class="qs-label">Clients</div></div>
+      <div class="qs-card"><div class="qs-val" id="qsStaff">—</div><div class="qs-label">Staff</div></div>
+      <div class="qs-card"><div class="qs-val" id="qsRevenue">—</div><div class="qs-label">Revenue</div></div>
+    </div>
+
+    <div class="portal-grid-new">
+      <a href="bookings.html" class="portal-card-new">
+        <div class="card-icon">📥</div>
+        <div class="card-info"><h3>Bookings</h3><p>View & manage appointments</p></div>
+      </a>
+      <a href="calendar.html" class="portal-card-new">
+        <div class="card-icon">📅</div>
+        <div class="card-info"><h3>Calendar</h3><p>Visual booking overview</p></div>
+      </a>
+      <a href="schedule.html" class="portal-card-new">
+        <div class="card-icon">🗓</div>
+        <div class="card-info"><h3>Schedule</h3><p>Staff time slots & blocks</p></div>
+      </a>
+      <a href="staff.html" class="portal-card-new">
+        <div class="card-icon">👥</div>
+        <div class="card-info"><h3>Staff</h3><p>Manage your team</p></div>
+      </a>
+      <a href="clients.html" class="portal-card-new">
+        <div class="card-icon">👤</div>
+        <div class="card-info"><h3>Clients</h3><p>Client directory & notes</p></div>
+      </a>
+      <a href="services.html" class="portal-card-new">
+        <div class="card-icon">✂️</div>
+        <div class="card-info"><h3>Services</h3><p>What you offer & pricing</p></div>
+      </a>
+      <a href="payments.html" class="portal-card-new">
+        <div class="card-icon">💳</div>
+        <div class="card-info"><h3>Payments</h3><p>Revenue & transactions</p></div>
+      </a>
+      <a href="reports.html" class="portal-card-new">
+        <div class="card-icon">📊</div>
+        <div class="card-info"><h3>Reports</h3><p>Analytics & insights</p></div>
+      </a>
+      <a href="settings.html" class="portal-card-new">
+        <div class="card-icon">⚙️</div>
+        <div class="card-info"><h3>Settings</h3><p>Business preferences</p></div>
+      </a>
+    </div>
 
     <script type="module">
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
       import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-      import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+      import { getFirestore, doc, getDoc, setDoc, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
       const firebaseConfig = {
         apiKey: "AIzaSyBT_QHFaROmtmQQy4984zjJ7Xmust7TOho",
@@ -52,34 +113,54 @@
       const db = getFirestore(app);
 
       onAuthStateChanged(auth, async (user) => {
-        if (!user) {
-          window.location.href = "login.html";
-          return;
-        }
-
-        const userDoc = await getDoc(doc(db, "users", user.uid));
-
-        if (userDoc.exists()) {
-          const userData = userDoc.data();
-
-          document.getElementById("userName").textContent = userData.name;
-
-          const companyDoc = await getDoc(doc(db, "companies", userData.companyId));
-
-          if (companyDoc.exists()) {
-            const companyData = companyDoc.data();
-            document.getElementById("companyCode").textContent =
-              "Company Code: " + companyData.companyCode;
+        if (!user) { window.location.href = "login.html"; return; }
+        try {
+          const userDoc = await getDoc(doc(db, "users", user.uid));
+          if (userDoc.exists()) {
+            const userData = userDoc.data();
+            const firstName = (userData.name || user.email).split(" ")[0];
+            document.getElementById("userName").textContent = userData.name;
+            document.getElementById("welcomeName").textContent = firstName;
+            const companyDoc = await getDoc(doc(db, "companies", userData.companyId));
+            if (companyDoc.exists()) {
+              document.getElementById("companyCode").textContent = "Company Code: " + companyDoc.data().companyCode;
+            }
+            // Load quick stats
+            const cid = userData.companyId;
+            const [bk, cl, st, py] = await Promise.all([
+              getDocs(query(collection(db, "bookings"), where("companyId", "==", cid))),
+              getDocs(query(collection(db, "clients"), where("companyId", "==", cid))),
+              getDocs(query(collection(db, "staff"), where("companyId", "==", cid))),
+              getDocs(query(collection(db, "payments"), where("companyId", "==", cid)))
+            ]);
+            document.getElementById("qsBookings").textContent = bk.size;
+            document.getElementById("qsClients").textContent = cl.size;
+            document.getElementById("qsStaff").textContent = st.size;
+            let rev = 0;
+            py.forEach(d => { const p = d.data(); if ((p.status || "Paid") === "Paid") rev += parseFloat(p.amount || 0); });
+            document.getElementById("qsRevenue").textContent = "$" + rev.toFixed(0);
+          } else {
+            const companyId = crypto.randomUUID();
+            const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            let code = "BS-";
+            for (let i = 0; i < 6; i++) code += chars.charAt(Math.floor(Math.random() * chars.length));
+            await setDoc(doc(db, "users", user.uid), { name: user.email.split("@")[0], email: user.email, companyId, role: "owner" });
+            await setDoc(doc(db, "companies", companyId), { ownerId: user.uid, companyCode: code, createdAt: new Date() });
+            document.getElementById("userName").textContent = user.email.split("@")[0];
+            document.getElementById("welcomeName").textContent = user.email.split("@")[0];
+            document.getElementById("companyCode").textContent = "Company Code: " + code;
           }
+        } catch (error) {
+          console.error("Portal load error:", error);
+          document.getElementById("userName").textContent = user.email;
         }
       });
 
       document.querySelector(".logout-btn").addEventListener("click", function(e){
         e.preventDefault();
-        signOut(auth).then(() => {
-          window.location.href = "login.html";
-        });
+        signOut(auth).then(() => { window.location.href = "login.html"; });
       });
     </script>
+  <script src="theme.js"></script>
   </body>
 </html>
